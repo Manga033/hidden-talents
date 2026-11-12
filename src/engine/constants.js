@@ -61,6 +61,8 @@ export const ACTIVE = METRICS.filter((m) => !NOSIGNAL.includes(m));
 export const CONF_BANDS = [1 / 3, 2 / 3];
 // Watch live: promising on the fair ranking, but from a small sample that one live match can check.
 export const WATCH = { topShare: 0.25, maxMinutes: 900 };
+// Hidden talent / priced-above-output thresholds (shares of the pool); both also need the gap to exceed the rank range.
+export const FLAG_RULES = { hiddenTop: 0.15, earlyTop: 0.15, earlyDrop: 0.15 };
 
 export const ALPHA = 0.05; // engine.adjust: a correction is kept only if p < alpha
 export const ELO = { K: 20, HFA: 65, carry: 0.85 }; // step1_elo.py
@@ -68,8 +70,8 @@ export const POOL_RULES = { maxAge: 21.0, minMinutes: 450, season: '2025/26' };
 
 // step6_export flag rules, written once so every screen quotes the same definition.
 export const RULES = {
-  hidden: 'Fair rank in the top 12% of the pool and at least 49 places (10% of the pool) higher than on the traditional list.',
-  early: 'In the top 15% of the traditional list, but at least 74 places (15% of the pool) lower on the fair ranking.',
+  hidden: 'Fair rank in the top 15% of the pool, and the traditional rank lies outside his likely fair range (worse than its 90th percentile), so the gap is bigger than his sampling noise.',
+  early: 'Priced above output: in the top 15% of the traditional list (goals, assists, market value), but at least 74 places lower on the fair ranking and above his likely fair range. Not shown at Low confidence. It says nothing about his future, only that price and reputation run ahead of the on-pitch numbers.',
   scout: 'Top 25% of the fair ranking, but from fewer than 900 minutes. Promising numbers from a small sample: one live match tells you the most.',
-  release: 'Contract ends between 1 Jul 2026 and 30 Jun 2027. A warning is raised when the fair rank is in the top 25% of the pool.',
+  release: 'Transfer opportunity: contract ends between 1 Jul 2026 and 30 Jun 2027 and the fair rank is in the top 25% of the pool. A cheap or free target for a buying club; for his own club, a contract to review.',
 };

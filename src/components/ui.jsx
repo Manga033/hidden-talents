@@ -77,14 +77,14 @@ export function FavButton({ p, className = 'favourite-button' }) {
   );
 }
 
-const TAG_CLASS = { 'Hidden Talent': 'tag-gold', 'Early Peaker?': 'tag-blue', 'Watch Live': 'tag-green', 'Release review': 'tag-wine' };
-const TAG_RULE = { 'Hidden Talent': RULES.hidden, 'Early Peaker?': RULES.early, 'Watch Live': RULES.scout, 'Release review': RULES.release };
+const TAG_CLASS = { 'Hidden Talent': 'tag-gold', 'Priced above output': 'tag-blue', 'Watch Live': 'tag-green', 'Transfer opportunity': 'tag-wine' };
+const TAG_RULE = { 'Hidden Talent': RULES.hidden, 'Priced above output': RULES.early, 'Watch Live': RULES.scout, 'Transfer opportunity': RULES.release };
 export const Tag = ({ label }) => (
   <span className={`tag ${TAG_CLASS[label] || ''}`} title={TAG_RULE[label] || undefined}>
     {label}
   </span>
 );
-export const tagsOf = (p) => [...(p.tags || []), p.releaseWarning && 'Release review'].filter(Boolean);
+export const tagsOf = (p) => [...(p.tags || []), p.releaseWarning && 'Transfer opportunity'].filter(Boolean);
 
 export function RankMove({ d, compact }) {
   if (!d) return <span className="move flat">{compact ? '=' : 'no change'}</span>;
@@ -248,7 +248,7 @@ export function PlayerCard({ p }) {
   return (
     <article className={`player-card ${p.hidden ? 'is-hidden-talent' : ''}`}>
       <a className="card-visual" href={`#player/${p.id}`} aria-label={`View ${p.name}'s profile`}>
-        <span className="card-number">{String(mode === 'fair' ? p.fairRank : p.rawRank).padStart(2, '0')}</span>
+        <span className="card-number" title={`Rank among ${p.positionGroup.toLowerCase()}s (overall #${mode === 'fair' ? p.fairRank : p.rawRank})`}>{String(mode === 'fair' ? p.posRank : p.rawPosRank).padStart(2, '0')}</span>
         <Portrait p={p} />
         <span className="position-tag">
           <i />
@@ -267,12 +267,12 @@ export function PlayerCard({ p }) {
           <span className="club">{p.team}</span>
         </div>
         <div className="card-ratings">
-          {/* The big number on the card is the rank of the current view; this line gives the other one. */}
+          {/* The big number on the card is the rank inside his position for the current view; this line gives the other one. */}
           <span>
-            {mode === 'fair' ? 'Traditional' : 'Fair'} <strong>#{mode === 'fair' ? p.rawRank : p.fairRank}</strong>
+            {mode === 'fair' ? 'Traditional' : 'Fair'} <strong>#{mode === 'fair' ? p.rawPosRank : p.posRank}</strong> in position
           </span>
           <span>
-            <RankMove d={p.rankChange} compact />
+            <RankMove d={p.rawPosRank - p.posRank} compact />
           </span>
         </div>
         <div className="card-bottom">

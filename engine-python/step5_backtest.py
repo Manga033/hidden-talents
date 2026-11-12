@@ -1,7 +1,9 @@
+import os
+OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
 import pandas as pd, numpy as np, warnings; warnings.filterwarnings('ignore')
 from scipy import stats
 from engine import score_pool
-ps=pd.read_pickle('/home/claude/out/player_season.pkl')
+ps=pd.read_pickle(OUT+'player_season.pkl')
 rows=[]; pools=[]
 for s in range(2015,2024):
     d,_=score_pool(ps,s)
@@ -10,7 +12,7 @@ for s in range(2015,2024):
 P=pd.concat(pools,ignore_index=True)
 P['lv0']=np.log(P.value_end.clip(lower=25000)); P['lv3']=np.log(P.value_plus3.clip(lower=25000))
 P['has3']=P.value_plus3.notna()
-P.to_pickle('/home/claude/out/pools_all.pkl')
+P.to_pickle(OUT+'pools_all.pkl')
 print('pool rows',len(P),'with 3y value',P.has3.sum(), 'seasons',P.season.min(),P.season.max())
 def resid(y,X):
     X=np.column_stack([np.ones(len(X)),X]); b=np.linalg.lstsq(X,y,rcond=None)[0]; return y-X@b

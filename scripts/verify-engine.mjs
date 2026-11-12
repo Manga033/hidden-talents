@@ -1,7 +1,7 @@
 // Re-runs the JavaScript engine on server/data and compares it with what the Python engine exported.
 // Usage: npm run verify
-// Note: since the true-talent scale fix, fair ranks and scores differ from an export made with the old engine.py
-// (the order within each position stays the same). Re-run step6 with the updated engine.py to match again.
+// The files in server/data are written by scripts/export-from-js.mjs (npm run export) or by step6_export.py;
+// after either, fair ranks, scores, flags and rank ranges should agree exactly.
 import { readFileSync } from 'node:fs';
 import { buildPool, parseCSV, parseEngineJSON } from '../src/engine/pool.js';
 import { prepare, presetWeights, run } from '../src/engine/engine.js';

@@ -8,6 +8,7 @@
     "build": "vite build",
     "start": "node server/index.mjs",
     "verify": "node scripts/verify-engine.mjs",
+    "export": "node scripts/export-from-js.mjs",
     "users": "node server/users.mjs"
   },
   "dependencies": {

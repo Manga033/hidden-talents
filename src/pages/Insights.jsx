@@ -105,7 +105,7 @@ export default function Insights() {
 
   return (
     <div className="fade-in fairness">
-      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness check." sub="Does birth date or club strength decide who gets picked — and which expiring contracts need a second look?" />
+      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness check." sub="Does birth date or club strength decide who gets picked — and which expiring contracts are opportunities?" />
 
       <section className="panel">
         <div className="panel-heading">
@@ -188,7 +188,7 @@ export default function Insights() {
         <div className="panel-heading">
           <div>
             <span className="eyebrow">3 · CONTRACTS</span>
-            <h2>Contracts to review</h2>
+            <h2>Transfer opportunities: expiring contracts</h2>
             <p className="panel-sub">
               {expiring.length} contracts end between July 2026 and June 2027.{' '}
               {review.length ? `${review.length} of these players rank in the top 25% of the fair ranking.` : 'None of these players ranks in the top 25% of the fair ranking.'}
@@ -196,7 +196,7 @@ export default function Insights() {
           </div>
           <span className={`verdict-pill ${review.length ? 'warn' : 'ok'}`}>
             <Icon name={review.length ? 'alert' : 'check'} />
-            {review.length ? `${review.length} to review before letting go` : 'No risky contracts'}
+            {review.length ? `${review.length} opportunities` : 'No opportunities'}
           </span>
         </div>
         {!expiring.length ? (
@@ -241,8 +241,9 @@ export default function Insights() {
             </table>
           </div>
         )}
-        {rest > 0 && review.length > 0 && <p className="attribute-footnote">The other {rest} expiring contracts belong to players outside the fair top 25%: no conflict with the data.</p>}
+        {rest > 0 && review.length > 0 && <p className="attribute-footnote">The other {rest} expiring contracts belong to players outside the fair top 25%: not flagged.</p>}
       </section>
+
     </div>
   );
 }

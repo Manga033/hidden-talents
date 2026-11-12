@@ -6,7 +6,7 @@ import { rankPct } from '../engine/stats.js';
 
 const BLANK = { grp: 'All', pos: [], ageMax: 20, minScore: 0, minPot: 0, minMinutes: 450, bq: [], foot: [], flags: [], conf: [] };
 const POS = ['GK', 'CB', 'LB', 'RB', 'DM', 'CM', 'AM', 'LW', 'RW', 'ST'];
-const FLAGS = [['hidden', 'Hidden talent'], ['scout', 'Watch live'], ['early', 'Early peaker']];
+const FLAGS = [['hidden', 'Hidden talent'], ['scout', 'Watch live'], ['early', 'Priced above output']];
 const CUSTOM_LABELS = ['Goals + assists', 'Team attacking impact', 'Team defensive impact', 'Discipline'];
 
 function Chips({ label, options, value, onChange }) {
@@ -110,6 +110,7 @@ export default function FindStar() {
       pos: (p) => p.position,
       age: (p) => p.age,
       fairRank: (p) => p.fairRank,
+      posRank: (p) => p.posRank,
       rawRank: (p) => p.rawRank,
       fit: (p) => fit[p.id],
       minutes: (p) => p.minutes,
@@ -207,7 +208,7 @@ export default function FindStar() {
             <Chips label="Birth quarter" options={['Q1', 'Q2', 'Q3', 'Q4']} value={f.bq} onChange={(v) => set({ bq: v })} />
             <Chips label="Foot" options={['Left', 'Right', 'Both']} value={f.foot} onChange={(v) => set({ foot: v })} />
             <Chips label="Confidence" options={['High', 'Medium', 'Low']} value={f.conf} onChange={(v) => set({ conf: v })} />
-            <Chips label="Must be" options={can('contracts') ? [...FLAGS, ['plannedRelease', 'Contract ends 26/27']] : FLAGS} value={f.flags} onChange={(v) => set({ flags: v })} />
+            <Chips label="Must be" options={can('contracts') ? [...FLAGS, ['plannedRelease', 'Transfer opportunity window']] : FLAGS} value={f.flags} onChange={(v) => set({ flags: v })} />
           </div>
         </Panel>
       </div>
@@ -224,6 +225,7 @@ export default function FindStar() {
                   <Th k="name" def={1}>Player</Th>
                   <Th k="pos" def={1}>Pos</Th>
                   <Th k="age" r def={1}>Age</Th>
+                  <Th k="posRank" r def={1}>Pos. #</Th>
                   <Th k="fairRank" r def={1}>Fair #</Th>
                   <Th k="rawRank" r def={1}>Trad. #</Th>
                   <Th k="move" r>Move</Th>
@@ -253,7 +255,8 @@ export default function FindStar() {
                       </td>
                       <td>{p.position}</td>
                       <td className="r num">{p.ageShown}</td>
-                      <td className="r num strong">{p.fairRank}</td>
+                      <td className="r num strong" title={`#${p.posRank} of ${p.posCount} in his position`}>{p.posRank}</td>
+                      <td className="r num">{p.fairRank}</td>
                       <td className="r num">{p.rawRank}</td>
                       <td className="r"><RankMove d={p.rankChange} compact /></td>
                       {preset !== 'Balanced' && <td className="r">{bRank ? <RankMove d={bRank - p.fairRank} compact /> : '–'}</td>}

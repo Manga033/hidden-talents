@@ -1,8 +1,10 @@
+import os
+OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
 import pandas as pd, numpy as np, json, warnings, datetime as dt; warnings.filterwarnings('ignore')
 from scipy import stats
 from sklearn.ensemble import GradientBoostingRegressor as GBR
 from engine import *
-ps=pd.read_pickle('/home/claude/out/player_season.pkl'); H=pd.read_pickle('/home/claude/out/pools_all.pkl')
+ps=pd.read_pickle(OUT+'player_season.pkl'); H=pd.read_pickle(OUT+'pools_all.pkl')
 rng=np.random.default_rng(42)
 # ---------- potential model (3-year-ahead log market value), time-split backtest ----------
 F=['lv0','age','comp_fair','team_elo']
@@ -73,8 +75,10 @@ d['potHi']=np.clip(np.round(50+15*(d['pot0.9']-d['pot0.5'].mean())/d['pot0.5'].s
 stars=lambda s:float(np.clip(round(s/20*2)/2,0.5,5))
 # ---------- flags ----------
 d['pf']=d.fairRank/N; d['pr']=d.rawRank/N
-d['hidden']=(d.pf<=0.12)&(d.rankChange>=0.10*N)
-d['early']=(d.pr<=0.15)&(d.fairRank-d.rawRank>=0.15*N)
+# hidden talent: fair top 15% and the traditional rank outside the player's own 80% fair-rank range
+d['hidden']=(d.pf<=0.15)&(d.rawRank>d.rhi)
+# priced above output: traditional top 15%, >=15% of the pool lower on the fair list, outside the range, not Low confidence
+d['early']=(d.pr<=0.15)&(d.fairRank-d.rawRank>=0.15*N)&(d.rawRank<d.rlo)&(d.conf!='Low')
 upside=d.potHi-d.fairScore
 d['scout']=(d.fairRank<=0.25*N)&(d.minutes<900)  # fair top 25% from fewer than 900 minutes: check live
 exp=pd.to_datetime(d.contract_expiration_date,errors='coerce')
@@ -167,8 +171,8 @@ for i,r in d.iterrows():
       pros=pro[:3],cons=con[:3],fairnessNote=note,developmentPlan=plan(i),
       seasonStats=dict(apps=int(r.apps),minutes=int(r.minutes),goals=int(r.goals),assists=int(r.assists)),
       plannedRelease=bool(rw),
-      releaseWarning=(f"Contract ends {pd.to_datetime(r.contract_expiration_date).date()} and fair rank is #{int(r.fairRank)} of {N}. Review before letting go." if rw and r.pf<=0.25 else None),
-      tags=[t for t,c in (("Hidden Talent",r.hidden),("Early Peaker?",r.early),("Watch Live",r.scout)) if c],traits=[],
+      releaseWarning=(f"Contract ends {pd.to_datetime(r.contract_expiration_date).date()} and fair rank is #{int(r.fairRank)} of {N}. Transfer opportunity / contract to review." if rw and r.pf<=0.25 else None),
+      tags=[t for t,c in (("Hidden Talent",r.hidden),("Priced above output",r.early),("Watch Live",r.scout)) if c],traits=[],
       similarPlayers=[dict(id=f"P{int(d.player_id.iloc[b])}",name=d.name.iloc[b],similarity=s) for b,s in sim[i]]))
 players.sort(key=lambda p:p['fairRank'])
 audit=dict(birthQuarterPool=pool,rawTop20=cnt(raw_top),fairTop20=cnt(fair_top),oddsRatioRaw=round(orr,2) if orr else None,oddsRatioFair=round(orf,2) if orf else None,
@@ -177,9 +181,9 @@ audit=dict(birthQuarterPool=pool,rawTop20=cnt(raw_top),fairTop20=cnt(fair_top),o
   baseRate=f"Share of U21 pro pool born in Q1: {pool['Q1']/N:.0%}; pooled 2015-2025 top-10% Q1:Q4 odds raw {pooled['raw']['OR']:.2f} vs fair {pooled['fair']['OR']:.2f}")
 meta=dict(dataset="Transfermarkt (CC0, to July 2026), U21 professionals, 2025/26",generated=str(dt.date.today()),ageGroup="U21",
   features=dict(relativeAge=True,maturity=False,teamStrength=True,coachRatings=False))
-json.dump(dict(meta=meta,audit=audit,players=players),open('/home/claude/out/data.json','w'),ensure_ascii=False,indent=1)
+json.dump(dict(meta=meta,audit=audit,players=players),open(OUT+'data.json','w'),ensure_ascii=False,indent=1)
 cols=['player_id','name','age','bq','grp','sub_position','current_club_name','team_elo','minutes','goals','assists','value_end','rawRank','fairRank','rankChange','rawScore','fairScore','potential','potLo','potHi','conf','rlo','rhi','robust10','hidden','early','scout','release']
-d[cols].sort_values('fairRank').to_csv('/home/claude/out/hidden_talent_2025_26.csv',index=False)
+d[cols].sort_values('fairRank').to_csv(OUT+'hidden_talent_2025_26.csv',index=False)
 print('N',N,'hidden',int(d.hidden.sum()),'early',int(d.early.sum()),'scout',int(d.scout.sum()),'release',int(d.release.sum()),'conf',d.conf.value_counts().to_dict())
 print('audit',{k:audit[k] for k in ['birthQuarterPool','rawTop20','fairTop20','oddsRatioRaw','oddsRatioFair','fisherPRaw','fisherPFair','fourFifthsRaw','fourFifthsFair','spearmanRawFair']})
 print('pool Q1 share',round(pool['Q1']/N,3))

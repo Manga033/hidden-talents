@@ -1,6 +1,7 @@
 import pandas as pd, numpy as np, pickle, gc
-U='/mnt/user-data/uploads/'
-E=pickle.load(open('/home/claude/out/elo.pkl','rb')); G=E['games']; slope,icpt,mu=E['slope'],E['icpt'],E['mu']
+import os
+U=os.environ.get('HT_INPUT','/mnt/user-data/uploads/').rstrip('/')+'/'; OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
+E=pickle.load(open(OUT+'elo.pkl','rb')); G=E['games']; slope,icpt,mu=E['slope'],E['icpt'],E['mu']
 ap=pd.read_csv(U+'appearances.csv',usecols=['game_id','player_id','player_club_id','date','competition_id','goals','assists','minutes_played','yellow_cards','red_cards'])
 ap['date']=pd.to_datetime(ap.date); ap['season']=np.where(ap.date.dt.month>=7,ap.date.dt.year,ap.date.dt.year-1)
 lu=pd.read_csv(U+'game_lineups.csv',usecols=['game_id','player_id','type','position'],dtype={'game_id':'int64','player_id':'int64'})
@@ -49,7 +50,7 @@ ap['res_tot']=ap.res_off+ap.res_def
 ap['big']=ap.opp_elo>=ap.team_elo
 ap['pos_played']=ap.position
 keep=['game_id','player_id','player_club_id','date','season','competition_id','goals','assists','minutes_played','yellow_cards','red_cards','starter','start','end_eff','pos_played','team_elo','opp_elo','gf_on','ga_on','inv_on','res_off','res_def','res_tot','big','has_ev','exp_gd']
-ap[keep].to_pickle('/home/claude/out/player_games.pkl')
+ap[keep].to_pickle(OUT+'player_games.pkl')
 print(ap[keep].describe().T[['count','mean','std']].round(3).to_string())
 print('share rows with events',ap.has_ev.mean())
 # check: sum of res_tot per team-game ~ zero-ish? sanity: mean res_tot per 90 by minutes

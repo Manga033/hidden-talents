@@ -48,7 +48,7 @@ export default function HiddenTalents() {
           <p>{RULES.hidden}</p>
         </div>
         <div className="tile">
-          <span className="eyebrow">Early-peaker risk</span>
+          <span className="eyebrow">Priced above output</span>
           <strong>{peakers.length}</strong>
           <p>{RULES.early}</p>
         </div>
@@ -98,9 +98,9 @@ export default function HiddenTalents() {
       </div>
 
       <div className="stack hidden-lower">
-        <Panel title="Early-peaker risk" sub="Top of the traditional list, but the on-pitch numbers do not follow. Look again before a big fee or long contract.">
+        <Panel title="Priced above output" sub="High on the traditional list (goals, assists, market value), but the on-pitch numbers do not follow, by more than his rank range. Check the fee before paying for reputation.">
           {!peakers.length ? (
-            <Empty title="No early-peaker risks under these weights." />
+            <Empty title="No player priced above his output under these weights." />
           ) : (
             <div className="table-scroll">
               <table className="data-table">

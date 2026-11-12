@@ -1,6 +1,8 @@
+import os
+OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
 import pandas as pd, numpy as np
 from engine import GROUPS
-ps=pd.read_pickle('/home/claude/out/player_season.pkl')
+ps=pd.read_pickle(OUT+'player_season.pkl')
 d=ps[(ps.season>=2015)&(ps.minutes>=300)&ps.position.isin(GROUPS)].copy()
 d['grp']=d.position.map(GROUPS); d['m90']=d.minutes/90; d['ga']=d.goals+d.assists
 d['cards']=d.yellow+2*d.red

@@ -1,6 +1,7 @@
 import pandas as pd, numpy as np, pickle
-U='/mnt/user-data/uploads/'
-g=pd.read_csv(U+'08e83fa8-games.csv',usecols=['game_id','competition_id','season','date','home_club_id','away_club_id','home_club_goals','away_club_goals','competition_type'])
+import os
+U=os.environ.get('HT_INPUT','/mnt/user-data/uploads/').rstrip('/')+'/'; OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
+g=pd.read_csv(U+'games.csv',usecols=['game_id','competition_id','season','date','home_club_id','away_club_id','home_club_goals','away_club_goals','competition_type'])
 g=g.dropna(subset=['home_club_goals','away_club_goals','home_club_id','away_club_id']).copy()
 g['date']=pd.to_datetime(g.date); g=g.sort_values(['date','game_id']).reset_index(drop=True)
 g['neutral']=g.competition_type.eq('national_team_competition')|g.competition_id.isin(['GBCS','SCI','SUC','DFL','FRCH','NLSC','POSU','RUSS','BESC','USC'])
@@ -51,8 +52,8 @@ print('goal-diff per 100 Elo: slope=%.3f intercept=%.3f mean goals/team=%.2f'%(s
 # predictive check: correlation
 print('corr(dr,gd)=%.3f'%np.corrcoef(X,gd)[0,1])
 g['exp_gd_home']=slope*X+icpt
-pickle.dump(dict(games=g,R=R2,club_league=club_league,slope=slope,icpt=icpt,mu=mu,HFA=HFA),open('/home/claude/out/elo.pkl','wb'))
-cl=pd.read_csv(U+'0263486e-clubs.csv',usecols=['club_id','name','domestic_competition_id','last_season'])
+pickle.dump(dict(games=g,R=R2,club_league=club_league,slope=slope,icpt=icpt,mu=mu,HFA=HFA),open(OUT+'elo.pkl','wb'))
+cl=pd.read_csv(U+'clubs.csv',usecols=['club_id','name','domestic_competition_id','last_season'])
 cl['elo']=cl.club_id.map(R2)
 print(cl[cl.last_season==2025].sort_values('elo',ascending=False).head(15)[['name','domestic_competition_id','elo']].to_string())
 lg=cl[cl.last_season==2025].groupby('domestic_competition_id').elo.mean().sort_values(ascending=False)

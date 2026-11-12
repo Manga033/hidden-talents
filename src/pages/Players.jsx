@@ -58,7 +58,7 @@ export default function Players() {
       <PageTitle
         eyebrow="THE NEXT GENERATION"
         title="Every talent has a story."
-        sub={`All ${players.length} U21 professionals with at least 450 minutes in 2025/26. The big number is the ${mode === 'fair' ? 'fair' : 'traditional'} rank.`}
+        sub={`All ${players.length} U21 professionals with at least 450 minutes in 2025/26. The big number is the ${mode === 'fair' ? 'fair' : 'traditional'} rank within the position.`}
         right={<ModeToggle />}
       />
 
@@ -82,7 +82,7 @@ export default function Players() {
           <select value={flag} onChange={(e) => setFlag(e.target.value)} aria-label="Engine flag">
             <option value="all">All flags</option>
             <option value="hidden">Hidden talents</option>
-            <option value="early">Early-peaker risk</option>
+            <option value="early">Priced above output</option>
             <option value="scout">Watch live</option>
             {can('contracts') && <option value="release">Contract ends 2026/27</option>}
           </select>

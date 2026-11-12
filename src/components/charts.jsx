@@ -194,7 +194,7 @@ export function RankScatter({ players, name, onPick, highlight }) {
       )}
       <div className="legend">
         <span><i style={{ background: C.gold }} />Hidden talent</span>
-        <span><i style={{ background: C.blue }} />Early-peaker risk</span>
+        <span><i style={{ background: C.blue }} />Priced above output</span>
         <span><i style={{ background: '#cfc8ca' }} />Other players</span>
         <span><i className="dash" />Same rank in both</span>
       </div>

@@ -60,12 +60,12 @@ export default function Profile({ id }) {
 
       {p.releaseWarning && (
         <Notice tone="warn">
-          <b>Contract ends {p.contractEnd ? dateLabel(p.contractEnd) : 'between July 2026 and June 2027'}</b> and he ranks #{p.fairRank} of {N} on the fair ranking. Review before letting him go.
+          <b>Contract ends {p.contractEnd ? dateLabel(p.contractEnd) : 'between July 2026 and June 2027'}</b> and he ranks #{p.fairRank} of {N} on the fair ranking: a transfer opportunity for a buying club, a contract to review for his own.
         </Notice>
       )}
 
       <section className="profile-banner">
-        <div className="profile-photo" data-number={p.fairRank}>
+        <div className="profile-photo" data-number={p.posRank}>
           <Portrait p={p} />
         </div>
         <div className="profile-identity">
@@ -116,17 +116,17 @@ export default function Profile({ id }) {
         <div className="profile-scores">
           <div className="score-pair">
             <div className="score-box">
-              <small>Fair rank</small>
-              <strong>#{p.fairRank}</strong>
+              <small>Fair rank · {GROUP_NAME[p.grp].toLowerCase()}s</small>
+              <strong>#{p.posRank}</strong>
               <span className="range">
-                of {N} · #{p.posRank} of {p.posCount} {GROUP_NAME[p.grp].toLowerCase()}s
+                of {p.posCount} · #{p.fairRank} of {N} overall
               </span>
             </div>
             <div className="score-box potential">
-              <small>Traditional rank</small>
-              <strong>#{p.rawRank}</strong>
+              <small>Traditional rank · {GROUP_NAME[p.grp].toLowerCase()}s</small>
+              <strong>#{p.rawPosRank}</strong>
               <span className="range">
-                <RankMove d={p.rankChange} />
+                #{p.rawRank} overall · <RankMove d={p.rankChange} />
               </span>
             </div>
           </div>

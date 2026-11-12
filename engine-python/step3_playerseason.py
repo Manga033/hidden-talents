@@ -1,7 +1,8 @@
 import pandas as pd, numpy as np, pickle
-U='/mnt/user-data/uploads/'
-E=pickle.load(open('/home/claude/out/elo.pkl','rb')); club_league=E['club_league']; R=E['R']
-pg=pd.read_pickle('/home/claude/out/player_games.pkl')
+import os
+U=os.environ.get('HT_INPUT','/mnt/user-data/uploads/').rstrip('/')+'/'; OUT=os.environ.get('HT_OUT','/home/claude/out').rstrip('/')+'/'
+E=pickle.load(open(OUT+'elo.pkl','rb')); club_league=E['club_league']; R=E['R']
+pg=pd.read_pickle(OUT+'player_games.pkl')
 pg=pg[pg.minutes_played>0].copy()
 pg['yc']=pg.yellow_cards; pg['rc']=pg.red_cards
 pg['mbig']=np.where(pg.big,pg.minutes_played,0); pg['rbig']=np.where(pg.big,pg.res_tot,0)
@@ -28,7 +29,7 @@ top=pp.sort_values('sh',ascending=False).drop_duplicates(['player_id','season'])
 nposn=pp[pp.sh>=0.15].groupby(['player_id','season']).size().rename('n_pos').reset_index()
 ps=ps.merge(top,on=['player_id','season'],how='left').merge(nposn,on=['player_id','season'],how='left')
 # player info
-pl=pd.read_csv(U+'0a339f34-players.csv',usecols=['player_id','name','date_of_birth','position','sub_position','height_in_cm','foot','country_of_citizenship','country_of_birth','current_club_id','current_club_name','contract_expiration_date','market_value_in_eur','highest_market_value_in_eur','last_season'])
+pl=pd.read_csv(U+'players.csv',usecols=['player_id','name','date_of_birth','position','sub_position','height_in_cm','foot','country_of_citizenship','country_of_birth','current_club_id','current_club_name','contract_expiration_date','market_value_in_eur','highest_market_value_in_eur','last_season'])
 pl['dob']=pd.to_datetime(pl.date_of_birth,errors='coerce'); pl=pl.drop(columns=['date_of_birth'])
 ps=ps.merge(pl,on='player_id',how='left')
 ps['age']=((pd.to_datetime((ps.season+1).astype(str)+'-01-01')-ps.dob).dt.days/365.25)
@@ -48,7 +49,7 @@ val_at(ps,pd.to_datetime((ps.season+1).astype(str)+'-06-30'),'value_end')
 val_at(ps,pd.to_datetime((ps.season).astype(str)+'-07-01'),'value_start')
 val_at(ps,pd.to_datetime((ps.season+3).astype(str)+'-06-30'),'value_plus3')
 val_at(ps,pd.to_datetime((ps.season+2).astype(str)+'-06-30'),'value_plus2')
-ps.to_pickle('/home/claude/out/player_season.pkl')
+ps.to_pickle(OUT+'player_season.pkl')
 print(ps.shape); print(ps.groupby('season').size().tail(8).to_string())
 print(ps[['value_end','value_start','value_plus3']].notna().mean().round(3).to_string())
 print(ps[ps.season==2025][['minutes','age','goals','res_tot','team_elo','value_end']].describe().round(2).to_string())

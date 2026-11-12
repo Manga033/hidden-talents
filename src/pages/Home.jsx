@@ -133,7 +133,7 @@ export default function Home() {
           <Icon name="alert" />
           <div>
             <strong>{early}</strong>
-            <span>Early-peaker risks</span>
+            <span>Priced above output</span>
           </div>
         </Stat>
         <Stat link={statLink}>

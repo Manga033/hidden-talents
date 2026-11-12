@@ -41,6 +41,8 @@ Youth and young-professional scouting is biased in three well-documented ways:
 
 Scoutee measures players on what they do while they are on the pitch, corrects for club strength, and shows how certain each ranking is.
 
+**What "fair" means here.** Fair to players at smaller clubs and in smaller leagues: the traditional list follows club strength (0.66), the fair ranking does not (0.00). Birth-date bias is real but happens *before* the professional level — 2.7× more January–March births reach the pool — and inside the pool neither ranking adds a significant lean (Fisher p = 0.75 in the top 20). Scoutee audits birth dates; it does not claim to correct them, because the age effect inside the pool is not significant.
+
 ---
 
 ## What the app does
@@ -49,11 +51,11 @@ Scoutee measures players on what they do while they are on the pitch, corrects f
 |---|---|
 | **Discover** | *The Hidden XI*: the best eleven on a half-pitch, switchable between the fair and the traditional pick and between 4-3-3, 4-2-3-1 and 3-5-2. Lists every player who comes in or goes out, with the reasons. |
 | **Players** | The whole pool as cards, grouped by position, with search, birth-quarter and flag filters. |
-| **Player profile** | Fair and traditional rank (overall and within position), a one-line verdict with its reasons, key metrics as position percentiles with plain-language facts, a radar against the position average, the likely rank range, the season's numbers, similar players and private scout notes. |
+| **Player profile** | Fair and traditional rank — the headline number is the rank **within the position** (e.g. *#3 of 147 midfielders*), the overall rank is secondary, a one-line verdict with its reasons, key metrics as position percentiles with plain-language facts, a radar against the position average, the likely rank range, the season's numbers, similar players and private scout notes. |
 | **Find your star** | Choose a game model (Balanced, Attacking, Defensive or custom weights). Every fair rank, flag and confidence range is recomputed live. Filters and a paginated, sortable table. |
 | **Compare** | Up to four players. *"Why A ranks above B"* splits the gap into points per metric, separates on-pitch performance from the club-strength correction, and says when the two are statistically level. |
-| **Hidden talents** | Raw-versus-fair scatter plot, the biggest risers with reasons, early-peaker risks (high on the traditional list, low on the fair one) and players worth watching live. |
-| **Fairness check** | Birth-date bias in the pool, the effect of the club-strength correction, and expiring contracts of players the fair ranking rates highly. |
+| **Hidden talents** | Raw-versus-fair scatter plot, the biggest risers with reasons, players *priced above output* (high on the traditional list, low on the fair one beyond their rank range) and players worth watching live. |
+| **Fairness check** | Birth-date bias in the pool, the effect of the club-strength correction, transfer opportunities (expiring contracts of players the fair ranking rates highly). |
 | **Favourites** | A personal scouting board. |
 
 Design: wine and gold palette, Manrope and Barlow Condensed, white half-pitch — based on the *abbbbb* UI template. The app shows no photographs of players (many are minors); a neutral silhouette is used instead.
@@ -101,7 +103,7 @@ The rules live in one file, [`src/auth/roles.js`](src/auth/roles.js), used by bo
 - Windows 10 Home (build 19045)
 - Node.js 24.22.1, npm 11.14.1
 - Developed with AI assistance (Claude Code, Anthropic) on top of the team's Python engine and the *abbbbb* UI template.
-- The Python pipeline was originally run in a Linux environment; its scripts read input from `/mnt/user-data/uploads/` and write intermediate files to `/home/claude/out/`. Change these two paths (`U=` at the top of each step and the `out` paths) to run it elsewhere.
+- The Python pipeline reads the Transfermarkt CSVs from `HT_INPUT` and writes intermediate files to `HT_OUT` (environment variables; defaults `/mnt/user-data/uploads/` and `/home/claude/out/`). Install its packages with `pip install -r engine-python/requirements.txt`.
 
 ---
 
@@ -157,7 +159,8 @@ Serve it behind HTTPS (the server marks cookies `Secure` when the proxy sends `X
 
 | Command | What it does |
 |---|---|
-| `npm run verify` | Re-runs the JavaScript engine on `server/data/` and compares it with the Python export |
+| `npm run verify` | Re-runs the JavaScript engine on `server/data/` and compares it with the exported files |
+| `npm run export` | Writes the current engine's ranks, scores, flags and rank ranges into `server/data/` |
 | `npm run users -- …` | Account management (above) |
 
 ---
@@ -302,7 +305,7 @@ composite = Σ wⱼ · fair zⱼ
 fair score = 50 + 15 · (composite − position mean) / ‖w‖,   capped to 1–99
 ```
 
-`‖w‖ = √Σ wⱼ²` is the true-talent spread of the weighted sum, so a score of 65 means one true-talent standard deviation above the average player in that position. The **fair rank** orders all 489 players by this score.
+`‖w‖ = √Σ wⱼ²` is the true-talent spread of the weighted sum, so a score of 65 means one true-talent standard deviation above the average player in that position. The **fair rank** orders all 489 players by this score; the **position rank** orders the players of one position and is the number the app leads with. Goal-based data says much less about defenders and goalkeepers, so their scores stay close to 50 (posterior means), and an overall list across positions mostly sorts by position.
 
 | Balanced weights | G+A | Attack | Defence | Discipline |
 |---|---:|---:|---:|---:|
@@ -325,10 +328,10 @@ traditional = 50 + 15 · z( ½ · z(goals + assists, season total) + ½ · z(log
 
 | Flag | Rule |
 |---|---|
-| **Hidden talent** | Fair rank in the top 12% **and** at least 49 places (10% of the pool) higher than the traditional rank |
-| **Early-peaker risk** | Traditional rank in the top 15% **and** at least 74 places (15% of the pool) lower on the fair ranking |
+| **Hidden talent** | Fair rank in the top 15% **and** the traditional rank lies outside the player's own 80% fair-rank range (worse than its 90th percentile) — the gap is bigger than his sampling noise. 9 players in 2025/26. |
+| **Priced above output** | Traditional rank in the top 15%, at least 74 places (15% of the pool) lower on the fair ranking, the traditional rank above the 80% fair-rank range, and confidence not *Low*. 10 players. It is not a prediction about his future (there is no maturity data); it says price and reputation run ahead of the on-pitch numbers. |
 | **Watch live** | Fair rank in the top 25% from fewer than 900 minutes — promising numbers from a small sample |
-| **Contract to review** | Contract ends 1 Jul 2026 – 30 Jun 2027 and the fair rank is in the top 25% |
+| **Transfer opportunity** | Contract ends 1 Jul 2026 – 30 Jun 2027 and the fair rank is in the top 25% — a cheap or free target for a buying club, a contract to review for his own club |
 
 ### 10. How certain is a rank?
 
@@ -362,14 +365,16 @@ A gradient-boosted quantile regression predicts log market value three years ahe
 
 ### In-browser engine and verification
 
-`src/engine/` is a line-by-line port of the scoring layer (steps 5–11 above), using numpy-compatible rounding and percentiles, the same OLS with t-distribution p-values, and a seeded random generator for the Monte Carlo. `npm run verify` re-runs it on `server/data/` and prints the comparison with the Python export.
+`src/engine/` is a line-by-line port of the scoring layer (steps 5–11 above), using numpy-compatible rounding and percentiles, the same OLS with t-distribution p-values, and a seeded random generator for the Monte Carlo. `npm run verify` re-runs it on `server/data/` and prints the comparison with the exported files.
+
+The files in `server/data/` are the engine's current output: after an engine change, `npm run export` writes the JavaScript engine's ranks, scores, flags and rank ranges back into `data.json` and the CSV (player order is kept, because the Monte Carlo draws follow it). `npm run verify` then reports exact agreement on fair ranks, scores, flags, confidence and rank ranges.
 
 ---
 
 ## Updating the data for a new season
 
 1. Download the new Transfermarkt export.
-2. Set the input and output paths in `engine-python/step1 … step6`, then run the steps in order (`step1_elo.py`, `step2_playergames.py`, `step3_playerseason.py`, `step4b_shrink.py`, `step5_backtest.py`, `step6_export.py`).
+2. Set `HT_INPUT` (folder with the Transfermarkt CSVs) and `HT_OUT` (working folder), then run the steps in order from `engine-python/` (`step1_elo.py`, `step2_playergames.py`, `step3_playerseason.py`, `step4b_shrink.py`, `step5_backtest.py`, `step6_export.py`).
 3. Sign in as sporting director → user menu → **Update player data**, and choose the new `data.json` and `hidden_talent_*.csv`. The previous files are kept in `server/data/backups/`.
 
 `step6_export.py` writes nationality into `data.json` (`country`); for the 2025/26 files it is provided separately in `nationality_2025_26.csv`.
@@ -396,7 +401,10 @@ A gradient-boosted quantile regression predicts log market value three years ahe
 - **Plus-minus is not adjusted for team-mates**; a player sharing the pitch with strong team-mates shares their impact.
 - **No biological-maturity data** (growth, sitting height); birth quarter is audited instead.
 - **The birth-date test** compares against an even 25% per quarter rather than national birth statistics; with a 2.7× gap this does not change the conclusion.
-- **Market-value-based fields** (traditional score, potential) reflect the transfer market, not ability.
+- **No validated back-test yet.** `step5_backtest.py` exists but has not been re-run with the current engine; until it is, the app makes no claim about predicting future success.
+- **Market-value-based fields** (traditional score, potential) reflect the transfer market, not ability. The traditional score stands for a reputation-based list, not for how a professional scout works.
+- **Team attacking impact includes the player's own goals and assists**, so it overlaps with goals + assists per 90. The next engine run will use team-mates' goals only (`inv_on` is already computed in step 2).
+- **Age is not corrected**: only exceptional 17-year-olds reach 450 minutes, so age shows no effect inside the pool. A historical age curve is the next step.
 
 The app supports the scout's judgement; it does not replace it.
 
@@ -415,6 +423,12 @@ Changes made to the original engine (applied to both the Python and the JavaScri
 | Watch live: fair top 25% from under 900 minutes | The old rule used the potential forecast, which follows market value, and listed the lowest-ranked players at big clubs. |
 | Strengths use the fair z directly | The z-score is already shrunk; a second reliability factor shrank it twice. |
 | Nationality exported | For the country flags. |
+| Hidden talent needs the traditional rank outside the player's 80% fair-rank range | Under the old rule 25 of 32 flagged players were within their own sampling noise. |
+| "Early-peaker risk" renamed **Priced above output**, needs the gap to exceed the rank range, not shown at Low confidence | The dataset has no maturity data, and defenders' compressed scores made almost every expensive defender "drop". |
+| Position rank is the headline number | Metrics say much less about defenders and goalkeepers, so the overall list mostly sorts by position. |
+| Expiring contracts framed as transfer opportunities | The pool is the market, not one club's squad. |
+| `data.json` and CSV re-exported from the current engine (`npm run export`) | The files were from the engine before the true-talent scaling fix (only 0.8% of fair ranks matched). |
+| Pipeline paths from `HT_INPUT` / `HT_OUT`, `requirements.txt` added | Reproducible outside the original environment. |
 
 ---
 

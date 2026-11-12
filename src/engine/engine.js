@@ -15,7 +15,7 @@
 
   Everything is deterministic except the Monte Carlo, which uses a fixed seed.
 */
-import { ACTIVE, ALPHA, CONF_BANDS, GROUPS, K, LABELS, METRICS, NOSIGNAL, PRESETS, TAU2, WATCH } from './constants.js';
+import { ACTIVE, ALPHA, CONF_BANDS, FLAG_RULES, GROUPS, K, LABELS, METRICS, NOSIGNAL, PRESETS, TAU2, WATCH } from './constants.js';
 import { clip, mean, median, npRound, ols3, percentile, rankDescFirst, rankPct, rng, std } from './stats.js';
 
 export const score = (z) => clip(npRound(50 + 15 * z), 1, 99);
@@ -194,6 +194,21 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
   const hasExp = players.every((p) => p.exp && p.exp.rawRank);
   const rawRank = hasExp ? players.map((p) => p.exp.rawRank) : rankDescFirst(raw.comp);
   const fairRank = exportFair && hasExp ? players.map((p) => p.exp.fairRank) : rankDescFirst(fair.comp);
+  // Rank inside the position group: the headline number, because metrics say much less about defenders and
+  // goalkeepers than about attackers, so an overall list across positions mostly sorts by position.
+  const posRank = new Array(N).fill(0);
+  const rawPosRank = new Array(N).fill(0);
+  const posN = new Array(N).fill(0);
+  GROUPS.forEach((g) => {
+    const ix = G[g];
+    const fr = rankDescFirst(ix.map((i) => -fairRank[i]));
+    const rr = rankDescFirst(ix.map((i) => -rawRank[i]));
+    ix.forEach((i, k) => {
+      posRank[i] = fr[k];
+      rawPosRank[i] = rr[k];
+      posN[i] = ix.length;
+    });
+  });
 
   // Confidence: re-score 400 times with per-90 sampling noise, read the 10th-90th percentile of the rank.
   let rankLow;
@@ -276,8 +291,12 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
     const rankChange = rawRank[i] - fairRank[i];
     const pf = fairRank[i] / N;
     const pr = rawRank[i] / N;
-    const hidden = pf <= 0.12 && rankChange >= 0.1 * N;
-    const early = pr <= 0.15 && fairRank[i] - rawRank[i] >= 0.15 * N;
+    // Hidden talent: fair top 15% AND the traditional rank lies outside the player's own likely fair range
+    // (worse than its 90th percentile), so the jump is larger than his sampling noise.
+    const hidden = pf <= FLAG_RULES.hiddenTop && rawRank[i] > rankHigh[i];
+    // Priced above output: traditional top 15%, at least 15% of the pool lower on the fair ranking, the traditional
+    // rank above the likely fair range, and not Low confidence (metrics say little about defenders and goalkeepers).
+    const early = pr <= FLAG_RULES.earlyTop && fairRank[i] - rawRank[i] >= FLAG_RULES.earlyDrop * N && rawRank[i] < rankLow[i] && conf[i] !== 'Low';
     // Watch live: in the fair top 25% from fewer than 900 minutes (the potential forecast tracks market value, so it is not used here).
     const scout = pf <= WATCH.topShare && p.minutes < WATCH.maxMinutes;
     const releaseWarning = p.plannedRelease && pf <= 0.25;
@@ -299,10 +318,10 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
       .filter((x) => x.gap > 0)
       .slice(0, 3)
       .map((x) => ({ metric: x.metric, label: LABELS[x.metric], now: npRound(1 + 19 * x.p), target: npRound(1 + 19 * 0.75), weight: W[p.grp][METRICS.indexOf(x.metric)] }));
-    const tags = [hidden && 'Hidden Talent', early && 'Early Peaker?', scout && 'Watch Live'].filter(Boolean);
+    const tags = [hidden && 'Hidden Talent', early && 'Priced above output', scout && 'Watch Live'].filter(Boolean);
     return {
       i, compFair: fair.comp[i], compUnadj: unadj.comp[i], compRaw: raw.comp[i],
-      rawRank: rawRank[i], fairRank: fairRank[i], rankChange, rawScore: rawScoreV[i], fairScore: fairScore[i],
+      rawRank: rawRank[i], fairRank: fairRank[i], rankChange, posRank: posRank[i], rawPosRank: rawPosRank[i], posN: posN[i], rawScore: rawScoreV[i], fairScore: fairScore[i],
       unadjScore: score(unadj.comp[i]),
       rankLow: rankLow[i], rankHigh: rankHigh[i], conf: conf[i], confValue: clip(1 - width[i], 0, 1), robust: robust[i],
       hidden, early, scout, releaseWarning, upside: upside[i], pros, cons, plan, tags,

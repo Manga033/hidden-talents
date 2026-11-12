@@ -226,3 +226,37 @@ dialog .stack p{font-size:14px}
 .tile.plain .tile-body{display:flex;gap:8px;align-items:flex-start;margin:0}
 .tile.plain .icon{width:17px;height:17px;color:var(--green-ink);flex-shrink:0;margin-top:2px}
 .quarter-pool small{white-space:nowrap}
+
+/* Fairness check */
+.fairness .panel{margin-top:20px}
+.fairness .panel:first-of-type{margin-top:0}
+.fairness .panel-heading h2{font-size:20px;margin-top:4px}
+.fairness .panel-heading{align-items:flex-start}
+.fc-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:center}
+.fc-facts{display:flex;flex-direction:column;gap:16px}
+.fc-stat{display:flex;align-items:baseline;gap:14px;background:var(--wine-soft);border:1px solid #ecd6db;border-radius:8px;padding:16px 20px}
+.fc-stat strong{font-family:Barlow,Impact,sans-serif;font-size:48px;line-height:1;color:var(--wine);flex-shrink:0}
+.fc-stat span{font-size:15px;color:#5f575b;line-height:1.5}
+.fc-text{font-size:15px;color:#5f575b;line-height:1.7;margin:0}
+.fc-verdict{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.6;padding:12px 16px;border-radius:8px;margin:0}
+.fc-verdict .icon{width:18px;height:18px;flex-shrink:0;margin-top:3px}
+.fc-verdict.ok{background:var(--green-soft);color:var(--green-ink)}
+.fc-verdict.warn{background:#fbf1e3;color:#8a5a1c}
+.birth-chart{width:100%;max-width:560px;justify-self:center}
+.birth-chart .bc-val{font-size:15px;font-weight:800;fill:var(--ink)}
+.birth-chart .bc-label{font-size:13px;fill:#6f676c}
+.birth-chart .bc-note{font-size:12px;fill:#6f676c}
+.fc-compare{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;margin-bottom:20px}
+.fc-compare>.icon{width:24px;height:24px;color:#b8acb0}
+.fc-compare .fc-stat{flex-direction:column;align-items:flex-start;gap:4px}
+.fc-compare .fc-stat small{font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#9a8f94}
+.fc-compare .fc-stat span{font-size:14px}
+.fc-compare .muted-stat{background:#f5f3ef;border-color:#ebe6e1}
+.fc-compare .muted-stat strong{color:#8b8186}
+.fc-compare .fc-text{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
+.fc-table td{vertical-align:middle}
+.nowrap{white-space:nowrap}
+.fairness .verdict-pill{flex-shrink:0;margin-top:4px}
+@media(max-width:1000px){.fc-row{grid-template-columns:1fr}}
+@media(max-width:680px){.fc-compare{grid-template-columns:1fr}.fc-compare>.icon{transform:rotate(90deg);justify-self:center}.fc-stat strong{font-size:40px}.fairness .panel-heading{flex-direction:column}}
+.fc-table td:first-child{min-width:190px}.fc-table.release{min-width:760px}

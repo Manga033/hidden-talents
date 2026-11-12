@@ -69,7 +69,7 @@ export const POOL_RULES = { maxAge: 21.0, minMinutes: 450, season: '2025/26' };
 // step6_export flag rules, written once so every screen quotes the same definition.
 export const RULES = {
   hidden: 'Fair rank in the top 12% of the pool and at least 49 places (10% of the pool) higher than on the traditional list.',
-  early: 'In the top 15% of the traditional list, but at least 73 places (15% of the pool) lower on the fair ranking.',
+  early: 'In the top 15% of the traditional list, but at least 74 places (15% of the pool) lower on the fair ranking.',
   scout: 'Top 25% of the fair ranking, but from fewer than 900 minutes. Promising numbers from a small sample: one live match tells you the most.',
   release: 'Contract ends between 1 Jul 2026 and 30 Jun 2027. A warning is raised when the fair rank is in the top 25% of the pool.',
 };

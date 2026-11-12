@@ -25,10 +25,16 @@ function Evidence({ ia, ib }) {
   };
   return (
     <>
-      <p className="verdict big">
-        <b>{L.name}</b> is fair #{lr.fairRank}, <b>{T.name}</b> #{tr.fairRank}: a gap of <b>{fmt1(gap)} points</b>. {signed(sgn * w.perfGap)} comes from what they did on the pitch and {signed(sgn * w.ctxGap)} from the strength of their teams.
-        {w.rawFlip && ` A traditional list has them the other way round (#${lr.rawRank} vs #${tr.rawRank}).`}
-      </p>
+      {w.level ? (
+        <p className="verdict big">
+          <b>Practically level.</b> {L.name} is fair #{lr.fairRank} and {T.name} #{tr.fairRank}, but the difference between them is under half a point — too small to separate them. Treat them as equal and decide on what you see live.
+        </p>
+      ) : (
+        <p className="verdict big">
+          <b>{L.name}</b> is fair #{lr.fairRank}, <b>{T.name}</b> #{tr.fairRank}: a gap of <b>{fmt1(gap)} points</b>. {signed(sgn * w.perfGap)} comes from what they did on the pitch and {signed(sgn * w.ctxGap)} from the strength of their teams.
+          {w.rawFlip && ` A traditional list has them the other way round (#${lr.rawRank} vs #${tr.rawRank}).`}
+        </p>
+      )}
       {!w.sameGroup && (
         <div className="notice info">
           <Icon name="info" />

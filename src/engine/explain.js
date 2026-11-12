@@ -96,7 +96,10 @@ export function whyBetter(ctx, ia, ib) {
     return { metric: m, label: LABELS[m], a: a.total, b: b.total, diff: a.total - b.total, aPerf: a.perf, bPerf: b.perf, aCtx: a.age + a.elo, bCtx: b.age + b.elo, wa: a.weight, wb: b.weight };
   });
   const gap = ba.total - bb.total;
-  const leader = gap >= 0 ? 'A' : 'B';
+  // The official rank decides who is ahead. When the explained gap is tiny or points the other way
+  // (near-ties, z-scores stored with 2 decimals), the two are reported as level instead.
+  const leader = ra.fairRank <= rb.fairRank ? 'A' : 'B';
+  const level = Math.abs(gap) < 0.5 || Math.sign(gap) !== (leader === 'A' ? 1 : -1);
   const sorted = [...rows].sort((x, y) => (leader === 'A' ? y.diff - x.diff : x.diff - y.diff));
   const drivers = sorted.filter((r) => (leader === 'A' ? r.diff > 0.25 : r.diff < -0.25)).slice(0, 3);
   const against = sorted.filter((r) => (leader === 'A' ? r.diff < -0.25 : r.diff > 0.25)).reverse().slice(0, 2);
@@ -105,5 +108,5 @@ export function whyBetter(ctx, ia, ib) {
   const ctxGap = ba.age + ba.elo - (bb.age + bb.elo);
   const perfGap = ba.perf - bb.perf;
   const rawFlip = Math.sign(ra.rawRank - rb.rawRank) !== Math.sign(ra.fairRank - rb.fairRank);
-  return { A, B, ra, rb, ba, bb, rows, gap, leader, drivers, against, overlap, ctxGap, perfGap, sameGroup, rawFlip };
+  return { A, B, ra, rb, ba, bb, rows, gap, leader, level, drivers, against, overlap, ctxGap, perfGap, sameGroup, rawFlip };
 }

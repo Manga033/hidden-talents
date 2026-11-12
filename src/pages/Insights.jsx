@@ -141,8 +141,8 @@ export default function Insights() {
         <div className="panel-heading">
           <div>
             <span className="eyebrow">2 · CLUB STRENGTH</span>
-            <h2>The fair ranking does not reward a player for his club</h2>
-            <p className="panel-sub">A player at a strong club gets better numbers partly from his team-mates. The fair ranking takes that part out.</p>
+            <h2>The fair ranking corrects for club strength</h2>
+            <p className="panel-sub">A player at a strong club gets better numbers partly from his team-mates. The fair ranking takes the club-related part out.</p>
           </div>
         </div>
         <div className="fc-compare">
@@ -157,7 +157,7 @@ export default function Insights() {
             <strong>{corr(rankLink.fair)}</strong>
             <span>link to club strength</span>
           </div>
-          <p className="fc-text">Link = rank correlation with club Elo: 1 means the best clubs' players always rank highest, 0 means club strength plays no part.</p>
+          <p className="fc-text">Link = rank correlation with club Elo: 1 means the best clubs' players always rank highest, 0 means club strength plays no part. Note: strong clubs also sign better players, so part of what is removed may be real quality. Separating the two needs players who changed clubs, which is planned for the next engine run.</p>
         </div>
         <div className="table-scroll">
           <table className="data-table fc-table">

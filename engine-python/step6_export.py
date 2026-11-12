@@ -37,7 +37,7 @@ def comp_from(Z,w_by_g):
     for g in w_by_g:
         ix=np.where(grp==g)[0]; c[ix]=Z[ix]@w_by_g[g]
     return c
-c0=comp_from(ZF,W); mu={g:c0[grp==g].mean() for g in W}; sd={g:c0[grp==g].std() for g in W}
+c0=comp_from(ZF,W); mu={g:c0[grp==g].mean() for g in W}; sd={g:np.sqrt((W[g]**2).sum()) for g in W}  # true-talent scale, as engine.composite
 def stdz(c):
     o=c.copy()
     for g in W: ix=grp==g; o[ix]=(c[ix]-mu[g])/sd[g]
@@ -54,7 +54,10 @@ for r in range(2000):
     Wr={}
     for g in W:
         w=np.zeros(len(METRICS)); w[act]=rng.dirichlet(np.ones(len(act))); Wr[g]=w
-    c=stdz(comp_from(ZF,Wr)); top10[np.argsort(-c)[:10]]+=1
+    # each random weighting is centred and scaled with its own position average and true-talent spread
+    c=comp_from(ZF,Wr)
+    for g in Wr: ix=grp==g; c[ix]=(c[ix]-c[ix].mean())/np.sqrt((Wr[g]**2).sum())
+    top10[np.argsort(-c)[:10]]+=1
 d['robust10']=top10/2000
 d['rlo']=rlo; d['rhi']=rhi
 width=(rhi-rlo)/N; d['conf_val']=(1-width).clip(0,1)

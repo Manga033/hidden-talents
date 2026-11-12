@@ -58,7 +58,9 @@ def composite(d,prefix,preset='Balanced'):
     W=PRESETS[preset]; out=np.zeros(len(d))
     for g,idx in d.groupby('grp').groups.items():
         w=np.array([0 if m in NOSIGNAL else x for m,x in zip(METRICS,W[g])],float); w=w/w.sum(); Z=d.loc[idx,[prefix+m for m in METRICS]].values
-        c=Z@w; c=(c-c.mean())/(c.std() if c.std()>1e-9 else 1)
+        # z-scores are in true-talent SD units, so the weighted sum's true-talent SD is ||w||. Dividing by the spread of the
+        # shrunk estimates instead (c.std()) stretched poorly measured positions (GK/DEF 3.7x vs MID/FWD 1.6x).
+        c=Z@w; c=(c-c.mean())/np.sqrt((w**2).sum())
         out[d.index.get_indexer(idx)]=c
     return out
 def raw_score(d):

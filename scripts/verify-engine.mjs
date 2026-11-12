@@ -1,5 +1,7 @@
-// Re-runs the JavaScript engine on public/data and compares it with what the Python engine exported.
+// Re-runs the JavaScript engine on server/data and compares it with what the Python engine exported.
 // Usage: npm run verify
+// Note: since the true-talent scale fix, fair ranks and scores differ from an export made with the old engine.py
+// (the order within each position stays the same). Re-run step6 with the updated engine.py to match again.
 import { readFileSync } from 'node:fs';
 import { buildPool, parseCSV, parseEngineJSON } from '../src/engine/pool.js';
 import { prepare, presetWeights, run } from '../src/engine/engine.js';
@@ -10,7 +12,7 @@ const csv = parseCSV(readFileSync(new URL('../server/data/hidden_talent_2025_26.
 const pool = buildPool(json, csv);
 const t0 = performance.now();
 const base = prepare(pool);
-const res = run(base, presetWeights('Balanced'));
+const res = run(base, presetWeights('Balanced'), { seed: 42 });
 const t1 = performance.now();
 console.log(`players ${pool.players.length}, unmatched ${pool.unmatched.length}, engine ${(t1 - t0).toFixed(0)} ms`);
 const rep = reproducibility(base, res);

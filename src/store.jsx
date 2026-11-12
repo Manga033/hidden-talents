@@ -115,7 +115,7 @@ export function ScoutProvider({ children }) {
   const weightKey = effectivePreset === 'Custom' ? `Custom:${custom.join(',')}` : effectivePreset;
   const W = useMemo(() => (effectivePreset === 'Custom' ? activeWeights(customToGroups(custom)) : presetWeights(effectivePreset)), [effectivePreset, weightKey]); // eslint-disable-line
 
-  // Engine runs are cached per weighting. Balanced shows the engine's official ranks and scores.
+  // Engine runs are cached per weighting. Balanced is the club's official ranking.
   const cache = useMemo(() => new Map(), [base]);
   const [res, setRes] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -128,12 +128,9 @@ export function ScoutProvider({ children }) {
     }
     setBusy(true);
     const t = setTimeout(() => {
-      const balanced =
-        cache.get('Balanced') ||
-        run(base, presetWeights('Balanced'), {
-          exportFair: true,
-          exportConfidence: base.players.map((p) => ({ rankLow: p.exp.rankLow, rankHigh: p.exp.rankHigh, robust: p.exp.robust })),
-        });
+      // The official ranking is computed here with the true-talent scale (the engine fix of this version);
+      // the Python export is re-created by re-running step6 with the updated engine.py.
+      const balanced = cache.get('Balanced') || run(base, presetWeights('Balanced'), { seed: 42 });
       cache.set('Balanced', balanced);
       const r = weightKey === 'Balanced' ? balanced : run(base, W, { seed: 42 });
       cache.set(weightKey, r);
@@ -185,7 +182,15 @@ export function ScoutProvider({ children }) {
 
   const players = useMemo(() => {
     if (!base || !res) return [];
-    return base.players.map((p, i) => ({ ...p, ...res.players[i], i, team: p.team || 'Club not recorded' }));
+    const list = base.players.map((p, i) => ({ ...p, ...res.players[i], i, team: p.team || 'Club not recorded' }));
+    // Rank inside the position group, e.g. "#3 of 158 defenders".
+    const groups = {};
+    [...list].sort((a, b) => a.fairRank - b.fairRank).forEach((p) => {
+      groups[p.grp] = (groups[p.grp] || 0) + 1;
+      p.posRank = groups[p.grp];
+    });
+    list.forEach((p) => (p.posCount = groups[p.grp]));
+    return list;
   }, [base, res]);
   const byId = useMemo(() => Object.fromEntries(players.map((p) => [p.id, p])), [players]);
 

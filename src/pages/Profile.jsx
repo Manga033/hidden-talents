@@ -118,7 +118,9 @@ export default function Profile({ id }) {
             <div className="score-box">
               <small>Fair rank</small>
               <strong>#{p.fairRank}</strong>
-              <span className="range">of {N}</span>
+              <span className="range">
+                of {N} · #{p.posRank} of {p.posCount} {GROUP_NAME[p.grp].toLowerCase()}s
+              </span>
             </div>
             <div className="score-box potential">
               <small>Traditional rank</small>

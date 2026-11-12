@@ -50,6 +50,8 @@ Run the Python engine on the new Transfermarkt export, then sign in as sporting 
 
 ## Engine changes in this version (JS and Python kept in sync)
 
+- **Fair score on the true-talent scale:** the weighted sum of shrunk z-scores is divided by its true-talent spread (‖w‖), not by the spread of the shrunk estimates. The old scaling stretched goalkeepers and defenders 3.7× (attackers 1.6×), so noise reached the top of the overall ranking. Order within each position is unchanged. Robustness now centres each random weighting on its own position average.
+- **Club correction (known limitation):** strong clubs also sign better players, so fully removing the club link may remove some real quality. Estimating the team effect from players who changed clubs is the next step.
 - **Similar players:** 100 − average percentile gap over the four scored metrics (cosine similarity ignored magnitude, so a star and a fringe player with the same profile shape scored 100%).
 - **Confidence:** absolute bands by how much of the pool the likely rank range covers (High < ⅓, Medium < ⅔, Low otherwise) instead of thirds of the pool.
 - **Watch live** (was Scout live): fair top 25% from fewer than 900 minutes. The old rule used the potential forecast, which tracks market value (rank correlation 0.97), so it listed the lowest-ranked players at big clubs.

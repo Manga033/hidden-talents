@@ -151,6 +151,9 @@ export default function FindStar() {
       <div className="find-grid">
         <Panel title="What matters to your team" sub="Pick a game model or set your own" right={busy ? <span className="busy-note">Updating…</span> : null}>
           <Seg label="Weight preset" value={preset} onChange={setPreset} options={[['Balanced', 'Balanced'], ['Attacking', 'Attacking'], ['Defensive', 'Defensive'], ['Custom', 'Custom']]} />
+          <p className="weights-note">
+            <Icon name="info" /> Weights set how much each area counts, but the data can only separate players where it has information. Goal and assist numbers are reliable; team defensive impact is mostly noise in this data, so a high defence weight changes the order far less than its percentage suggests.
+          </p>
           {weightsShown ? (
             <table className="data-table weights-table">
               <thead>

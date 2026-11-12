@@ -72,6 +72,12 @@ export function activeWeights(wByGroup) {
 export const presetWeights = (name) => activeWeights(PRESETS[name] || PRESETS.Balanced);
 
 /* ---------- engine.composite ---------- */
+// True-talent spread of a weighted sum: each z is in true-talent SD units, so the prior SD is the length of w.
+export const wNorm = (w) => Math.sqrt(w.reduce((s, x) => s + x * x, 0)) || 1;
+
+// Weighted sum of shrunk z-scores, centred on the position average and divided by its TRUE-TALENT spread.
+// (Dividing by the spread of the shrunk estimates instead would stretch the positions the data measures worst,
+//  e.g. goalkeepers and defenders 3.7x vs attackers 1.6x, and let noise reach the top of the overall ranking.)
 export function composite(Z, players, W, G) {
   const out = new Array(players.length).fill(0);
   const stats = {};
@@ -80,8 +86,7 @@ export function composite(Z, players, W, G) {
     if (!ix.length) return;
     const c = ix.map((i) => METRICS.reduce((s, m, j) => s + W[g][j] * Z[i][m], 0));
     const mu = mean(c);
-    const s = std(c);
-    const sd = s > 1e-9 ? s : 1;
+    const sd = wNorm(W[g]);
     ix.forEach((i, k) => (out[i] = (c[k] - mu) / sd));
     stats[g] = { mu, sd };
   });
@@ -206,7 +211,7 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
     GROUPS.forEach((g) => {
       const v = G[g].map((i) => base0[i]);
       mu[g] = mean(v);
-      sd[g] = std(v) || 1;
+      sd[g] = wNorm(W[g]);
     });
     const ranks = players.map(() => new Float64Array(mcRuns));
     const c = new Float64Array(N);
@@ -238,11 +243,18 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
         act.forEach((j, k) => (w[j] = d[k]));
         Wr[g] = w;
       });
+      // Each random weighting is centred and scaled with its own position average and true-talent spread.
+      const muR = {};
+      const sdR = {};
+      GROUPS.forEach((g) => {
+        muR[g] = METRICS.reduce((s, m, j) => s + Wr[g][j] * base.gmean[g][m].zf, 0);
+        sdR[g] = wNorm(Wr[g]);
+      });
       for (let i = 0; i < N; i++) {
         const p = players[i];
         let s = 0;
         for (let j = 0; j < METRICS.length; j++) s += Wr[p.grp][j] * adj.zf[i][METRICS[j]];
-        cc[i] = (s - mu[p.grp]) / sd[p.grp];
+        cc[i] = (s - muR[p.grp]) / sdR[p.grp];
       }
       order.sort((a, b) => cc[b] - cc[a]);
       for (let k = 0; k < 10; k++) top[order[k]] += 1;

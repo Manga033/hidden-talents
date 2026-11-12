@@ -43,7 +43,7 @@ export default function Login() {
             <li key={r.label}>
               <Icon name="shield" />
               <span>
-                <b>{r.label}</b> {r.see.audit ? 'Everything, including the fairness audit, contracts and data updates.' : r.see.marketValue ? 'All scouting pages and market values.' : 'Best XI, players, profiles and comparisons.'}
+                <b>{r.label}</b> {r.see.audit ? 'Everything, including the fairness check, contracts and data updates.' : r.see.marketValue ? 'All scouting pages and market values.' : 'Best XI, players, profiles and comparisons.'}
               </span>
             </li>
           ))}

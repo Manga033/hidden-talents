@@ -8,7 +8,7 @@ server/             Node server: sign-in, roles, data API, serves the app
   demo-users.json   demo accounts (plain-text, not in git) — copy demo-users.example.json and set passwords; users.json (hashed) is created from it on first start
 src/auth/roles.js   who can see what (used by the server and the app)
 src/engine/         JavaScript port of the scoring layer of the Python engine
-src/pages/          Discover, Players, Find your star, Compare, Hidden talents, Fairness audit, Favourites
+src/pages/          Discover, Players, Find your star, Compare, Hidden talents, Fairness check, Favourites
 engine-python/      the Python engine (step1 … step6) that produces the data files
 ```
 
@@ -38,8 +38,8 @@ Set `SESSION_SECRET` in production (otherwise a random secret is stored in `serv
 | Find your star (game-model weights) | ✓ | ✓ | |
 | Hidden talents | ✓ | ✓ | |
 | Market values | ✓ | ✓ | |
-| Contracts and the release check | ✓ | | |
-| Fairness audit, data quality | ✓ | | |
+| Contracts to review | ✓ | | |
+| Fairness check | ✓ | | |
 | Upload new engine output | ✓ | | |
 
 The server removes the data a role may not see before sending it, so hidden fields never reach the browser.

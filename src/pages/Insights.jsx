@@ -1,80 +1,86 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useScout } from '../store.jsx';
-import { Empty, Icon, PageTitle, Panel } from '../components/ui.jsx';
-import { QuarterBars } from '../components/charts.jsx';
-import { LABELS, METRICS, RULES } from '../engine/constants.js';
+import { Empty, Icon, PageTitle } from '../components/ui.jsx';
+import { LABELS, METRICS } from '../engine/constants.js';
 import { biasAudit } from '../engine/verify.js';
 import { chiSquare, pearson } from '../engine/stats.js';
 import { reasonChips } from '../engine/explain.js';
 
-const pFmt = (p) => (p == null ? '–' : p < 0.001 ? '< 0.001' : p.toFixed(3));
-const orFmt = (x) => (x == null || !Number.isFinite(x) ? '∞' : `${x.toFixed(2)}×`);
+const pFmt = (p) => (p == null ? '–' : p < 0.001 ? '< 0.001' : p.toFixed(2));
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dateLabel = (s) => {
+  if (!s) return 'Jul 2026 – Jun 2027';
+  const [y, m, d] = s.split('-').map(Number);
+  return `${d} ${MONTHS[m - 1]} ${y}`;
+};
 
 export default function Insights() {
-  const { base, res, players, nm, pool, ctx } = useScout();
-  const a = pool.audit || {};
-  const [n, setN] = useState(20);
-  const raw = useMemo(() => biasAudit(base, res, 'rawRank', n), [base, res, n]);
-  const fair = useMemo(() => biasAudit(base, res, 'fairRank', n), [base, res, n]);
+  const { base, res, players, ctx } = useScout();
+
+  // 1. Birth date: who reaches the pool, and does either ranking add a tilt inside it?
+  const raw = useMemo(() => biasAudit(base, res, 'rawRank', 20), [base, res]);
+  const fair = useMemo(() => biasAudit(base, res, 'fairRank', 20), [base, res]);
   const counts = raw.pool;
   const chi = chiSquare([counts.Q1, counts.Q2, counts.Q3, counts.Q4], [0, 0, 0, 0].map(() => players.length / 4));
   const q1q4 = counts.Q1 / Math.max(1, counts.Q4);
+  const noTilt = raw.p >= 0.05 && fair.p >= 0.05;
 
-  // Proof that the correction works: correlation of each metric with team Elo, before and after.
+  // 2. Team strength: link between each metric and club Elo, before and after the correction.
   const eloCheck = useMemo(() => {
     const elo = base.players.map((p) => p.teamElo);
-    return METRICS.map((m) => ({
+    return METRICS.filter((m) => m !== 'big90').map((m) => ({
       m,
       before: pearson(base.players.map((p) => p.z[m]), elo),
       after: pearson(base.adj.zf.map((z) => z[m]), elo),
       info: base.adj.info[m],
     }));
   }, [base]);
-  const spearmanRF = useMemo(() => {
-    const r = res.players;
-    const x = r.map((p) => p.rawRank);
-    const y = r.map((p) => p.fairRank);
-    return pearson(x, y);
-  }, [res]);
+  const ageCorrected = METRICS.some((m) => base.adj.info[m].keptAge);
 
-  const planned = players.filter((p) => p.plannedRelease).sort((x, y) => x.fairRank - y.fairRank);
-  const [keep, setKeep] = useState({});
-  const flagged = planned.filter((p) => !keep[p.id] && p.releaseWarning).length;
+  // 3. Contracts ending in the review window; the ones ranked in the top 25% need a second look.
+  const expiring = players.filter((p) => p.plannedRelease).sort((x, y) => x.fairRank - y.fairRank);
+  const review = expiring.filter((p) => p.releaseWarning);
+  const rest = expiring.length - review.length;
 
   return (
     <div className="fade-in">
-      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness audit." sub="Birth-date bias, team-strength bias and release decisions — each tested." />
+      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness check." sub="Is birth date or club strength deciding who gets picked — and which expiring contracts need a second look." />
 
       <section className="panel">
         <div className="panel-heading">
           <div>
-            <h2>1 · Who reaches professional football at all?</h2>
+            <h2>1 · Birth date decides who reaches professional football</h2>
             <p className="panel-sub">Birth quarters of all {players.length} U21 professionals in the pool</p>
           </div>
-          <small>CHI-SQUARE VS EVEN SPLIT</small>
         </div>
         <div className="audit-row">
           <div className="tiles two">
             <div className="tile wine">
-              <span className="eyebrow">Q1 vs Q4 births in the pool</span>
+              <span className="eyebrow">Jan–Mar vs Oct–Dec births</span>
               <strong>{q1q4.toFixed(1)}×</strong>
               <p>
-                {counts.Q1} players born Jan–Mar against {counts.Q4} born Oct–Dec. χ² = {chi.chi.toFixed(1)}, df = 3, p {pFmt(chi.p)}.
+                {counts.Q1} players born January–March against {counts.Q4} born October–December. Far beyond chance (p {pFmt(chi.p)}).
               </p>
             </div>
             <div className="tile">
               <span className="eyebrow">What it means</span>
+              <p className="tile-body">Players born early in the year were picked more often in academy football, so the bias is already built into who turns professional. A late-born player who made it anyway is worth a closer look.</p>
+            </div>
+            <div className="tile span2 plain">
               <p className="tile-body">
-                The relative-age effect has already filtered this pool before any scout ranks it: players born early in the year were more often selected in academy football. A late-born player who still made it is less likely to have been carried by being older.
+                <Icon name={noTilt ? 'check' : 'alert'} />{' '}
+                {noTilt
+                  ? 'Inside the pool, neither the traditional nor the fair ranking favours early births (no significant difference in the top 20).'
+                  : `Inside the pool the top 20 still leans towards early births (traditional p ${pFmt(raw.p)}, fair p ${pFmt(fair.p)}).`}
               </p>
             </div>
           </div>
           <div className="quarter-pool">
-            {['Q1', 'Q2', 'Q3', 'Q4'].map((q) => (
+            {['Q1', 'Q2', 'Q3', 'Q4'].map((q, k) => (
               <div key={q}>
                 <span className="qbar" style={{ height: `${(counts[q] / counts.Q1) * 100}%` }} />
                 <b>{counts[q]}</b>
-                <small>{q}</small>
+                <small>{['Jan–Mar', 'Apr–Jun', 'Jul–Sep', 'Oct–Dec'][k]}</small>
               </div>
             ))}
             <span className="even-line" style={{ bottom: `${(players.length / 4 / counts.Q1) * 100}%` }} title="Even split" />
@@ -85,49 +91,8 @@ export default function Insights() {
       <section className="panel">
         <div className="panel-heading">
           <div>
-            <h2>2 · Inside the pool: does the ranking favour early births?</h2>
-            <p className="panel-sub">Birth quarters of the top {n}, traditional vs fair ranking. Odds of 1.0× mean birth date plays no part.</p>
-          </div>
-          <label className="inline-select">
-            Top
-            <select value={n} onChange={(e) => setN(Number(e.target.value))}>
-              {[20, 49, 98].map((k) => (
-                <option key={k} value={k}>{k}{k === 49 ? ' (10%)' : k === 98 ? ' (20%)' : ''}</option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className="audit-row">
-          <div className="tiles two">
-            <div className="tile">
-              <span className="eyebrow">Traditional: Q1 vs Q4 odds</span>
-              <strong>{orFmt(raw.oddsRatio)}</strong>
-              <p>Fisher p = {pFmt(raw.p)}. 80% rule: {raw.fourFifths.toFixed(2)}</p>
-            </div>
-            <div className="tile wine">
-              <span className="eyebrow">Fair: Q1 vs Q4 odds</span>
-              <strong>{orFmt(fair.oddsRatio)}</strong>
-              <p>Fisher p = {pFmt(fair.p)}. 80% rule: {fair.fourFifths.toFixed(2)}</p>
-            </div>
-            <div className="tile span2">
-              <span className="eyebrow">Honest reading</span>
-              <p className="tile-body">
-                {raw.p >= 0.05 && fair.p >= 0.05
-                  ? 'Neither ranking shows a significant birth-quarter tilt inside the pool (both p ≥ 0.05).'
-                  : `${raw.p < 0.05 ? `The traditional ranking tilts significantly (p = ${pFmt(raw.p)}).` : 'The traditional ranking shows no significant tilt.'} ${fair.p < 0.05 ? `The fair ranking still tilts (p = ${pFmt(fair.p)}).` : 'The fair ranking shows no significant tilt.'}`}{' '}
-                With few picks the 80% rule is unstable — one player moves it a lot — so read it together with the p-value. Over ten seasons (2015–2025, top 10% each season) the Q1:Q4 odds were {(a.baseRate || '').match(/raw ([\d.]+)/)?.[1] || '–'} traditional and {(a.baseRate || '').match(/fair ([\d.]+)/)?.[1] || '–'} fair.
-              </p>
-            </div>
-          </div>
-          <QuarterBars pool={raw.pool} raw={raw.top} fair={fair.top} />
-        </div>
-      </section>
-
-      <section className="panel">
-        <div className="panel-heading">
-          <div>
-            <h2>3 · Team strength and age: corrected only where the data proves an effect</h2>
-            <p className="panel-sub">A player at a strong club gets better numbers partly from his team-mates. The fair score removes that part — but only where the effect is statistically clear.</p>
+            <h2>2 · Club strength is taken out of the fair ranking</h2>
+            <p className="panel-sub">A player at a strong club gets better numbers partly from his team-mates. The fair ranking removes that part wherever the data shows it.</p>
           </div>
         </div>
         <div className="table-scroll">
@@ -135,10 +100,9 @@ export default function Insights() {
             <thead>
               <tr>
                 <th>Metric</th>
-                <th>Depends on team strength?</th>
-                <th>Depends on age?</th>
-                <th className="r">Link to team strength before</th>
-                <th className="r">after</th>
+                <th>Depends on club strength?</th>
+                <th className="r">Link before</th>
+                <th className="r">Link after</th>
               </tr>
             </thead>
             <tbody>
@@ -146,7 +110,6 @@ export default function Insights() {
                 <tr key={m}>
                   <td>{LABELS[m]}</td>
                   <td>{info.keptElo ? <span className="pill-on">Yes — corrected</span> : <span className="pill-off">No</span>}</td>
-                  <td>{info.keptAge ? <span className="pill-on">Yes — corrected</span> : <span className="pill-off">No</span>}</td>
                   <td className="r num">{before.toFixed(2)}</td>
                   <td className="r num strong">{after.toFixed(2)}</td>
                 </tr>
@@ -155,73 +118,64 @@ export default function Insights() {
           </table>
         </div>
         <p className="attribute-footnote">
-          Link = correlation with team Elo (0 = none). After the correction the scores no longer depend on how strong the club is. Traditional and fair rankings agree only {spearmanRF.toFixed(2)} (1 = identical): the fair ranking is a genuinely different view.
+          Link = correlation with club strength (0 = none). After the correction the fair ranking no longer depends on how strong the club is. {ageCorrected ? 'Age is also corrected where it matters.' : 'Age showed no measurable effect, so it is left alone.'}
         </p>
       </section>
 
-      <Panel
-        title="4 · Retain or release check"
-        sub={`${planned.length} players have a contract ending 1 Jul 2026 – 30 Jun 2027. Untick a player to mark him as kept.`}
-        right={
-          <span className={`verdict-pill ${flagged ? 'warn' : 'ok'}`}>
-            <Icon name={flagged ? 'alert' : 'check'} />
-            {flagged ? `${flagged} release ${flagged === 1 ? 'decision needs' : 'decisions need'} a second look` : 'No risky releases'}
+      <section className="panel">
+        <div className="panel-heading">
+          <div>
+            <h2>3 · Contracts to review</h2>
+            <p className="panel-sub">
+              {expiring.length} contracts end between July 2026 and June 2027. {review.length ? `${review.length} of these players rank in the top 25% on the fair ranking.` : 'None of these players ranks in the top 25%.'}
+            </p>
+          </div>
+          <span className={`verdict-pill ${review.length ? 'warn' : 'ok'}`}>
+            <Icon name={review.length ? 'alert' : 'check'} />
+            {review.length ? `${review.length} to review before letting go` : 'No risky contracts'}
           </span>
-        }
-      >
-        {!planned.length ? (
-          <Empty title="No contract ends in the review window." />
+        </div>
+        {!review.length ? (
+          <Empty icon="check" title="No expiring contract conflicts with the data." />
         ) : (
           <div className="table-scroll">
             <table className="data-table release">
               <thead>
                 <tr>
-                  <th>Release?</th>
                   <th>Player</th>
-                  <th className="r">Traditional #</th>
+                  <th>Contract ends</th>
                   <th className="r">Fair #</th>
-                  <th>System check</th>
+                  <th className="r">Traditional #</th>
+                  <th>Why keep him</th>
                 </tr>
               </thead>
               <tbody>
-                {planned.map((p) => {
-                  const on = !keep[p.id];
-                  const warn = on && p.releaseWarning;
-                  return (
-                    <tr key={p.id} className={warn ? 'flagged' : ''}>
-                      <td>
-                        <label className="check">
-                          <input type="checkbox" checked={on} onChange={(e) => setKeep((k) => ({ ...k, [p.id]: !e.target.checked }))} />
-                          {on ? 'Release' : 'Keep'}
-                        </label>
-                      </td>
-                      <td>
-                        <a href={`#player/${p.id}`} className="strong-link">{nm(p)}</a> <small className="muted">{p.position} · {p.ageShown}</small>
-                      </td>
-                      <td className="r num">{p.rawRank}</td>
-                      <td className="r num strong">{p.fairRank}</td>
-                      <td>
-                        {warn ? (
-                          <span className="flag-msg">
-                            <Icon name="alert" /> Fair rank in the top 25% — look again.
-                            <span className="chips">{reasonChips(ctx, p.i, 2).map((r) => <span key={r} className="reason">{r}</span>)}</span>
-                          </span>
-                        ) : on ? (
-                          <span className="ok-text">No conflict with the data</span>
-                        ) : (
-                          <span className="muted">Kept</span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
+                {review.map((p) => (
+                  <tr key={p.id} className="flagged">
+                    <td>
+                      <a href={`#player/${p.id}`} className="strong-link">{p.name}</a> <small className="muted">{p.position} · {p.ageShown} yrs · {p.team}</small>
+                    </td>
+                    <td>{dateLabel(p.contractEnd)}</td>
+                    <td className="r num strong">{p.fairRank}</td>
+                    <td className="r num">{p.rawRank}</td>
+                    <td>
+                      <span className="chips">
+                        {reasonChips(ctx, p.i, 3)
+                          .filter((r) => !r.includes('−') && !r.startsWith('Only'))
+                          .slice(0, 2)
+                          .map((r) => (
+                            <span key={r} className="reason">{r}</span>
+                          ))}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         )}
-        <p className="attribute-footnote">{RULES.release}</p>
-      </Panel>
-
+        {rest > 0 && <p className="attribute-footnote">The other {rest} expiring contracts belong to players outside the top 25%: no conflict with the data.</p>}
+      </section>
     </div>
   );
 }

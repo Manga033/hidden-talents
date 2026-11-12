@@ -222,3 +222,7 @@ dialog .stack p{font-size:14px}
 /* Profile: room between the name line and the tags under it */
 .profile-identity .tag-row{margin-top:14px}
 .profile-identity .player-meta{margin-top:2px}
+.tile.plain{background:#faf9f7}
+.tile.plain .tile-body{display:flex;gap:8px;align-items:flex-start;margin:0}
+.tile.plain .icon{width:17px;height:17px;color:var(--green-ink);flex-shrink:0;margin-top:2px}
+.quarter-pool small{white-space:nowrap}

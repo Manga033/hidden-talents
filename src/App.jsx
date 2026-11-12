@@ -17,10 +17,10 @@ const NAV = [
   ['find', 'Find your star', 'target'],
   ['compare', 'Compare', 'compare'],
   ['hidden', 'Hidden talents', 'trend'],
-  ['insights', 'Fairness audit', 'scale'],
+  ['insights', 'Fairness check', 'scale'],
   ['favourites', 'Favourites', 'star'],
 ];
-const TITLES = { home: 'Discover', players: 'Player pool', find: 'Find your star', compare: 'Compare players', hidden: 'Hidden talents', insights: 'Fairness audit', favourites: 'Your favourites' };
+const TITLES = { home: 'Discover', players: 'Player pool', find: 'Find your star', compare: 'Compare players', hidden: 'Hidden talents', insights: 'Fairness check', favourites: 'Your favourites' };
 
 function UpdateDataDialog({ onClose }) {
   const { uploadData, players, updated } = useScout();

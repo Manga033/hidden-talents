@@ -8,7 +8,6 @@ const ORDER = ['FWD', 'MID', 'DEF', 'GK'];
 const SORTS = [
   ['rank', 'Rank (current view)'],
   ['mover', 'Biggest risers (traditional → fair)'],
-  ['potential', 'Highest potential'],
   ['young', 'Youngest first'],
   ['confidence', 'Most certain first'],
 ];
@@ -38,7 +37,6 @@ export default function Players() {
     const by = {
       rank: (a, b) => (mode === 'fair' ? a.fairRank - b.fairRank : a.rawRank - b.rawRank),
       mover: (a, b) => b.rankChange - a.rankChange,
-      potential: (a, b) => b.potential - a.potential,
       young: (a, b) => a.age - b.age,
       confidence: (a, b) => a.rankHigh - a.rankLow - (b.rankHigh - b.rankLow),
     }[sort];

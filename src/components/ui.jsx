@@ -183,7 +183,7 @@ export function Dialog({ title, eyebrow, onClose, children }) {
 }
 
 export function PlayerPicker({ exclude = [], onPick, onClose, title = 'Select a player' }) {
-  const { players, sc, mode } = useScout();
+  const { players, mode } = useScout();
   const [q, setQ] = useState('');
   const [grp, setGrp] = useState('All');
   const list = useMemo(() => {
@@ -214,7 +214,7 @@ export function PlayerPicker({ exclude = [], onPick, onClose, title = 'Select a 
                 {p.position} · {p.ageShown} yrs · {p.team} · fair #{p.fairRank}
               </small>
             </span>
-            <span className="picker-score">{sc(p)}</span>
+            <span className="picker-score">#{mode === 'fair' ? p.fairRank : p.rawRank}</span>
             <Icon name="plus" />
           </button>
         ))}
@@ -226,7 +226,7 @@ export function PlayerPicker({ exclude = [], onPick, onClose, title = 'Select a 
 
 // The template's catalogue card, driven by the engine output.
 export function PlayerCard({ p }) {
-  const { sc, mode, addToCompare, allowed } = useScout();
+  const { mode, addToCompare, allowed } = useScout();
   const tags = tagsOf(p);
   return (
     <article className={`player-card ${p.hidden ? 'is-hidden-talent' : ''}`}>
@@ -236,10 +236,6 @@ export function PlayerCard({ p }) {
         <span className="position-tag">
           <i />
           {p.position} <span>/</span> {p.positionGroup.toUpperCase()}
-        </span>
-        <span className="potential-badge">
-          <strong>{p.potential}</strong>
-          <small>POTENTIAL</small>
         </span>
       </a>
       <FavButton p={p} />
@@ -255,10 +251,10 @@ export function PlayerCard({ p }) {
         </div>
         <div className="card-ratings">
           <span>
-            {mode === 'fair' ? 'Fair' : 'Traditional'} <strong>{sc(p)}</strong>
+            Fair <strong>#{p.fairRank}</strong>
           </span>
           <span>
-            {mode === 'fair' ? 'Traditional' : 'Fair'} <strong>{mode === 'fair' ? p.rawScore : p.fairScore}</strong>
+            Traditional <strong>#{p.rawRank}</strong>
           </span>
           <span>
             <RankMove d={p.rankChange} compact />

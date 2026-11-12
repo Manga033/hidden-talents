@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useScout } from '../store.jsx';
 import { Empty, Icon, PageTitle, Panel } from '../components/ui.jsx';
 import { QuarterBars } from '../components/charts.jsx';
-import { LABELS, METRICS, RULES, SHORT } from '../engine/constants.js';
+import { LABELS, METRICS, RULES } from '../engine/constants.js';
 import { biasAudit } from '../engine/verify.js';
 import { chiSquare, pearson } from '../engine/stats.js';
 import { reasonChips } from '../engine/explain.js';
@@ -40,11 +40,10 @@ export default function Insights() {
   const planned = players.filter((p) => p.plannedRelease).sort((x, y) => x.fairRank - y.fairRank);
   const [keep, setKeep] = useState({});
   const flagged = planned.filter((p) => !keep[p.id] && p.releaseWarning).length;
-  const missingValue = base.players.filter((p) => !(p.valueEnd > 0)).length;
 
   return (
     <div className="fade-in">
-      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness audit." sub="Birth-date bias, team-strength bias and release decisions — each tested, with the test and its p-value shown." />
+      <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness audit." sub="Birth-date bias, team-strength bias and release decisions — each tested." />
 
       <section className="panel">
         <div className="panel-heading">
@@ -181,7 +180,6 @@ export default function Insights() {
                   <th>Player</th>
                   <th className="r">Traditional #</th>
                   <th className="r">Fair #</th>
-                  <th className="r">Potential</th>
                   <th>System check</th>
                 </tr>
               </thead>
@@ -202,7 +200,6 @@ export default function Insights() {
                       </td>
                       <td className="r num">{p.rawRank}</td>
                       <td className="r num strong">{p.fairRank}</td>
-                      <td className="r num">{p.potential}</td>
                       <td>
                         {warn ? (
                           <span className="flag-msg">
@@ -225,25 +222,6 @@ export default function Insights() {
         <p className="attribute-footnote">{RULES.release}</p>
       </Panel>
 
-      <Panel title="5 · Data quality report" sub="What the data covers and where it has gaps">
-        <table className="data-table">
-          <tbody>
-            {(a.dataQuality || []).map((d) => (
-              <tr key={d.label}>
-                <td className={`dq ${d.status}`}><Icon name={d.status === 'ok' ? 'check' : 'alert'} /></td>
-                <td>{d.label}</td>
-                <td className="r strong">{d.value}</td>
-              </tr>
-            ))}
-            <tr>
-              <td className={`dq ${missingValue ? 'warn' : 'ok'}`}><Icon name={missingValue ? 'alert' : 'check'} /></td>
-              <td>Players without a market value</td>
-              <td className="r strong">{missingValue}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p className="attribute-footnote">Scores use: {METRICS.filter((m) => m !== 'big90').map((m) => SHORT[m]).join(', ')}.</p>
-      </Panel>
     </div>
   );
 }

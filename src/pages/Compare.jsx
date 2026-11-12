@@ -65,7 +65,7 @@ function Evidence({ ia, ib }) {
               <td className="r num strong">{signed(w.ba.total)}</td>
               <td className="r num strong">{signed(w.bb.total)}</td>
               <td className="r num strong">{signed(w.gap)}</td>
-              <td>Fair scores {w.ra.fairScore} and {w.rb.fairScore}</td>
+              <td>Fair ranks #{w.ra.fairRank} and #{w.rb.fairRank}</td>
             </tr>
           </tfoot>
         </table>
@@ -151,9 +151,9 @@ function Slot({ p, k, onChange, onRemove, canRemove }) {
         </div>
         <div className="eyebrow">{p.team}</div>
         <div className="compare-score">
-          <b style={{ color: COLORS[k] }}>{p.fairScore}</b>
+          <b style={{ color: COLORS[k] }}>#{p.fairRank}</b>
           <span>
-            fair #{p.fairRank} <RankMove d={p.rankChange} compact />
+            fair rank · traditional #{p.rawRank} <RankMove d={p.rankChange} compact />
           </span>
         </div>
         <div className="chips">{tagsOf(p).map((t) => <Tag key={t} label={t} />)}</div>
@@ -189,10 +189,8 @@ export default function Compare() {
   const rows = useMemo(
     () =>
       [
-        { label: 'Fair score', get: (p) => p.fairScore },
         { label: 'Fair rank', get: (p) => p.fairRank, lower: true, fmt: (v) => `#${v}` },
         { label: 'Traditional rank', get: (p) => p.rawRank, lower: true, fmt: (v) => `#${v}` },
-        { label: 'Potential', get: (p) => p.potential },
         { label: 'Minutes played', get: (p) => p.minutes, fmt: (v) => v.toLocaleString('en') },
         { label: 'Goals', get: (p) => p.goals },
         { label: 'Assists', get: (p) => p.assists },

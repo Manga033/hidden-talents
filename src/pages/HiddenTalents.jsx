@@ -153,7 +153,7 @@ export default function HiddenTalents() {
                     {nm(p)} <Flag country={p.country} />
                   </b>
                   <small>
-                    {p.position} · {p.minutes.toLocaleString('en')} min · fair {p.fairScore} → potential up to {p.potentialHigh}
+                    {p.position} · {p.minutes.toLocaleString('en')} min · fair #{p.fairRank}
                   </small>
                   <small>
                     Likely rank #{Math.round(p.rankLow)}–#{Math.round(p.rankHigh)}

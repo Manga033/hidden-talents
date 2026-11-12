@@ -116,25 +116,17 @@ export default function Profile({ id }) {
         <div className="profile-scores">
           <div className="score-pair">
             <div className="score-box">
-              <small>Fair score</small>
-              <strong>{p.fairScore}</strong>
+              <small>Fair rank</small>
+              <strong>#{p.fairRank}</strong>
+              <span className="range">of {N}</span>
             </div>
             <div className="score-box potential">
-              <small>Potential</small>
-              <strong>{p.potential}</strong>
+              <small>Traditional rank</small>
+              <strong>#{p.rawRank}</strong>
               <span className="range">
-                {p.potentialLow}–{p.potentialHigh}
+                <RankMove d={p.rankChange} />
               </span>
             </div>
-          </div>
-          <div className="rank-line">
-            <span>
-              Fair <b>#{p.fairRank}</b>
-            </span>
-            <span>
-              Traditional <b>#{p.rawRank}</b>
-            </span>
-            <RankMove d={p.rankChange} />
           </div>
           <div className="profile-actions">
             <button type="button" className="button button-outline" onClick={() => toggleFav(p.id)}>

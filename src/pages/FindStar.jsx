@@ -64,7 +64,7 @@ export default function FindStar() {
       if (f.grp !== 'All' && p.grp !== f.grp) return false;
       if (f.pos.length && !f.pos.includes(p.position)) return false;
       if (p.ageShown > f.ageMax) return false;
-      if (p.fairScore < f.minScore || p.potential < f.minPot || p.minutes < f.minMinutes) return false;
+      if (p.minutes < f.minMinutes) return false;
       if (f.bq.length && !f.bq.includes(p.birthQuarter)) return false;
       if (f.foot.length && !f.foot.includes(p.foot)) return false;
       if (f.conf.length && !f.conf.includes(p.conf)) return false;
@@ -77,7 +77,6 @@ export default function FindStar() {
       age: (p) => p.age,
       fairRank: (p) => p.fairRank,
       rawRank: (p) => p.rawRank,
-      potential: (p) => p.potential,
       fit: (p) => fit[p.id],
       minutes: (p) => p.minutes,
       move: (p) => p.rankChange,
@@ -89,7 +88,7 @@ export default function FindStar() {
     });
   }, [players, q, f, tab, sort, fit, favs]);
 
-  const active = f.pos.length + f.bq.length + f.foot.length + f.flags.length + f.conf.length + (f.grp !== 'All') + (f.ageMax < 20) + (f.minScore > 0) + (f.minPot > 0) + (f.minMinutes > 450);
+  const active = f.pos.length + f.bq.length + f.foot.length + f.flags.length + f.conf.length + (f.grp !== 'All') + (f.ageMax < 20) + (f.minMinutes > 450);
   const Th = ({ k, children, r, def = -1 }) => (
     <th className={r ? 'r' : ''} aria-sort={sort.key === k ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'}>
       <button type="button" className="th-btn" onClick={() => setSort((s) => ({ key: k, dir: s.key === k ? -s.dir : def }))}>
@@ -161,8 +160,6 @@ export default function FindStar() {
             </label>
             <Chips label="Position" options={POS} value={f.pos} onChange={(v) => set({ pos: v })} />
             <Range label="Maximum age" min={16} max={20} step={1} value={f.ageMax} onChange={(v) => set({ ageMax: v })} fmt={(v) => (v >= 20 ? 'any' : `${v}`)} />
-            <Range label="Minimum fair score" min={0} max={95} step={5} value={f.minScore} onChange={(v) => set({ minScore: v })} fmt={(v) => (v ? `${v}+` : 'any')} />
-            <Range label="Minimum potential" min={0} max={95} step={5} value={f.minPot} onChange={(v) => set({ minPot: v })} fmt={(v) => (v ? `${v}+` : 'any')} />
             <Range label="Minimum minutes" min={450} max={3000} step={50} value={f.minMinutes} onChange={(v) => set({ minMinutes: v })} />
             <Chips label="Birth quarter" options={['Q1', 'Q2', 'Q3', 'Q4']} value={f.bq} onChange={(v) => set({ bq: v })} />
             <Chips label="Foot" options={['Left', 'Right', 'Both']} value={f.foot} onChange={(v) => set({ foot: v })} />
@@ -188,7 +185,6 @@ export default function FindStar() {
                   <Th k="rawRank" r def={1}>Trad. #</Th>
                   <Th k="move" r>Move</Th>
                   {preset !== 'Balanced' && <th className="r">vs Balanced</th>}
-                  <Th k="potential" r>Potential</Th>
                   <Th k="fit" r>Fit</Th>
                   <Th k="minutes" r>Min</Th>
                   <th>Flags</th>
@@ -218,7 +214,6 @@ export default function FindStar() {
                       <td className="r num">{p.rawRank}</td>
                       <td className="r"><RankMove d={p.rankChange} compact /></td>
                       {preset !== 'Balanced' && <td className="r">{bRank ? <RankMove d={bRank - p.fairRank} compact /> : '–'}</td>}
-                      <td className="r num">{p.potential}</td>
                       <td className="r">
                         <span className="fit">
                           <span className="fit-bar"><span style={{ width: `${fit[p.id]}%` }} /></span>

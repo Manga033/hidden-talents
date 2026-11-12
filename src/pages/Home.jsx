@@ -8,7 +8,6 @@ import { reasonChips } from '../engine/explain.js';
 const NAMES = Object.keys(FORMATIONS);
 
 function LineupCard({ slot, isNew }) {
-  const { sc } = useScout();
   const p = slot.player;
   const { x, y } = toPct(slot.u, slot.w);
   const parts = p.name.split(' ');
@@ -16,11 +15,10 @@ function LineupCard({ slot, isNew }) {
   return (
     <article className={`lineup-slot ${isNew ? 'is-new' : ''}`} style={{ '--x': x, '--y': y, zIndex: Math.round(y) }}>
       <div className="lineup-shadow" />
-      <a className="lineup-card" href={`#player/${p.id}`} aria-label={`${p.name}, ${slot.label || slot.pos}, ${p.country || ''}, score ${sc(p)}. View player profile`}>
+      <a className="lineup-card" href={`#player/${p.id}`} aria-label={`${p.name}, ${slot.label || slot.pos}, ${p.country || ''}. View player profile`}>
         <div className="lineup-card-inner">
           <span className="lineup-card-geometry" />
           <span className="lineup-position">{slot.label || slot.pos}</span>
-          <span className="lineup-score">{sc(p)}</span>
           <span className="lineup-card-brand">HT</span>
           <Portrait p={p} className="lineup-face" />
           <div className="lineup-card-shade" />
@@ -110,7 +108,7 @@ export default function Home() {
           <span>
             BEST XI <i>·</i> {pool.meta.ageGroup || 'U21'} <i>·</i> 2025 / 26 <i>·</i> {mode === 'fair' ? 'FAIR RANK' : 'RAW RANK'}
           </span>
-          <span className="desktop-pitch-hint">The number on each card is the {mode === 'fair' ? 'fair' : 'traditional'} score; 50 is an average player in that position. Select a player to see why.</span>
+          <span className="desktop-pitch-hint">Select a player to see why he is in the XI.</span>
         </div>
       </section>
 
@@ -196,7 +194,7 @@ export default function Home() {
               <h3>Starting XI</h3>
               <Icon name="list" />
             </div>
-            <p>{mode === 'fair' ? 'Fair' : 'Traditional'} score</p>
+            <p>{mode === 'fair' ? 'Fair' : 'Traditional'} rank</p>
             <table className="mini-table">
               <tbody>
                 {xi.map((s, k) =>
@@ -207,7 +205,7 @@ export default function Home() {
                         <a href={`#player/${s.player.id}`}>{nm(s.player)}</a>
                         <span className="chips">{tagsOf(s.player).slice(0, 1).map((t) => <Tag key={t} label={t} />)}</span>
                       </td>
-                      <td className="num">{mode === 'fair' ? s.player.fairScore : s.player.rawScore}</td>
+                      <td className="num">#{mode === 'fair' ? s.player.fairRank : s.player.rawRank}</td>
                     </tr>
                   ) : null
                 )}

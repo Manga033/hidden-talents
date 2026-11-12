@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CUSTOM_DEFAULT, useScout } from '../store.jsx';
 import { Empty, FavButton, Flag, Icon, PageTitle, Panel, Portrait, RankMove, Seg, Tag, tagsOf } from '../components/ui.jsx';
 import { GROUP_PLURAL, LABELS, METRICS, PRESETS } from '../engine/constants.js';
@@ -38,12 +38,46 @@ function Range({ label, min, max, step, value, onChange, fmt = (v) => v }) {
   );
 }
 
+function Pager({ page, pages, total, perPage, onPage }) {
+  // Page numbers around the current page, with the first and last always visible.
+  const nums = [...new Set([0, page - 1, page, page + 1, pages - 1])].filter((n) => n >= 0 && n < pages).sort((a, b) => a - b);
+  const go = (n) => {
+    onPage(n);
+    document.querySelector('.find-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  return (
+    <nav className="pager" aria-label="Pages">
+      <span className="pager-info">
+        {page * perPage + 1}–{Math.min(total, (page + 1) * perPage)} of {total}
+      </span>
+      <div className="pager-buttons">
+        <button type="button" onClick={() => go(page - 1)} disabled={page === 0} aria-label="Previous page">
+          <Icon name="chevron-left" />
+        </button>
+        {nums.map((n, k) => (
+          <span key={n} className="pager-num">
+            {k > 0 && n - nums[k - 1] > 1 && <span className="pager-gap">…</span>}
+            <button type="button" aria-current={n === page ? 'page' : undefined} onClick={() => go(n)}>
+              {n + 1}
+            </button>
+          </span>
+        ))}
+        <button type="button" onClick={() => go(page + 1)} disabled={page === pages - 1} aria-label="Next page">
+          <Icon name="chevron" />
+        </button>
+      </div>
+    </nav>
+  );
+}
+
 export default function FindStar() {
   const { players, preset, setPreset, custom, setCustom, busy, balanced, favs, addToCompare, can } = useScout();
   const [q, setQ] = useState('');
   const [f, setF] = useState(BLANK);
   const [tab, setTab] = useState('all');
   const [sort, setSort] = useState({ key: 'fairRank', dir: 1 });
+  const [page, setPage] = useState(0);
+  const PER_PAGE = 20;
   const set = (patch) => setF((c) => ({ ...c, ...patch }));
 
   // Fit = percentile of the player's weighted fair composite inside his own position group.
@@ -87,6 +121,12 @@ export default function FindStar() {
       return (typeof x === 'string' ? x.localeCompare(y) : x - y) * sort.dir;
     });
   }, [players, q, f, tab, sort, fit, favs]);
+
+  // Back to the first page whenever the list itself changes.
+  useEffect(() => setPage(0), [q, f, tab, sort, preset, custom]);
+  const pages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
+  const current = Math.min(page, pages - 1);
+  const shown = rows.slice(current * PER_PAGE, current * PER_PAGE + PER_PAGE);
 
   const active = f.pos.length + f.bq.length + f.foot.length + f.flags.length + f.conf.length + (f.grp !== 'All') + (f.ageMax < 20) + (f.minMinutes > 450);
   const Th = ({ k, children, r, def = -1 }) => (
@@ -169,7 +209,7 @@ export default function FindStar() {
         </Panel>
       </div>
 
-      <Panel title={tab === 'favs' ? 'Your favourites' : 'Matching players'} right={<span className="results-count">{rows.length} of {players.length}</span>}>
+      <Panel className="find-results" title={tab === 'favs' ? 'Your favourites' : 'Matching players'} right={<span className="results-count">{rows.length} of {players.length}</span>}>
         {!rows.length ? (
           <Empty title={tab === 'favs' && !favs.length ? 'No favourites yet.' : 'No player matches.'}>{tab === 'favs' && !favs.length ? 'Star a player to keep him here.' : 'Loosen a filter or clear them all.'}</Empty>
         ) : (
@@ -192,7 +232,7 @@ export default function FindStar() {
                 </tr>
               </thead>
               <tbody>
-                {rows.slice(0, 150).map((p) => {
+                {shown.map((p) => {
                   const bRank = balanced?.players[p.i]?.fairRank;
                   return (
                     <tr key={p.id}>
@@ -232,7 +272,7 @@ export default function FindStar() {
                 })}
               </tbody>
             </table>
-            {rows.length > 150 && <p className="muted-line">Showing the first 150 of {rows.length}. Narrow the filters to see the rest.</p>}
+            {pages > 1 && <Pager page={current} pages={pages} total={rows.length} perPage={PER_PAGE} onPage={setPage} />}
           </div>
         )}
         <p className="attribute-footnote">Fit: how well he matches your game model compared with others in his position (100 = best).</p>

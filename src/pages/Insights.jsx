@@ -5,7 +5,7 @@ import { C } from '../components/charts.jsx';
 import { LABELS, METRICS } from '../engine/constants.js';
 import { biasAudit } from '../engine/verify.js';
 import { chiSquare, pearson, spearman } from '../engine/stats.js';
-import { reasonChips } from '../engine/explain.js';
+import { supportReasons } from '../engine/explain.js';
 
 const pFmt = (p) => (p < 0.001 ? '< 0.001' : `= ${p.toFixed(2)}`);
 const corr = (x) => (Math.abs(x) < 0.005 ? '0.00' : x.toFixed(2));
@@ -101,12 +101,7 @@ export default function Insights() {
   const expiring = base.players.map((p, i) => ({ ...p, ...res.players[i] })).filter((p) => p.plannedRelease);
   const review = expiring.filter((p) => p.releaseWarning).sort((a, b) => a.fairRank - b.fairRank);
   const rest = expiring.length - review.length;
-  const keepReasons = (i) =>
-    reasonChips(ctx, i, 6)
-      .filter((r) => !r.includes('−') && !r.startsWith('Only') && !r.startsWith('Born'))
-      // On-pitch reasons first; the market-value note explains the traditional rank.
-      .sort((x, y) => Number(y.includes('pts')) - Number(x.includes('pts')))
-      .slice(0, 2);
+  const keepReasons = (i) => supportReasons(ctx, i, 2);
 
   return (
     <div className="fade-in fairness">

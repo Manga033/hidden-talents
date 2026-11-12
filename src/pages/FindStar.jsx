@@ -6,7 +6,7 @@ import { rankPct } from '../engine/stats.js';
 
 const BLANK = { grp: 'All', pos: [], ageMax: 20, minScore: 0, minPot: 0, minMinutes: 450, bq: [], foot: [], flags: [], conf: [] };
 const POS = ['GK', 'CB', 'LB', 'RB', 'DM', 'CM', 'AM', 'LW', 'RW', 'ST'];
-const FLAGS = [['hidden', 'Hidden talent'], ['scout', 'Scout live'], ['early', 'Early peaker']];
+const FLAGS = [['hidden', 'Hidden talent'], ['scout', 'Watch live'], ['early', 'Early peaker']];
 const CUSTOM_LABELS = ['Goals + assists', 'Team attacking impact', 'Team defensive impact', 'Discipline'];
 
 function Chips({ label, options, value, onChange }) {

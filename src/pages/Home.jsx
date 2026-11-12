@@ -3,9 +3,12 @@ import { useScout } from '../store.jsx';
 import ModelNotice from '../components/ModelNotice.jsx';
 import { FavButton, Flag, Icon, ModeToggle, Portrait, RankMove, Tag, tagsOf } from '../components/ui.jsx';
 import { FORMATIONS, pickXI, toPct } from '../lib/xi.js';
-import { reasonChips } from '../engine/explain.js';
+import { supportReasons } from '../engine/explain.js';
 
 const NAMES = Object.keys(FORMATIONS);
+
+// A headline number; links to Hidden talents only for roles that can open it.
+const Stat = ({ link, children }) => (link ? <a className="metric" href="#hidden">{children}</a> : <div className="metric">{children}</div>);
 
 function LineupCard({ slot, isNew }) {
   const p = slot.player;
@@ -38,9 +41,8 @@ function LineupCard({ slot, isNew }) {
 }
 
 export default function Home() {
-  const { players, mode, setMode, nm, ctx, pool, allowed } = useScout();
+  const { players, mode, setMode, nm, ctx, pool, allowed, can } = useScout();
   const statLink = allowed('hidden');
-  const Stat = ({ children }) => (statLink ? <a className="metric" href="#hidden">{children}</a> : <div className="metric">{children}</div>);
   const [fi, setFi] = useState(0);
   const formation = NAMES[fi];
   const rawXI = useMemo(() => pickXI(players, 'rawRank', formation), [players, formation]);
@@ -106,7 +108,7 @@ export default function Home() {
         </div>
         <div className="broadcast-caption">
           <span>
-            BEST XI <i>·</i> {pool.meta.ageGroup || 'U21'} <i>·</i> 2025 / 26 <i>·</i> {mode === 'fair' ? 'FAIR RANK' : 'RAW RANK'}
+            BEST XI <i>·</i> {pool.meta.ageGroup || 'U21'} <i>·</i> 2025 / 26 <i>·</i> {mode === 'fair' ? 'FAIR RANK' : 'TRADITIONAL RANK'}
           </span>
           <span className="desktop-pitch-hint">Select a player to see why he is in the XI.</span>
         </div>
@@ -120,21 +122,21 @@ export default function Home() {
             <span>U21 players, ≥450 min, 2025/26</span>
           </div>
         </div>
-        <Stat>
+        <Stat link={statLink}>
           <Icon name="trend" />
           <div>
             <strong>{hidden}</strong>
             <span>Hidden talents found</span>
           </div>
         </Stat>
-        <Stat>
+        <Stat link={statLink}>
           <Icon name="alert" />
           <div>
             <strong>{early}</strong>
             <span>Early-peaker risks</span>
           </div>
         </Stat>
-        <Stat>
+        <Stat link={statLink}>
           <Icon name="eye" />
           <div>
             <strong>{scout}</strong>
@@ -170,12 +172,12 @@ export default function Home() {
                     {s.out && <Icon name="arrow" />}
                     <b>{nm(s.in)}</b>
                     <small>
-                      traditional #{s.in.rawRank} → fair #{s.in.fairRank} <RankMove d={s.in.rankChange} compact />
-                      {s.out ? ` · replaces ${s.out.name} (traditional #${s.out.rawRank} → fair #${s.out.fairRank})` : ''}
+                      Fair #{s.in.fairRank} (traditional #{s.in.rawRank}) <RankMove d={s.in.rankChange} compact />
+                      {s.out ? ` · ${s.out.name.split(' ').slice(-1)[0]} drops to fair #${s.out.fairRank}` : ''}
                     </small>
                   </span>
                   <span className="chips">
-                    {reasonChips(ctx, s.in.i).map((r) => (
+                    {supportReasons(ctx, s.in.i, 3, { marketValue: can('marketValue') }).map((r) => (
                       <span key={r} className="reason">{r}</span>
                     ))}
                   </span>

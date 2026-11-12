@@ -73,7 +73,7 @@ d['pf']=d.fairRank/N; d['pr']=d.rawRank/N
 d['hidden']=(d.pf<=0.12)&(d.rankChange>=0.10*N)
 d['early']=(d.pr<=0.15)&(d.fairRank-d.rawRank>=0.15*N)
 upside=d.potHi-d.fairScore
-d['scout']=(upside>=np.percentile(upside,85))&(d.conf=='Low')
+d['scout']=(d.fairRank<=0.25*N)&(d.minutes<900)  # fair top 25% from fewer than 900 minutes: check live
 exp=pd.to_datetime(d.contract_expiration_date,errors='coerce')
 d['release']=(exp<=pd.Timestamp('2027-06-30'))&(exp>=pd.Timestamp('2026-07-01'))
 # ---------- similarity: 100 - mean absolute percentile gap on the active fair metrics, same position group ----------
@@ -165,7 +165,7 @@ for i,r in d.iterrows():
       seasonStats=dict(apps=int(r.apps),minutes=int(r.minutes),goals=int(r.goals),assists=int(r.assists)),
       plannedRelease=bool(rw),
       releaseWarning=(f"Contract ends {pd.to_datetime(r.contract_expiration_date).date()} and fair rank is #{int(r.fairRank)} of {N}. Review before letting go." if rw and r.pf<=0.25 else None),
-      tags=[t for t,c in (("Hidden Talent",r.hidden),("Early Peaker?",r.early),("Scout Live",r.scout)) if c],traits=[],
+      tags=[t for t,c in (("Hidden Talent",r.hidden),("Early Peaker?",r.early),("Watch Live",r.scout)) if c],traits=[],
       similarPlayers=[dict(id=f"P{int(d.player_id.iloc[b])}",name=d.name.iloc[b],similarity=s) for b,s in sim[i]]))
 players.sort(key=lambda p:p['fairRank'])
 audit=dict(birthQuarterPool=pool,rawTop20=cnt(raw_top),fairTop20=cnt(fair_top),oddsRatioRaw=round(orr,2) if orr else None,oddsRatioFair=round(orf,2) if orf else None,

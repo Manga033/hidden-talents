@@ -260,3 +260,18 @@ dialog .stack p{font-size:14px}
 @media(max-width:1000px){.fc-row{grid-template-columns:1fr}}
 @media(max-width:680px){.fc-compare{grid-template-columns:1fr}.fc-compare>.icon{transform:rotate(90deg);justify-self:center}.fc-stat strong{font-size:40px}.fairness .panel-heading{flex-direction:column}}
 .fc-table td:first-child{min-width:190px}.fc-table.release{min-width:760px}
+
+/* Profile: three cards of equal height side by side */
+.profile-columns{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr)!important;gap:20px;align-items:stretch!important}
+.profile-columns>.panel{display:flex;flex-direction:column}
+.profile-columns .radar-chart{margin:auto;max-width:330px}
+@media(max-width:1200px){.profile-columns{grid-template-columns:1fr 1fr!important}.profile-columns>.panel:first-child{grid-row:span 2}}
+@media(max-width:820px){.profile-columns{grid-template-columns:1fr!important}.profile-columns>.panel:first-child{grid-row:auto}}
+/* Find your star: wide chip groups get room */
+.filters .fgroup:has(.chips button:nth-child(5)){grid-column:span 2}
+@media(max-width:700px){.filters .fgroup:has(.chips button:nth-child(5)){grid-column:auto}}
+
+/* Phone fixes: positioned helpers stay inside their scroll box; one-column grids may shrink below content width */
+.table-scroll{position:relative;max-width:100%}
+.sr-only{margin:-1px;padding:0;border:0;left:0;top:0}
+@media(max-width:1200px){.why-grid,.hidden-grid,.find-grid,.audit-row,.fc-row{grid-template-columns:minmax(0,1fr)!important}}

@@ -59,6 +59,8 @@ export const ACTIVE = METRICS.filter((m) => !NOSIGNAL.includes(m));
 
 // Confidence bands: share of the pool covered by the likely rank range. High = under a third, Low = over two thirds.
 export const CONF_BANDS = [1 / 3, 2 / 3];
+// Watch live: promising on the fair ranking, but from a small sample that one live match can check.
+export const WATCH = { topShare: 0.25, maxMinutes: 900 };
 
 export const ALPHA = 0.05; // engine.adjust: a correction is kept only if p < alpha
 export const ELO = { K: 20, HFA: 65, carry: 0.85 }; // step1_elo.py
@@ -68,6 +70,6 @@ export const POOL_RULES = { maxAge: 21.0, minMinutes: 450, season: '2025/26' };
 export const RULES = {
   hidden: 'Fair rank in the top 12% of the pool and at least 49 places (10% of the pool) higher than on the traditional list.',
   early: 'In the top 15% of the traditional list, but at least 73 places (15% of the pool) lower on the fair ranking.',
-  scout: 'Upside (top of the potential range minus the current fair score) in the top 15% of the pool, and the data cannot place him yet (low confidence). One live match teaches the most here.',
+  scout: 'Top 25% of the fair ranking, but from fewer than 900 minutes. Promising numbers from a small sample: one live match tells you the most.',
   release: 'Contract ends between 1 Jul 2026 and 30 Jun 2027. A warning is raised when the fair rank is in the top 25% of the pool.',
 };

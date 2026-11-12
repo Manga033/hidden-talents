@@ -60,8 +60,8 @@ export function FavButton({ p, className = 'favourite-button' }) {
   );
 }
 
-const TAG_CLASS = { 'Hidden Talent': 'tag-gold', 'Early Peaker?': 'tag-blue', 'Scout Live': 'tag-green', 'Release review': 'tag-wine' };
-const TAG_RULE = { 'Hidden Talent': RULES.hidden, 'Early Peaker?': RULES.early, 'Scout Live': RULES.scout, 'Release review': RULES.release };
+const TAG_CLASS = { 'Hidden Talent': 'tag-gold', 'Early Peaker?': 'tag-blue', 'Watch Live': 'tag-green', 'Release review': 'tag-wine' };
+const TAG_RULE = { 'Hidden Talent': RULES.hidden, 'Early Peaker?': RULES.early, 'Watch Live': RULES.scout, 'Release review': RULES.release };
 export const Tag = ({ label }) => (
   <span className={`tag ${TAG_CLASS[label] || ''}`} title={TAG_RULE[label] || undefined}>
     {label}
@@ -250,11 +250,9 @@ export function PlayerCard({ p }) {
           <span className="club">{p.team}</span>
         </div>
         <div className="card-ratings">
+          {/* The big number on the card is the rank of the current view; this line gives the other one. */}
           <span>
-            Fair <strong>#{p.fairRank}</strong>
-          </span>
-          <span>
-            Traditional <strong>#{p.rawRank}</strong>
+            {mode === 'fair' ? 'Traditional' : 'Fair'} <strong>#{mode === 'fair' ? p.rawRank : p.fairRank}</strong>
           </span>
           <span>
             <RankMove d={p.rankChange} compact />

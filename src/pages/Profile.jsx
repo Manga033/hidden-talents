@@ -199,7 +199,8 @@ export default function Profile({ id }) {
             <strong>{Math.round(p.robust * 100)}%</strong>
             <span>chance of being a top-10 player whatever a club prioritises (goals, attack, defence or discipline).</span>
           </div>
-          {p.scout && <p className="small-text">High upside, but the data cannot place him yet. Watch him live.</p>}
+          {(p.grp === 'DEF' || p.grp === 'GK') && <p className="small-text">Goal-based data says little about defending, so the ranks of defenders and goalkeepers are less certain than those of attacking players.</p>}
+          {p.scout && <p className="small-text">Top-25% numbers from only {p.minutes.toLocaleString('en')} minutes. Watch him live.</p>}
         </Panel>
       </div>
 

@@ -17,13 +17,13 @@ export default function Favourites() {
           </a>
         }
       />
-      <div className="favourites-banner">
+      {saved.length > 0 && <div className="favourites-banner">
         <Icon name="star" />
         <div>
           <h3>
-            {saved.length} {saved.length === 1 ? 'player' : 'players'}. A lot of possibility.
+            {saved.length} {saved.length === 1 ? 'player' : 'players'} on your board.
           </h3>
-          <p>Saved in this browser only. Compare two of them to see exactly where the gap comes from.</p>
+          <p>Saved for your account on this device. Compare two of them to see exactly where the gap comes from.</p>
         </div>
         {saved.length >= 2 && (
           <button
@@ -37,7 +37,7 @@ export default function Favourites() {
             Compare first two <Icon name="compare" />
           </button>
         )}
-      </div>
+      </div>}
       {saved.length ? (
         <div className="favourites-grid">
           {saved.map((p) => (

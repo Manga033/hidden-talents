@@ -4,32 +4,30 @@ import ModelNotice from '../components/ModelNotice.jsx';
 import { ConfidencePill, Empty, Flag, Icon, PageTitle, Panel, Portrait } from '../components/ui.jsx';
 import { RankScatter } from '../components/charts.jsx';
 import { RULES } from '../engine/constants.js';
-import { breakdown, rawBreakdown } from '../engine/engine.js';
-import { money, reasonChips, signed } from '../engine/explain.js';
-import { mean } from '../engine/stats.js';
+import { rawBreakdown } from '../engine/engine.js';
+import { money, signed, supportReasons } from '../engine/explain.js';
+import { median } from '../engine/stats.js';
 
 export default function HiddenTalents() {
   const { players, nm, navigate, ctx, base, res } = useScout();
   const [allPeakers, setAllPeakers] = useState(false);
   const risers = useMemo(() => players.filter((p) => p.hidden).sort((a, b) => a.fairRank - b.fairRank), [players]);
   const peakers = useMemo(() => players.filter((p) => p.early).sort((a, b) => a.rawRank - b.rawRank), [players]);
-  const watch = useMemo(() => players.filter((p) => p.scout).sort((a, b) => b.upside - a.upside).slice(0, 9), [players]);
+  const watch = useMemo(() => players.filter((p) => p.scout).sort((a, b) => a.fairRank - b.fairRank), [players]);
+  const [allWatch, setAllWatch] = useState(false);
 
   // What the hidden talents have in common, measured against everyone else.
   const profile = useMemo(() => {
     const others = players.filter((p) => !p.hidden);
-    const val = (arr) => mean(arr.map((p) => p.valueEnd || 0));
-    const elo = (arr) => mean(arr.map((p) => p.teamElo));
-    const mins = (arr) => mean(arr.map((p) => p.minutes));
-    const eloPts = (arr) => mean(arr.map((p) => breakdown(base, res, p.i).elo));
-    const valPts = (arr) => mean(arr.map((p) => rawBreakdown(base, res, p.i).value));
+    // Medians, so a few €100m+ players do not distort the comparison.
+    const val = (arr) => median(arr.map((p) => p.valueEnd).filter((v) => v > 0));
+    const elo = (arr) => median(arr.map((p) => p.teamElo));
+    const mins = (arr) => median(arr.map((p) => p.minutes));
     return {
       n: risers.length,
       value: [val(risers), val(others)],
       elo: [elo(risers), elo(others)],
       mins: [mins(risers), mins(others)],
-      eloPts: eloPts(risers),
-      valPts: valPts(risers),
       q34: risers.filter((p) => p.bq >= 3).length,
     };
   }, [players, risers, base, res]);
@@ -56,9 +54,9 @@ export default function HiddenTalents() {
         </div>
         <div className="tile">
           <span className="eyebrow">What they share</span>
-          <strong className="tile-text">{money(profile.value[0])} avg value</strong>
+          <strong className="tile-text">{money(profile.value[0])} typical value</strong>
           <p>
-            vs {money(profile.value[1])} for everyone else, and they play for {profile.elo[0] < profile.elo[1] ? 'weaker' : 'stronger'} teams (Elo {Math.round(profile.elo[0])} vs {Math.round(profile.elo[1])}). {profile.value[0] < profile.value[1] ? 'A lower price tag keeps them down traditional lists; their on-pitch numbers do not.' : ''}
+            vs {money(profile.value[1])} for everyone else (medians), and they play for {profile.elo[0] < profile.elo[1] ? 'weaker' : 'stronger'} teams (Elo {Math.round(profile.elo[0])} vs {Math.round(profile.elo[1])}). {profile.value[0] < profile.value[1] ? 'A lower price tag keeps them down traditional lists; their on-pitch numbers do not.' : ''}
           </p>
         </div>
       </div>
@@ -87,7 +85,7 @@ export default function HiddenTalents() {
                       </span>
                     </span>
                     <span className="chips">
-                      {reasonChips(ctx, p.i).map((r) => (
+                      {supportReasons(ctx, p.i, 3).map((r) => (
                         <span key={r} className="reason">{r}</span>
                       ))}
                     </span>
@@ -142,18 +140,18 @@ export default function HiddenTalents() {
           )}
           <p className="attribute-footnote">"From value" = how many points of his traditional score come from his market value alone. A big number with a low fair rank means the list is paying for reputation.</p>
         </Panel>
-        <Panel title="Watch next" sub={RULES.scout}>
+        <Panel title="Watch live" sub={RULES.scout}>
           {!watch.length ? (
-            <Empty title="Nobody meets the scout-live rule." />
+            <Empty title="Nobody meets the watch-live rule." />
           ) : (
             <div className="watch-grid">
-              {watch.map((p) => (
+              {(allWatch ? watch : watch.slice(0, 8)).map((p) => (
                 <a key={p.id} href={`#player/${p.id}`} className="watch">
                   <b>
                     {nm(p)} <Flag country={p.country} />
                   </b>
                   <small>
-                    {p.position} · {p.minutes.toLocaleString('en')} min · fair #{p.fairRank}
+                    {p.position} · fair #{p.fairRank} · only {p.minutes.toLocaleString('en')} min
                   </small>
                   <small>
                     Likely rank #{Math.round(p.rankLow)}–#{Math.round(p.rankHigh)}
@@ -161,6 +159,13 @@ export default function HiddenTalents() {
                   <ConfidencePill level={p.conf} />
                 </a>
               ))}
+            </div>
+          )}
+          {watch.length > 8 && (
+            <div className="more-row">
+              <button type="button" className="button button-outline" onClick={() => setAllWatch((v) => !v)}>
+                {allWatch ? 'Show fewer' : `Show all ${watch.length}`}
+              </button>
             </div>
           )}
           <p className="attribute-footnote">

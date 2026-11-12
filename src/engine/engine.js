@@ -15,7 +15,7 @@
 
   Everything is deterministic except the Monte Carlo, which uses a fixed seed.
 */
-import { ACTIVE, ALPHA, CONF_BANDS, GROUPS, K, LABELS, METRICS, NOSIGNAL, PRESETS, TAU2 } from './constants.js';
+import { ACTIVE, ALPHA, CONF_BANDS, GROUPS, K, LABELS, METRICS, NOSIGNAL, PRESETS, TAU2, WATCH } from './constants.js';
 import { clip, mean, median, npRound, ols3, percentile, rankDescFirst, rankPct, rng, std } from './stats.js';
 
 export const score = (z) => clip(npRound(50 + 15 * z), 1, 99);
@@ -266,7 +266,8 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
     const pr = rawRank[i] / N;
     const hidden = pf <= 0.12 && rankChange >= 0.1 * N;
     const early = pr <= 0.15 && fairRank[i] - rawRank[i] >= 0.15 * N;
-    const scout = upside[i] >= up85 && conf[i] === 'Low';
+    // Watch live: in the fair top 25% from fewer than 900 minutes (the potential forecast tracks market value, so it is not used here).
+    const scout = pf <= WATCH.topShare && p.minutes < WATCH.maxMinutes;
     const releaseWarning = p.plannedRelease && pf <= 0.25;
     // Strengths / weaknesses: fair z beyond +-1 true-talent SD (z is already shrunk, so no second reliability factor).
     const pros = [];
@@ -286,7 +287,7 @@ export function run(base, W, { mcRuns = 400, weightRuns = 2000, seed = 42, expor
       .filter((x) => x.gap > 0)
       .slice(0, 3)
       .map((x) => ({ metric: x.metric, label: LABELS[x.metric], now: npRound(1 + 19 * x.p), target: npRound(1 + 19 * 0.75), weight: W[p.grp][METRICS.indexOf(x.metric)] }));
-    const tags = [hidden && 'Hidden Talent', early && 'Early Peaker?', scout && 'Scout Live'].filter(Boolean);
+    const tags = [hidden && 'Hidden Talent', early && 'Early Peaker?', scout && 'Watch Live'].filter(Boolean);
     return {
       i, compFair: fair.comp[i], compUnadj: unadj.comp[i], compRaw: raw.comp[i],
       rawRank: rawRank[i], fairRank: fairRank[i], rankChange, rawScore: rawScoreV[i], fairScore: fairScore[i],

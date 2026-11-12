@@ -83,7 +83,7 @@ export default function Players() {
             <option value="all">All flags</option>
             <option value="hidden">Hidden talents</option>
             <option value="early">Early-peaker risk</option>
-            <option value="scout">Scout live</option>
+            <option value="scout">Watch live</option>
             {can('contracts') && <option value="release">Contract ends 2026/27</option>}
           </select>
           <Icon name="down" />

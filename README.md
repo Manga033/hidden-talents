@@ -52,7 +52,7 @@ Run the Python engine on the new Transfermarkt export, then sign in as sporting 
 
 - **Similar players:** 100 − average percentile gap over the four scored metrics (cosine similarity ignored magnitude, so a star and a fringe player with the same profile shape scored 100%).
 - **Confidence:** absolute bands by how much of the pool the likely rank range covers (High < ⅓, Medium < ⅔, Low otherwise) instead of thirds of the pool.
-- **Scout live:** top-15% upside *and* low confidence (data cannot place him yet).
+- **Watch live** (was Scout live): fair top 25% from fewer than 900 minutes. The old rule used the potential forecast, which tracks market value (rank correlation 0.97), so it listed the lowest-ranked players at big clubs.
 - **Strengths:** fair z (already shrunk) is no longer shrunk a second time.
 
 `npm run verify` re-runs the JavaScript engine against the export in `server/data/`.

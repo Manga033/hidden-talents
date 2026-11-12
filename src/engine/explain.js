@@ -80,6 +80,14 @@ export function reasonChips(ctx, i, max = 3, { marketValue = true } = {}) {
   return out.sort((a, b2) => b2.w - a.w).slice(0, max).map((x) => x.text);
 }
 
+// Only the reasons that support a high fair rank (on-pitch points first), for lists of players who rose.
+export function supportReasons(ctx, i, max = 2, opts) {
+  return reasonChips(ctx, i, 8, opts)
+    .filter((r) => !r.includes('−') && !r.startsWith('Only') && !r.startsWith('Born'))
+    .sort((x, y) => Number(y.includes('pts')) - Number(x.includes('pts')))
+    .slice(0, max);
+}
+
 // "Why does A rank above B?" — exact contribution differences, in score points.
 export function whyBetter(ctx, ia, ib) {
   const { base, res } = ctx;

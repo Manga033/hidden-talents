@@ -208,3 +208,17 @@ dialog .stack p{font-size:14px}
 .pager button:disabled{opacity:.35}
 .pager .icon{width:15px;height:15px}
 .pager-gap{color:var(--muted);padding:0 2px}
+
+/* Header: nav and user menu never touch; things fold away in steps as the window narrows. */
+.header-inner{gap:32px}
+.main-nav{flex:1 1 auto;min-width:0;justify-content:center;gap:clamp(14px,1.5vw,28px);margin-left:0}
+.main-nav a{white-space:nowrap}
+.header-tools{flex-shrink:0;margin-left:0}
+.user-text b,.user-text small{white-space:nowrap}
+@media(max-width:1600px){.main-nav a .icon{display:none}}
+@media(max-width:1500px){.user-text,.user-button>.icon{display:none}.user-button{padding:4px}}
+@media(max-width:1180px){.main-nav{justify-content:flex-start;gap:16px}.main-nav a{font-size:13px}}
+
+/* Profile: room between the name line and the tags under it */
+.profile-identity .tag-row{margin-top:14px}
+.profile-identity .player-meta{margin-top:2px}

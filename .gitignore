@@ -1,0 +1,7 @@
+node_modules/
+dist/
+server/users.json
+server/.session-secret
+server/data/backups/
+.claude/
+server/demo-users.json

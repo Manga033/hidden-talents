@@ -1,0 +1,5 @@
+[
+  { "username": "director", "name": "Sporting Director", "role": "director", "password": "change-me-director" },
+  { "username": "scout", "name": "Chief Scout", "role": "scout", "password": "change-me-scout" },
+  { "username": "coach", "name": "Head Coach", "role": "coach", "password": "change-me-coach" }
+]

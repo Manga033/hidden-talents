@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000" preserveAspectRatio="none">
+ <title>Minimal half-pitch in the perspective of the supplied drawing</title>
+ <metadata>One affine camera maps every boundary and position. White surface, six equally spaced grey cross-field lines, wine-red boundaries, halfway semicircle and a simple goal. No grass or stadium.</metadata>
+ <rect width="1800" height="1000" fill="#fff"/>
+ <path id="pitch-surface" d="M80,420 L1260,100 L1740,660 L560,980Z" fill="#f1f1f2"/>
+ <g id="alternating-grey-bands" fill="#e3e3e5">
+  <path d="M248.57,374.29 L417.14,328.57 L897.14,888.57 L728.57,934.29Z"/>
+  <path d="M585.71,282.86 L754.29,237.14 L1234.29,797.14 L1065.71,842.86Z"/>
+  <path d="M922.86,191.43 L1091.43,145.71 L1571.43,705.71 L1402.86,751.43Z"/>
+ </g>
+ <g id="grey-pitch-lines" fill="none" stroke="#b7b7bc" stroke-width="2.2" opacity=".85">
+  <path d="M248.57,374.29 L728.57,934.29"/>
+  <path d="M417.14,328.57 L897.14,888.57"/>
+  <path d="M585.71,282.86 L1065.71,842.86"/>
+  <path d="M754.29,237.14 L1234.29,797.14"/>
+  <path d="M922.86,191.43 L1402.86,751.43"/>
+  <path d="M1091.43,145.71 L1571.43,705.71"/>
+ </g>
+ <g fill="none" stroke="#8b1530" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">
+  <path id="half-pitch-boundary" d="M80.00,420.00 L1260.00,100.00 L1740.00,660.00 L560.00,980.00Z"/>
+  <path id="centre-semicircle" d="M255.41,624.65 L265.58,622.00 L275.88,619.54 L286.29,617.28 L296.77,615.21 L307.32,613.35 L317.89,611.70 L328.47,610.26 L339.03,609.04 L349.54,608.04 L359.98,607.25 L370.33,606.70 L380.55,606.36 L390.63,606.25 L400.54,606.37 L410.25,606.71 L419.75,607.28 L429.01,608.07 L438.00,609.08 L446.71,610.32 L455.11,611.76 L463.19,613.42 L470.93,615.29 L478.30,617.37 L485.29,619.64 L491.88,622.10 L498.05,624.76 L503.80,627.59 L509.10,630.60 L513.95,633.78 L518.34,637.11 L522.24,640.60 L525.66,644.23 L528.58,647.99 L531.00,651.88 L532.91,655.89 L534.31,660.00 L535.19,664.21 L535.55,668.50 L535.39,672.87 L534.72,677.31 L533.53,681.80 L531.82,686.34 L529.60,690.90 L526.88,695.49 L523.66,700.09 L519.95,704.69 L515.76,709.28 L511.09,713.85 L505.97,718.38 L500.39,722.87 L494.39,727.30 L487.96,731.67 L481.13,735.96 L473.91,740.16 L466.32,744.27 L458.37,748.27 L450.10,752.16 L441.51,755.92 L432.62,759.54 L423.47,763.02 L414.07,766.35 L404.44,769.52 L394.60,772.53 L384.59,775.35"/>
+  <path id="penalty-area" d="M1357.69,213.98 L986.84,314.55 L1271.45,646.59 L1642.31,546.02" stroke-width="1.8" opacity=".35"/>
+  <path id="goal-area" d="M1435.34,304.56 L1311.72,338.09 L1441.04,488.96 L1564.66,455.44" stroke-width="1.8" opacity=".35"/>
+ </g>
+ <circle id="centre-spot" cx="320" cy="700" r="3" fill="#8b1530"/>
+ <g id="goal" fill="none" stroke="#8b1530" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M1474.16,349.86 L1474.16,275.86 L1525.84,336.14 L1525.84,410.14" stroke-width="3.5"/>
+  <path d="M1474.16,275.86 L1500.16,262.86 L1551.84,323.14 L1525.84,336.14 M1500.16,262.86 L1500.16,336.86 L1551.84,397.14 L1525.84,410.14 M1551.84,397.14 L1551.84,323.14" stroke-width="1.8" opacity=".4"/>
+ </g>
+</svg>

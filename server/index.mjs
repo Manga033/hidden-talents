@@ -1,4 +1,4 @@
-// Hidden Talent server: login, role-based data, and the web app.
+// Scoutee server: login, role-based data, and the web app.
 //   node server/index.mjs --dev   development (Vite with hot reload)
 //   node server/index.mjs         production (serves dist/ after `npm run build`)
 import http from 'node:http';
@@ -154,4 +154,4 @@ http
     if (vite) vite.middlewares(req, res);
     else serveStatic(req, res);
   })
-  .listen(PORT, () => console.log(`Hidden Talent ${DEV ? '(dev)' : ''} on http://localhost:${PORT}`));
+  .listen(PORT, () => console.log(`Scoutee ${DEV ? '(dev)' : ''} on http://localhost:${PORT}`));

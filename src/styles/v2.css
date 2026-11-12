@@ -275,3 +275,19 @@ dialog .stack p{font-size:14px}
 .table-scroll{position:relative;max-width:100%}
 .sr-only{margin:-1px;padding:0;border:0;left:0;top:0}
 @media(max-width:1200px){.why-grid,.hidden-grid,.find-grid,.audit-row,.fc-row{grid-template-columns:minmax(0,1fr)!important}}
+
+/* Scoutee logo: one centred letter in the template's wine tile, gold dot top-right */
+.brand-link{display:flex;flex-shrink:0}
+.logo-mark{width:44px;height:44px;padding:0 0 5px;font-size:34px;letter-spacing:0;line-height:1;border-radius:6px 14px 6px 14px}
+.logo-mark i{right:8px;top:8px;width:6px;height:6px}
+.logo-word{display:flex;flex-direction:column;font-size:19px;font-weight:800;letter-spacing:1.5px;line-height:1}
+.logo-word .brand-light{display:inline;font-weight:400;margin-left:0}
+.logo-word>span.brand-light{display:inline}
+.logo-word small{font-size:10.5px;letter-spacing:2.6px;margin-top:6px;font-weight:600;color:var(--muted)}
+.lineup-card-brand{font-size:.3cqw!important;letter-spacing:.08cqw!important;left:auto!important;right:9%!important}
+.login-hero .logo-word{color:#fff}
+.login-hero .logo-word small{color:#deaeaf}
+.login-hero .logo-mark{background:#fff;color:var(--wine)}
+@media(max-width:680px){.logo-mark{width:38px;height:38px;font-size:29px}.logo-word{font-size:17px}.logo-word small{font-size:9.5px}}
+.logo-name{display:block;white-space:nowrap}
+.login-hero .logo-mark{width:56px;height:56px;font-size:44px;padding-bottom:6px}.login-hero .logo-mark i{width:7px;height:7px;right:9px;top:9px}.login-hero .logo-word{font-size:24px}.login-hero .logo-word small{font-size:12px}.login-hero .brand{gap:14px}

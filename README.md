@@ -1,4 +1,4 @@
-# Hidden Talent — fair, evidence-backed scouting
+# Scoutee — fair, evidence-backed scouting
 
 Web app for scouting U21 professionals fairly: every player gets a traditional rank (goals, assists, market value) and a fair rank (on-pitch impact with team strength taken into account), and every difference is explained with the numbers behind it.
 

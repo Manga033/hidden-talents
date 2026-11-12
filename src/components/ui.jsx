@@ -9,6 +9,23 @@ export const Icon = ({ name, className = '' }) => (
   </svg>
 );
 
+// Scoutee logo: wine tile with a single lowercase "s" and the gold dot, plus the two-weight wordmark.
+export function Logo({ tagline = 'SEE THE POTENTIAL.', className = '' }) {
+  return (
+    <span className={`brand ${className}`}>
+      <span className="brand-mark logo-mark" aria-hidden="true">
+        s<i />
+      </span>
+      <span className="logo-word">
+        <span className="logo-name">
+          SCOUT<span className="brand-light">EE</span>
+        </span>
+        {tagline && <small>{tagline}</small>}
+      </span>
+    </span>
+  );
+}
+
 // Country flag (flag-icons, 4:3). Falls back to nothing when the country is unknown.
 export function Flag({ country, className = '' }) {
   const code = flagCode(country);

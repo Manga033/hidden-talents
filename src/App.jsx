@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScout } from './store.jsx';
-import { Dialog, Empty, Icon, Notice } from './components/ui.jsx';
+import { Dialog, Empty, Icon, Logo, Notice } from './components/ui.jsx';
 import Home from './pages/Home.jsx';
 import Players from './pages/Players.jsx';
 import Profile from './pages/Profile.jsx';
@@ -117,15 +117,8 @@ function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <a className="brand" href="#home" aria-label="Hidden Talent home">
-          <span className="brand-mark">
-            h<span>t</span>
-            <i />
-          </span>
-          <span>
-            HIDDEN<span className="brand-light">TALENT</span>
-            <small>SEE THE POTENTIAL.</small>
-          </span>
+        <a className="brand-link" href="#home" aria-label="Scoutee home">
+          <Logo />
         </a>
         <nav className="main-nav" aria-label="Main navigation">
           {NAV.filter(([to]) => allowed(to)).map(([to, label, icon]) => (
@@ -148,7 +141,7 @@ export default function App() {
   const { user, ready, error, route, toastMsg, byId, allowed } = useScout();
   useEffect(() => {
     const p = route.page === 'player' ? byId[route.id] : null;
-    document.title = user ? `${p ? p.name : TITLES[route.page] || 'Discover'} — Hidden Talent` : 'Sign in — Hidden Talent';
+    document.title = user ? `${p ? p.name : TITLES[route.page] || 'Discover'} — Scoutee` : 'Sign in — Scoutee';
   }, [route, byId, user]);
 
   if (user === undefined) return <div className="loading" role="status"><span className="loader" /> Loading…</div>;
@@ -195,7 +188,7 @@ export default function App() {
       <footer className="site-footer">
         <div className="footer-inner">
           <a className="footer-brand" href="#home">
-            HIDDEN TALENT<span>See the player. Prove the potential.</span>
+            SCOUTEE<span>See the player. Prove the potential.</span>
           </a>
           <span>U21 professionals · season 2025/26 · Transfermarkt open data</span>
           <small>DECISION SUPPORT · THE SCOUT DECIDES</small>

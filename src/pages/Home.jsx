@@ -22,7 +22,7 @@ function LineupCard({ slot, isNew }) {
         <div className="lineup-card-inner">
           <span className="lineup-card-geometry" />
           <span className="lineup-position">{slot.label || slot.pos}</span>
-          <span className="lineup-card-brand">HT</span>
+          <span className="lineup-card-brand">SCOUTEE</span>
           <Portrait p={p} className="lineup-face" />
           <div className="lineup-card-shade" />
           <div className="lineup-identity">

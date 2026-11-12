@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useScout } from '../store.jsx';
-import { Icon } from '../components/ui.jsx';
+import { Icon, Logo } from '../components/ui.jsx';
 import { ROLES } from '../auth/roles.js';
 
 export default function Login() {
@@ -23,16 +23,7 @@ export default function Login() {
   return (
     <div className="login-page">
       <section className="login-hero">
-        <div className="brand">
-          <span className="brand-mark">
-            h<span>t</span>
-            <i />
-          </span>
-          <span>
-            HIDDEN<span className="brand-light">TALENT</span>
-            <small>SEE THE POTENTIAL.</small>
-          </span>
-        </div>
+        <Logo />
         <span className="eyebrow">FAIR SCOUTING · U21 PROFESSIONALS</span>
         <h1>
           Find the player <em>the list missed.</em>

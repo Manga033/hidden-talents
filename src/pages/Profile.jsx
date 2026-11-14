@@ -2,8 +2,11 @@ import { useMemo } from 'react';
 import { useScout } from '../store.jsx';
 import { ConfidencePill, Empty, FavButton, Flag, Icon, Notice, Panel, Portrait, RankMove, Tag, tagsOf } from '../components/ui.jsx';
 import { C, Radar, RankInterval } from '../components/charts.jsx';
-import { GROUP_NAME, METRICS, SHORT } from '../engine/constants.js';
-import { fmt2, money, plainFact, reasonChips } from '../engine/explain.js';
+import { CATEGORY_LABELS, GROUP_NAME, money, supportReasons } from '../model/v3.js';
+
+const METRICS = ['scoring', 'creation', 'progression', 'retention', 'defending', 'pressing', 'aerial', 'physical', 'availability'];
+const SHORT = CATEGORY_LABELS;
+const fmt2 = (v) => Number(v).toFixed(2);
 
 const SPOT = { GK: [50, 91], CB: [50, 78], LB: [18, 72], RB: [82, 72], DM: [50, 62], CM: [50, 50], AM: [50, 37], LW: [18, 25], RW: [82, 25], ST: [50, 18] };
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -14,9 +17,9 @@ const dateLabel = (s) => {
 };
 
 export default function Profile({ id }) {
-  const { byId, players, ctx, base, notes, setNote, favs, toggleFav, addToCompare, can, allowed } = useScout();
+  const { byId, players, notes, setNote, favs, toggleFav, addToCompare, can, allowed } = useScout();
   const p = byId[id];
-  const ordered = useMemo(() => [...players].sort((a, b) => a.fairRank - b.fairRank), [players]);
+  const ordered = useMemo(() => players.filter((x) => x.grp === p?.grp).sort((a, b) => a.fairRank - b.fairRank), [players, p?.grp]);
   if (!p) {
     return (
       <Empty title="This player is not in the current data." action={<a className="button" href="#players">Back to all players</a>}>
@@ -24,17 +27,22 @@ export default function Profile({ id }) {
       </Empty>
     );
   }
-  const N = players.length;
+  const N = p.positionCount;
   const idx = ordered.findIndex((x) => x.id === p.id);
   const prev = ordered[idx - 1];
   const next = ordered[idx + 1];
   const tags = tagsOf(p);
   const saved = favs.includes(p.id);
-  const radarAxes = ['G+A', 'Attack', 'Defence', 'Big games', 'Discipline'];
-  const pct = METRICS.map((m) => base.pct[p.i][m] * 100);
-  const sim = base.similar[p.i].map((s) => ({ ...s, q: players[s.index] }));
-  const why = reasonChips(ctx, p.i, 4, { marketValue: can('marketValue') });
-  const per90 = p.minutes ? (p.ga / p.minutes) * 90 : 0;
+  const radarKeys = METRICS.filter((m) => p.categories[m]?.weight > 0).slice(0, 6);
+  const radarAxes = radarKeys.map((m) => SHORT[m]);
+  const pct = radarKeys.map((m) => p.categories[m]?.score || 50);
+  const sim = players.filter((x) => x.grp === p.grp && x.id !== p.id).map((q) => {
+    const distance = Math.sqrt(radarKeys.reduce((sum, m) => sum + ((p.categories[m]?.score || 50) - (q.categories[m]?.score || 50)) ** 2, 0) / radarKeys.length);
+    return { q, id: q.id, similarity: Math.max(0, Math.round(100 - distance)) };
+  }).sort((a,b) => b.similarity-a.similarity).slice(0, 3);
+  const why = supportReasons(p, 4);
+  const per90 = p.minutes ? ((p.goals + p.assists) / p.minutes) * 90 : 0;
+  const avgElo = players.reduce((s, x) => s + x.teamElo, 0) / players.length;
 
   return (
     <div className="fade-in profile">
@@ -119,14 +127,14 @@ export default function Profile({ id }) {
               <small>Fair rank · {GROUP_NAME[p.grp].toLowerCase()}s</small>
               <strong>#{p.posRank}</strong>
               <span className="range">
-                of {p.posCount} · #{p.fairRank} of {N} overall
+                of {p.posCount} in his position
               </span>
             </div>
             <div className="score-box potential">
               <small>Traditional rank · {GROUP_NAME[p.grp].toLowerCase()}s</small>
               <strong>#{p.rawPosRank}</strong>
               <span className="range">
-                #{p.rawRank} overall · <RankMove d={p.rankChange} />
+                of {p.posCount} · <RankMove d={p.rankChange} />
               </span>
             </div>
           </div>
@@ -166,7 +174,7 @@ export default function Profile({ id }) {
       <div className="profile-columns">
         <Panel title="Key metrics" right={<small>PERCENTILE IN POSITION</small>}>
           {METRICS.map((m) => {
-            const v = Math.round(base.pct[p.i][m] * 100);
+            const v = Math.round(p.categories[m]?.score || 50);
             return (
               <div key={m} className={`attribute-row fact ${m === 'big90' ? 'dim' : ''}`}>
                 <span className="attribute-name">{SHORT[m]}</span>
@@ -174,7 +182,7 @@ export default function Profile({ id }) {
                   <i style={{ width: `${Math.max(3, v)}%`, background: v >= 75 ? C.wine : v >= 50 ? C.gold : '#b9b3b5' }} />
                 </div>
                 <strong className="attribute-ovr">{v}</strong>
-                <p className="fact-text">{plainFact(ctx, p.i, m)}</p>
+                <p className="fact-text">{Math.round((p.categories[m]?.weight || 0) * 100)}% role weight · {Math.round((p.categories[m]?.reliability || 0) * 100)}% reliability</p>
               </div>
             );
           })}
@@ -198,10 +206,10 @@ export default function Profile({ id }) {
             Likely fair rank: between <b>#{Math.round(p.rankLow)}</b> and <b>#{Math.round(p.rankHigh)}</b>. {p.minutes < 900 ? 'Few minutes so far, so the range is wide.' : ''}
           </p>
           <div className="robust">
-            <strong>{Math.round(p.robust * 100)}%</strong>
-            <span>chance of being a top-10 player whatever a club prioritises (goals, attack, defence or discipline).</span>
+            <strong>{Math.round(p.confValue * 100)}%</strong>
+            <span>model confidence after minutes, event coverage and measurement reliability are considered.</span>
           </div>
-          {(p.grp === 'DEF' || p.grp === 'GK') && <p className="small-text">Goal-based data says little about defending, so the ranks of defenders and goalkeepers are less certain than those of attacking players.</p>}
+          {(p.grp === 'DEF' || p.grp === 'GK') && <p className="small-text">Defenders and goalkeepers use their own role models, rather than being judged mainly by goals and assists.</p>}
           {p.scout && <p className="small-text">Top-25% numbers from only {p.minutes.toLocaleString('en')} minutes. Watch him live.</p>}
         </Panel>
       </div>
@@ -235,7 +243,7 @@ export default function Profile({ id }) {
               <tr>
                 <td>Strength of his team (Elo rating)</td>
                 <td className="r num">
-                  {Math.round(p.teamElo)} <small className="muted">· average {Math.round(base.adj.eloMean)}</small>
+                  {Math.round(p.teamElo)} <small className="muted">· average {Math.round(avgElo)}</small>
                 </td>
               </tr>
               <tr>

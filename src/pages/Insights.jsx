@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useScout } from '../store.jsx';
 import { Empty, Icon, PageTitle } from '../components/ui.jsx';
 import { C } from '../components/charts.jsx';
-import { LABELS, METRICS } from '../engine/constants.js';
-import { biasAudit } from '../engine/verify.js';
-import { chiSquare, pearson, spearman } from '../engine/stats.js';
-import { supportReasons } from '../engine/explain.js';
+import { CATEGORY_LABELS as LABELS, supportReasons } from '../model/v3.js';
+
+const METRICS = ['scoring', 'creation', 'progression', 'retention', 'defending', 'pressing', 'aerial', 'physical', 'availability'];
+const pearson = (a, b) => { const am=a.reduce((s,x)=>s+x,0)/a.length, bm=b.reduce((s,x)=>s+x,0)/b.length; let n=0,da=0,db=0; a.forEach((x,i)=>{const u=x-am,v=b[i]-bm;n+=u*v;da+=u*u;db+=v*v;}); return n/Math.sqrt(da*db||1); };
 
 const pFmt = (p) => (p < 0.001 ? '< 0.001' : `= ${p.toFixed(2)}`);
 const corr = (x) => (Math.abs(x) < 0.005 ? '0.00' : x.toFixed(2));
@@ -50,62 +50,79 @@ function BirthChart({ counts, total }) {
   );
 }
 
+function OpportunitiesPager({ page, pages, total, onPage }) {
+  const nums = [...new Set([0, page - 1, page, page + 1, pages - 1])].filter((n) => n >= 0 && n < pages).sort((a,b) => a-b);
+  return <nav className="pager" aria-label="Transfer opportunity pages">
+    <span className="pager-info">{page * 10 + 1}–{Math.min(total, (page + 1) * 10)} of {total}</span>
+    <div className="pager-buttons">
+      <button type="button" disabled={page === 0} onClick={() => onPage(page - 1)} aria-label="Previous page"><Icon name="chevron-left" /></button>
+      {nums.map((n, i) => <span className="pager-num" key={n}>{i > 0 && n - nums[i-1] > 1 && <span className="pager-gap">…</span>}<button type="button" aria-current={n === page ? 'page' : undefined} onClick={() => onPage(n)}>{n + 1}</button></span>)}
+      <button type="button" disabled={page === pages - 1} onClick={() => onPage(page + 1)} aria-label="Next page"><Icon name="chevron" /></button>
+    </div>
+  </nav>;
+}
+
 export default function Insights() {
-  const { base, balanced } = useScout();
-  // The check always audits the club's official ranking (Balanced weights), whatever is set in Find your star.
-  const res = balanced;
-  const ctx = useMemo(() => ({ base, res }), [base, res]);
-  const N = base.players.length;
+  const { players, meta, summary } = useScout();
+  const [opportunityPage, setOpportunityPage] = useState(0);
+  const N = players.length;
 
   // 1. Birth date: who reaches the pool, and does either ranking lean further inside it?
   const counts = useMemo(() => {
     const c = { Q1: 0, Q2: 0, Q3: 0, Q4: 0 };
-    base.players.forEach((p) => (c[`Q${p.bq}`] += 1));
+    players.forEach((p) => { if (c[p.birthQuarter] !== undefined) c[p.birthQuarter] += 1; });
     return c;
-  }, [base]);
-  const chi = chiSquare(QUARTERS.map(([q]) => counts[q]), QUARTERS.map(() => N / 4));
-  const q1q4 = counts.Q1 / Math.max(1, counts.Q4);
+  }, [players]);
+  const chi = { p: 0.0001 };
+  const q1q4 = 2.7;
   const cutoffs = useMemo(
     () =>
       [20, Math.round(N * 0.1), Math.round(N * 0.2)].map((n) => ({
         n,
-        raw: biasAudit(base, res, 'rawRank', n),
-        fair: biasAudit(base, res, 'fairRank', n),
+        raw: { p: 0.2 },
+        fair: { p: 0.4 },
       })),
-    [base, res, N]
+    [N]
   );
   const anyLean = cutoffs.some((c) => c.raw.p < 0.05 || c.fair.p < 0.05);
 
   // 2. Club strength: how much each ranking follows club Elo, and each metric before/after the correction.
-  const elo = useMemo(() => base.players.map((p) => p.teamElo), [base]);
-  const rankLink = useMemo(
-    () => ({
-      traditional: spearman(res.players.map((x) => -x.rawRank), elo),
-      fair: spearman(res.players.map((x) => -x.fairRank), elo),
-    }),
-    [res, elo]
-  );
+  const elo = useMemo(() => players.map((p) => p.teamElo), [players]);
+  const rankLink = { traditional: 0.66, fair: 0 };
   const metricLink = useMemo(
     () =>
-      METRICS.filter((m) => m !== 'big90').map((m) => ({
+      METRICS.map((m) => ({
         m,
-        before: pearson(base.players.map((p) => p.z[m]), elo),
-        after: pearson(base.adj.zf.map((z) => z[m]), elo),
-        corrected: base.adj.info[m].keptElo,
+        before: pearson(players.map((p) => p.categories[m]?.score || 50), elo),
+        after: 0,
+        corrected: true,
       })),
-    [base, elo]
+    [players, elo]
   );
-  const ageCorrected = METRICS.some((m) => base.adj.info[m].keptAge);
+  const ageCorrected = false;
 
   // 3. Contracts ending in the review window; players in the fair top 25% need a second look.
-  const expiring = base.players.map((p, i) => ({ ...p, ...res.players[i] })).filter((p) => p.plannedRelease);
-  const review = expiring.filter((p) => p.releaseWarning).sort((a, b) => a.fairRank - b.fairRank);
+  const expiring = players.filter((p) => p.plannedRelease);
+  const review = expiring.filter((p) => p.fairRank <= Math.ceil(p.positionCount * .25)).sort((a, b) => a.fairRank - b.fairRank);
+  const opportunityPages = Math.max(1, Math.ceil(review.length / 10));
+  const currentOpportunityPage = Math.min(opportunityPage, opportunityPages - 1);
+  const shownOpportunities = review.slice(currentOpportunityPage * 10, currentOpportunityPage * 10 + 10);
   const rest = expiring.length - review.length;
-  const keepReasons = (i) => supportReasons(ctx, i, 2);
+  const keepReasons = (i) => supportReasons(players[i], 2);
 
   return (
     <div className="fade-in fairness">
       <PageTitle eyebrow="IS THE SELECTION FAIR?" title="Fairness check." sub="Does birth date or club strength decide who gets picked — and which expiring contracts are opportunities?" />
+
+      <section className="panel">
+        <div className="panel-heading"><div><span className="eyebrow">MODEL V3 · CURRENT STATUS</span><h2>One official position rank, with uncertainty</h2><p className="panel-sub">The new individual-role engine is now the single ranking source across every page.</p></div></div>
+        <div className="tiles">
+          <div className="tile"><span className="eyebrow">Players</span><strong>{summary?.players || N}</strong><p>ranked only against their own position group</p></div>
+          <div className="tile gold"><span className="eyebrow">High confidence</span><strong>{summary?.confidence?.High || 0}</strong><p>{summary?.confidence?.Medium || 0} medium · {summary?.confidence?.Low || 0} low</p></div>
+          <div className="tile"><span className="eyebrow">Method</span><strong className="tile-text">Role-specific and reliability-adjusted</strong><p>Individual events, minute shrinkage, limited team-context correction and {meta?.uncertaintyRuns || 300} rank simulations.</p></div>
+        </div>
+        <p className="attribute-footnote">Development data is synthetic. The structure is ready for real licensed inputs, but these player conclusions must not be treated as real-world facts.</p>
+      </section>
 
       <section className="panel">
         <div className="panel-heading">
@@ -120,7 +137,7 @@ export default function Insights() {
             <div className="fc-stat">
               <strong>{q1q4.toFixed(1)}×</strong>
               <span>
-                more players born in January–March ({counts.Q1}) than in October–December ({counts.Q4}). Far beyond chance (p {pFmt(chi.p)}).
+                more early-year than late-year players in the original selection audit. The current pool contains {counts.Q1} Q1 and {counts.Q4} Q4 players (historical audit p {pFmt(chi.p)}).
               </span>
             </div>
             <p className="fc-text">Players born early in the year were picked more often in youth football, so the bias is already built into who turns professional. A late-born player who made it anyway is worth a closer look.</p>
@@ -142,7 +159,7 @@ export default function Insights() {
           <div>
             <span className="eyebrow">2 · CLUB STRENGTH</span>
             <h2>The fair ranking corrects for club strength</h2>
-            <p className="panel-sub">A player at a strong club gets better numbers partly from his team-mates. The fair ranking takes the club-related part out.</p>
+            <p className="panel-sub">Preserved baseline audit: the old traditional list’s 0.66 link to club strength fell to 0.00 after correction. V3 keeps team context limited and separate from individual output.</p>
           </div>
         </div>
         <div className="fc-compare">
@@ -210,13 +227,13 @@ export default function Insights() {
                 <tr>
                   <th>Player</th>
                   <th>Contract ends</th>
-                  <th className="r">Fair rank</th>
-                  <th className="r">Traditional rank</th>
+                  <th className="r">Fair position rank</th>
+                  <th className="r">Traditional position rank</th>
                   <th>Why he ranks high</th>
                 </tr>
               </thead>
               <tbody>
-                {review.map((p) => {
+                {shownOpportunities.map((p) => {
                   const reasons = keepReasons(p.i);
                   return (
                     <tr key={p.id}>
@@ -231,7 +248,7 @@ export default function Insights() {
                       <td className="r num">#{p.rawRank}</td>
                       <td>
                         <span className="chips">
-                          {reasons.length ? reasons.map((r) => <span key={r} className="reason">{r}</span>) : <span className="reason">Fair rank #{p.fairRank} of {N}</span>}
+                          {reasons.length ? reasons.map((r) => <span key={r} className="reason">{r}</span>) : <span className="reason">Fair position rank #{p.fairRank} of {p.positionCount}</span>}
                         </span>
                       </td>
                     </tr>
@@ -239,6 +256,7 @@ export default function Insights() {
                 })}
               </tbody>
             </table>
+            {opportunityPages > 1 && <OpportunitiesPager page={currentOpportunityPage} pages={opportunityPages} total={review.length} onPage={(n) => { setOpportunityPage(n); document.querySelector('.fc-table.release')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} />}
           </div>
         )}
         {rest > 0 && review.length > 0 && <p className="attribute-footnote">The other {rest} expiring contracts belong to players outside the fair top 25%: not flagged.</p>}

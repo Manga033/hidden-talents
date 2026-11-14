@@ -5,13 +5,15 @@ E=pickle.load(open(OUT+'elo.pkl','rb')); club_league=E['club_league']; R=E['R']
 pg=pd.read_pickle(OUT+'player_games.pkl')
 pg=pg[pg.minutes_played>0].copy()
 pg['yc']=pg.yellow_cards; pg['rc']=pg.red_cards
-pg['mbig']=np.where(pg.big,pg.minutes_played,0); pg['rbig']=np.where(pg.big,pg.res_tot,0)
+if 'event_minutes' not in pg: pg['event_minutes']=np.where(pg.has_ev,pg.minutes_played,0)
+pg['mbig']=np.where(pg.big,pg.event_minutes,0); pg['rbig']=np.where(pg.big,pg.res_tot,0)
 pg['min_x_team']=pg.minutes_played*pg.team_elo; pg['min_x_opp']=pg.minutes_played*pg.opp_elo
 # main club per player-season
 mc=pg.groupby(['player_id','season','player_club_id']).minutes_played.sum().reset_index().sort_values('minutes_played',ascending=False)
 main=mc.drop_duplicates(['player_id','season']).rename(columns={'player_club_id':'club_id'})[['player_id','season','club_id']]
 ncl=mc.groupby(['player_id','season']).size().rename('n_clubs').reset_index()
 ps=pg.groupby(['player_id','season']).agg(minutes=('minutes_played','sum'),apps=('game_id','nunique'),starts=('starter','sum'),
+    event_minutes=('event_minutes','sum'),
     goals=('goals','sum'),assists=('assists','sum'),yellow=('yc','sum'),red=('rc','sum'),
     res_off=('res_off','sum'),res_def=('res_def','sum'),res_tot=('res_tot','sum'),rbig=('rbig','sum'),mbig=('mbig','sum'),
     mxt=('min_x_team','sum'),mxo=('min_x_opp','sum'),first=('date','min'),last=('date','max')).reset_index()

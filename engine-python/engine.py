@@ -12,6 +12,7 @@ def prep(ps,season,max_age=21.0,min_minutes=450):
     d=ps[(ps.season==season)&(ps.age<max_age)&(ps.minutes>=min_minutes)&ps.dob.notna()&ps.team_games.notna()].copy()
     d['grp']=d.position.map(GROUPS); d=d[d.grp.notna()].copy()
     d['m90']=d.minutes/90; d['ga']=d.goals+d.assists
+    d['event_m90']=(d.event_minutes/90 if 'event_minutes' in d else d.m90)
     return d.reset_index(drop=True)
 # variance components estimated from 2015-2025 player-seasons (step4b_shrink.py): shrinkage k (in 90s) and true-talent variance tau2
 K={'ga90':{'DEF':12.4,'FWD':10.8,'MID':5.1,'GK':36.3},'off90':{'DEF':65.6,'FWD':110.4,'MID':57.2,'GK':542.7},
@@ -25,7 +26,7 @@ def metrics(d):
         sub=d.loc[idx]; mu=sub.ga.sum()/sub.m90.sum(); mc=(sub.yellow+2*sub.red).sum()/sub.m90.sum()
         d.loc[idx,'ga90']=(sub.ga+K['ga90'][g]*mu)/(sub.m90+K['ga90'][g])
         d.loc[idx,'disc90']=-((sub.yellow+2*sub.red)+K['disc90'][g]*mc)/(sub.m90+K['disc90'][g])
-        d.loc[idx,'off90']=sub.res_off/(sub.m90+K['off90'][g]); d.loc[idx,'def90']=sub.res_def/(sub.m90+K['def90'][g])
+        d.loc[idx,'off90']=sub.res_off/(sub.event_m90+K['off90'][g]); d.loc[idx,'def90']=sub.res_def/(sub.event_m90+K['def90'][g])
     d['big90']=d.rbig/(d.mbig/90+40)
     return d
 def zscores(d):

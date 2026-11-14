@@ -3,13 +3,12 @@ import { useScout } from '../store.jsx';
 import ModelNotice from '../components/ModelNotice.jsx';
 import { ConfidencePill, Empty, Flag, Icon, PageTitle, Panel, Portrait } from '../components/ui.jsx';
 import { RankScatter } from '../components/charts.jsx';
-import { RULES } from '../engine/constants.js';
-import { rawBreakdown } from '../engine/engine.js';
-import { money, signed, supportReasons } from '../engine/explain.js';
-import { median } from '../engine/stats.js';
+import { RULES, money, supportReasons } from '../model/v3.js';
+
+const median = (xs) => { const a = [...xs].sort((x,y) => x-y); return a.length ? (a[(a.length-1)>>1] + a[a.length>>1]) / 2 : 0; };
 
 export default function HiddenTalents() {
-  const { players, nm, navigate, ctx, base, res } = useScout();
+  const { players, nm, navigate } = useScout();
   const [allPeakers, setAllPeakers] = useState(false);
   const risers = useMemo(() => players.filter((p) => p.hidden).sort((a, b) => a.fairRank - b.fairRank), [players]);
   const peakers = useMemo(() => players.filter((p) => p.early).sort((a, b) => a.rawRank - b.rawRank), [players]);
@@ -30,7 +29,7 @@ export default function HiddenTalents() {
       mins: [mins(risers), mins(others)],
       q34: risers.filter((p) => p.bq >= 3).length,
     };
-  }, [players, risers, base, res]);
+  }, [players, risers]);
 
   return (
     <div className="fade-in">
@@ -85,7 +84,7 @@ export default function HiddenTalents() {
                       </span>
                     </span>
                     <span className="chips">
-                      {supportReasons(ctx, p.i, 3).map((r) => (
+                      {supportReasons(p, 3).map((r) => (
                         <span key={r} className="reason">{r}</span>
                       ))}
                     </span>
@@ -110,7 +109,7 @@ export default function HiddenTalents() {
                     <th className="r">Traditional #</th>
                     <th className="r">Fair #</th>
                     <th className="r">Value</th>
-                    <th className="r">From value</th>
+                    <th className="r">Traditional score</th>
                     <th className="r">Minutes</th>
                   </tr>
                 </thead>
@@ -123,7 +122,7 @@ export default function HiddenTalents() {
                       <td className="r num">{p.rawRank}</td>
                       <td className="r num neg">{p.fairRank}</td>
                       <td className="r num">{money(p.valueEnd)}</td>
-                      <td className="r num">{signed(rawBreakdown(base, res, p.i).value)}</td>
+                      <td className="r num">{p.rawScore}</td>
                       <td className="r num">{p.minutes.toLocaleString('en')}</td>
                     </tr>
                   ))}
@@ -138,7 +137,7 @@ export default function HiddenTalents() {
               )}
             </div>
           )}
-          <p className="attribute-footnote">"From value" = how many points of his traditional score come from his market value alone. A big number with a low fair rank means the list is paying for reputation.</p>
+          <p className="attribute-footnote">The traditional score combines visible goals and assists with market value. Market value is never used in the v3 ability score.</p>
         </Panel>
         <Panel title="Watch live" sub={RULES.scout}>
           {!watch.length ? (

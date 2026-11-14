@@ -1,0 +1,234 @@
+availability_id,player_id,start_date,end_date,status,reason,days_unavailable,matches_missed,data_origin,synthetic_fields
+A816585-1,816585,2025-08-19,2025-09-01,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1074053-1,1074053,2025-08-02,2025-08-11,Injury,Adductor,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A897424-1,897424,2025-12-11,2025-12-26,Suspension,Suspension,15,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A937958-1,937958,2025-11-27,2026-01-01,Injury,Knee,35,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A598491-1,598491,2025-10-19,2025-11-09,Suspension,Suspension,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A720286-1,720286,2026-02-07,2026-04-01,Injury,Muscle fatigue,53,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A927353-1,927353,2026-03-16,2026-03-21,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1168219-1,1168219,2025-12-16,2026-01-31,Injury,Adductor,46,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A745284-1,745284,2025-12-28,2026-01-10,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A984540-1,984540,2026-01-27,2026-02-15,Suspension,Suspension,19,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1054839-1,1054839,2025-12-07,2025-12-13,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1310437-1,1310437,2026-01-27,2026-02-04,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A943795-1,943795,2026-01-13,2026-02-23,Injury,Muscle fatigue,41,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A937680-1,937680,2025-11-23,2025-12-28,Injury,Ankle,35,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1017261-1,1017261,2025-12-05,2025-12-16,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1380311-1,1380311,2025-12-08,2025-12-17,Injury,Adductor,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A780136-1,780136,2025-12-07,2026-01-22,Injury,Knee,46,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1012421-1,1012421,2026-01-10,2026-01-15,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1045344-1,1045344,2026-04-01,2026-04-17,Injury,Knee,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A971570-1,971570,2025-08-11,2025-08-21,Injury,Knee,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A859035-1,859035,2026-02-10,2026-03-22,Injury,Knee,40,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1056993-1,1056993,2025-12-13,2025-12-23,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1056993-2,1056993,2025-08-18,2025-09-10,Injury,Muscle fatigue,23,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A744728-1,744728,2026-02-19,2026-03-02,Suspension,Suspension,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A822959-1,822959,2026-04-01,2026-05-12,Injury,Hamstring,41,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A890719-1,890719,2025-12-28,2026-02-16,Injury,Ankle,50,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A895937-1,895937,2025-12-19,2025-12-25,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1249173-1,1249173,2026-03-23,2026-03-31,Injury,Muscle fatigue,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A985544-1,985544,2026-03-03,2026-03-16,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1160814-1,1160814,2025-12-25,2026-01-03,Injury,Muscle fatigue,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A682568-1,682568,2025-10-16,2025-10-21,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A898807-1,898807,2025-10-08,2025-11-08,Injury,Adductor,31,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A816974-1,816974,2026-02-12,2026-02-26,Suspension,Suspension,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1208182-1,1208182,2026-03-05,2026-04-23,Injury,Muscle fatigue,49,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1285174-1,1285174,2026-03-20,2026-04-01,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A743122-1,743122,2025-10-12,2025-10-19,Injury,Muscle fatigue,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A923838-1,923838,2025-08-17,2025-08-25,Illness,Illness,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A891835-1,891835,2025-11-14,2025-11-20,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A885226-1,885226,2025-08-13,2025-09-08,Injury,Knee,26,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A948278-1,948278,2026-03-18,2026-04-05,Injury,Hamstring,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1075793-1,1075793,2025-08-21,2025-08-31,Injury,Ankle,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1230661-1,1230661,2025-09-28,2025-10-20,Injury,Hamstring,22,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A719209-1,719209,2025-09-10,2025-09-23,Injury,Muscle fatigue,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1073397-1,1073397,2025-09-12,2025-09-27,Injury,Adductor,15,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1078350-1,1078350,2026-02-18,2026-04-01,Injury,Hamstring,42,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1228317-1,1228317,2025-12-09,2026-02-13,Injury,Hamstring,66,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1105547-1,1105547,2025-12-19,2025-12-25,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1145504-1,1145504,2025-09-01,2025-09-04,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1111776-1,1111776,2025-09-05,2025-09-17,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1111776-2,1111776,2026-02-17,2026-02-26,Illness,Illness,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A875294-1,875294,2025-09-08,2025-10-10,Injury,Muscle fatigue,32,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1052493-1,1052493,2026-01-12,2026-03-06,Injury,Hamstring,53,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1219849-1,1219849,2026-02-16,2026-04-13,Injury,Knee,56,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1191154-1,1191154,2025-09-26,2025-10-04,Injury,Muscle fatigue,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A926988-1,926988,2025-08-07,2025-08-14,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1146228-1,1146228,2026-04-13,2026-05-01,Suspension,Suspension,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A932187-1,932187,2026-03-07,2026-03-17,Suspension,Suspension,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A932187-2,932187,2026-03-10,2026-03-21,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A930781-1,930781,2025-11-11,2026-01-17,Injury,Ankle,67,10,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1047097-1,1047097,2025-11-12,2025-12-23,Injury,Knee,41,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A948938-1,948938,2026-03-25,2026-04-29,Injury,Muscle fatigue,35,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A948938-2,948938,2025-11-01,2025-11-22,Suspension,Suspension,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A918332-1,918332,2025-09-05,2025-09-16,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A777005-1,777005,2025-11-05,2025-11-12,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A802547-1,802547,2025-09-13,2025-11-01,Injury,Knee,49,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1321322-1,1321322,2026-01-30,2026-03-21,Injury,Knee,50,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A927970-1,927970,2025-08-22,2025-10-13,Injury,Ankle,52,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1095107-1,1095107,2025-09-06,2025-11-04,Injury,Muscle fatigue,59,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A895905-1,895905,2025-10-22,2025-12-13,Injury,Ankle,52,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A918824-1,918824,2025-11-28,2025-12-09,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1047109-1,1047109,2026-04-07,2026-04-19,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1047109-2,1047109,2025-12-29,2026-01-13,Suspension,Suspension,15,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1076039-1,1076039,2026-02-08,2026-02-18,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1200427-1,1200427,2025-09-01,2025-09-28,Injury,Hamstring,27,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1129198-1,1129198,2026-03-06,2026-04-02,Injury,Muscle fatigue,27,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A951579-1,951579,2025-09-12,2025-09-20,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1073748-1,1073748,2025-08-01,2025-08-07,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A920585-1,920585,2026-02-15,2026-02-25,Suspension,Suspension,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A900909-1,900909,2026-04-10,2026-04-17,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1189172-1,1189172,2025-09-29,2025-12-01,Injury,Adductor,63,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1037971-1,1037971,2025-12-28,2026-01-03,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1053206-1,1053206,2025-12-31,2026-01-08,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1228231-1,1228231,2026-01-07,2026-01-18,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A933017-1,933017,2026-04-16,2026-04-29,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1428464-1,1428464,2026-01-19,2026-02-04,Injury,Ankle,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1428464-2,1428464,2025-10-25,2025-11-04,Suspension,Suspension,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A925401-1,925401,2025-08-24,2025-08-27,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A741580-1,741580,2026-02-20,2026-03-08,Suspension,Suspension,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1084714-1,1084714,2026-02-26,2026-04-22,Injury,Muscle fatigue,55,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A729011-1,729011,2025-09-26,2025-10-17,Injury,Knee,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A729011-2,729011,2025-08-29,2025-09-19,Injury,Adductor,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A738516-1,738516,2025-10-16,2025-11-05,Suspension,Suspension,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A738516-2,738516,2026-03-04,2026-03-09,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A909254-1,909254,2026-04-06,2026-05-15,Injury,Knee,39,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1186563-1,1186563,2026-01-01,2026-01-15,Suspension,Suspension,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A917457-1,917457,2025-11-20,2025-12-08,Suspension,Suspension,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A775981-1,775981,2025-10-02,2025-10-22,Suspension,Suspension,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1263687-1,1263687,2025-11-12,2025-11-28,Injury,Adductor,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1301775-1,1301775,2026-04-01,2026-04-16,Injury,Knee,15,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1301775-2,1301775,2025-08-22,2025-09-17,Injury,Ankle,26,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A651580-1,651580,2025-12-25,2026-01-06,Injury,Ankle,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A651580-2,651580,2025-12-09,2025-12-29,Injury,Adductor,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1191444-1,1191444,2026-04-03,2026-04-20,Injury,Adductor,17,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A819566-1,819566,2026-01-17,2026-01-26,Illness,Illness,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A796300-1,796300,2025-11-17,2025-12-18,Injury,Knee,31,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A796300-2,796300,2026-04-05,2026-04-11,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1111063-1,1111063,2025-10-04,2025-10-15,Suspension,Suspension,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A799899-1,799899,2025-11-19,2026-01-06,Injury,Muscle fatigue,48,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1144158-1,1144158,2025-12-29,2026-01-03,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1255744-1,1255744,2025-12-23,2026-01-04,Suspension,Suspension,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A898721-1,898721,2025-12-15,2025-12-22,Suspension,Suspension,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1018938-1,1018938,2025-12-13,2026-02-18,Injury,Knee,67,10,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A921995-1,921995,2025-09-22,2025-10-02,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A919358-1,919358,2025-08-04,2025-08-22,Suspension,Suspension,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A922563-1,922563,2025-08-25,2025-09-15,Suspension,Suspension,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1266282-1,1266282,2025-12-31,2026-01-16,Suspension,Suspension,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1011147-1,1011147,2026-04-10,2026-04-18,Illness,Illness,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1053160-1,1053160,2026-02-06,2026-03-18,Injury,Ankle,40,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1074060-1,1074060,2026-04-01,2026-04-04,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1074060-2,1074060,2026-03-31,2026-04-13,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A948279-1,948279,2026-02-11,2026-02-23,Injury,Adductor,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1293294-1,1293294,2026-03-04,2026-05-19,Injury,Ankle,76,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A910905-1,910905,2025-12-18,2026-01-07,Suspension,Suspension,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A926945-1,926945,2026-04-13,2026-05-29,Injury,Adductor,46,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1078163-1,1078163,2025-12-22,2026-01-08,Injury,Hamstring,17,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A924117-1,924117,2025-11-29,2025-12-12,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A910541-1,910541,2025-11-06,2025-11-29,Injury,Knee,23,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A851385-1,851385,2025-09-16,2025-09-27,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A919515-1,919515,2026-03-25,2026-04-23,Injury,Muscle fatigue,29,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A979064-1,979064,2025-08-13,2025-08-17,Illness,Illness,4,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A979064-2,979064,2025-12-18,2026-02-04,Injury,Adductor,48,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A743381-1,743381,2026-02-19,2026-03-03,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A957653-1,957653,2025-11-21,2026-01-13,Injury,Ankle,53,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A952439-1,952439,2025-12-04,2026-01-13,Injury,Muscle fatigue,40,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1061435-1,1061435,2026-03-27,2026-04-20,Injury,Ankle,24,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A984096-1,984096,2025-08-01,2025-08-09,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1053568-1,1053568,2026-01-11,2026-01-18,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1053568-2,1053568,2025-11-28,2026-01-30,Injury,Ankle,63,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1284784-1,1284784,2026-01-04,2026-03-10,Injury,Hamstring,65,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1096744-1,1096744,2025-08-16,2025-09-04,Suspension,Suspension,19,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1003295-1,1003295,2026-01-11,2026-01-21,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1112292-1,1112292,2026-03-02,2026-03-05,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A936874-1,936874,2025-11-10,2026-01-18,Injury,Hamstring,69,10,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A961087-1,961087,2025-09-15,2025-09-27,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1103652-1,1103652,2026-03-25,2026-03-29,Illness,Illness,4,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1119456-1,1119456,2026-03-24,2026-03-27,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1281099-1,1281099,2025-12-28,2026-01-08,Injury,Adductor,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A918827-1,918827,2026-01-12,2026-01-19,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A845654-1,845654,2026-04-04,2026-05-06,Injury,Adductor,32,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A882568-1,882568,2025-10-22,2025-11-26,Injury,Adductor,35,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A917402-1,917402,2025-09-24,2025-12-03,Injury,Adductor,70,10,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1030382-1,1030382,2025-12-23,2026-02-22,Injury,Hamstring,61,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1094885-1,1094885,2025-09-25,2025-10-09,Suspension,Suspension,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1194136-1,1194136,2026-04-05,2026-05-09,Injury,Ankle,34,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1194136-2,1194136,2025-08-24,2025-10-21,Injury,Adductor,58,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1241968-1,1241968,2025-12-13,2026-01-11,Injury,Ankle,29,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A805534-1,805534,2026-04-02,2026-06-15,Injury,Muscle fatigue,74,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1075577-1,1075577,2026-04-17,2026-05-24,Injury,Knee,37,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1075577-2,1075577,2025-09-11,2025-11-26,Injury,Hamstring,76,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A975347-1,975347,2025-12-21,2025-12-30,Suspension,Suspension,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1295301-1,1295301,2025-11-26,2025-12-18,Injury,Muscle fatigue,22,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1046867-1,1046867,2025-10-25,2025-11-01,Suspension,Suspension,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1083239-1,1083239,2026-03-14,2026-03-22,Illness,Illness,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A923831-1,923831,2025-10-29,2025-11-04,Illness,Illness,6,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A890290-1,890290,2025-09-11,2025-09-16,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A848124-1,848124,2025-12-07,2025-12-21,Suspension,Suspension,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A848124-2,848124,2026-03-26,2026-04-22,Injury,Muscle fatigue,27,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1253920-1,1253920,2026-02-04,2026-02-26,Injury,Muscle fatigue,22,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A989112-1,989112,2026-03-03,2026-03-13,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1052373-1,1052373,2025-12-05,2025-12-08,Illness,Illness,3,0,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A743384-1,743384,2026-03-09,2026-04-30,Injury,Hamstring,52,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A743376-1,743376,2026-04-14,2026-06-11,Injury,Ankle,58,8,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1006411-1,1006411,2025-11-26,2026-02-10,Injury,Ankle,76,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A961297-1,961297,2025-08-18,2025-09-16,Injury,Knee,29,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A925838-1,925838,2025-10-27,2025-11-12,Suspension,Suspension,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1049906-1,1049906,2025-08-31,2025-09-13,Suspension,Suspension,13,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A951296-1,951296,2025-12-20,2025-12-29,Injury,Hamstring,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1031590-1,1031590,2025-08-06,2025-09-10,Injury,Adductor,35,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1268078-1,1268078,2025-11-02,2025-11-09,Injury,Muscle fatigue,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1032242-1,1032242,2026-01-14,2026-02-28,Injury,Ankle,45,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1095335-1,1095335,2025-11-17,2025-11-29,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1004708-1,1004708,2025-08-22,2025-09-02,Suspension,Suspension,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1058368-1,1058368,2025-09-04,2025-10-02,Injury,Ankle,28,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1305935-1,1305935,2025-12-09,2026-01-09,Injury,Ankle,31,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1236853-1,1236853,2026-02-25,2026-04-26,Injury,Ankle,60,9,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1236853-2,1236853,2025-08-07,2025-08-21,Suspension,Suspension,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A834397-1,834397,2026-01-05,2026-02-19,Injury,Knee,45,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1365020-1,1365020,2026-04-02,2026-04-19,Suspension,Suspension,17,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1131030-1,1131030,2025-12-22,2026-03-06,Injury,Adductor,74,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A903513-1,903513,2026-03-16,2026-04-17,Injury,Hamstring,32,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A903513-2,903513,2026-01-27,2026-02-03,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A922693-1,922693,2025-09-28,2025-10-12,Injury,Ankle,14,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1160366-1,1160366,2026-01-25,2026-02-12,Suspension,Suspension,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1293796-1,1293796,2025-12-08,2025-12-23,Suspension,Suspension,15,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A935053-1,935053,2025-09-02,2025-09-14,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1396595-1,1396595,2026-03-08,2026-03-16,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A810092-1,810092,2026-02-27,2026-03-19,Injury,Muscle fatigue,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1005240-1,1005240,2026-04-04,2026-04-12,Suspension,Suspension,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1005240-2,1005240,2025-08-27,2025-09-01,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A944289-1,944289,2026-03-06,2026-04-09,Injury,Ankle,34,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1241278-1,1241278,2026-03-02,2026-03-29,Injury,Adductor,27,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A727480-1,727480,2026-03-22,2026-04-01,Suspension,Suspension,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1088534-1,1088534,2026-01-07,2026-02-27,Injury,Knee,51,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1213681-1,1213681,2026-04-16,2026-05-24,Injury,Adductor,38,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1074496-1,1074496,2025-10-18,2025-11-25,Injury,Ankle,38,5,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A989621-1,989621,2025-12-12,2025-12-23,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A987370-1,987370,2026-01-04,2026-01-08,Illness,Illness,4,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A877260-1,877260,2026-01-29,2026-03-22,Injury,Ankle,52,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A877260-2,877260,2025-08-10,2025-08-21,Illness,Illness,11,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1082774-1,1082774,2025-12-26,2026-01-04,Illness,Illness,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1082774-2,1082774,2025-08-06,2025-08-11,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1011131-1,1011131,2025-10-26,2025-11-11,Suspension,Suspension,16,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1019173-1,1019173,2025-08-13,2025-08-25,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1071596-1,1071596,2025-08-27,2025-08-31,Illness,Illness,4,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A796213-1,796213,2026-02-18,2026-04-03,Injury,Adductor,44,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A796213-2,796213,2025-09-04,2025-09-24,Suspension,Suspension,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A895326-1,895326,2025-11-12,2025-12-29,Injury,Adductor,47,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A895074-1,895074,2026-01-15,2026-02-02,Suspension,Suspension,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A998742-1,998742,2025-10-26,2025-12-13,Injury,Knee,48,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1088311-1,1088311,2026-04-12,2026-05-29,Injury,Adductor,47,7,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1088311-2,1088311,2025-08-25,2025-09-06,Illness,Illness,12,2,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1121298-1,1121298,2026-01-01,2026-01-08,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1061122-1,1061122,2025-08-16,2025-10-31,Injury,Knee,76,11,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1134676-1,1134676,2026-01-13,2026-02-08,Injury,Ankle,26,4,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1061282-1,1061282,2026-01-13,2026-02-21,Injury,Hamstring,39,6,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1057316-1,1057316,2025-08-30,2025-09-20,Suspension,Suspension,21,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1004741-1,1004741,2026-02-09,2026-02-16,Illness,Illness,7,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A1004741-2,1004741,2026-04-12,2026-04-17,Illness,Illness,5,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A937729-1,937729,2026-01-31,2026-02-09,Suspension,Suspension,9,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A866655-1,866655,2026-03-08,2026-03-26,Injury,Hamstring,18,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A748807-1,748807,2025-09-21,2025-09-29,Injury,Knee,8,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A991800-1,991800,2025-10-29,2025-11-18,Injury,Ankle,20,3,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed
+A912436-1,912436,2025-08-19,2025-08-29,Illness,Illness,10,1,synthetic,availability_id;start_date;end_date;status;reason;days_unavailable;matches_missed

@@ -3,7 +3,7 @@ import { useScout } from '../store.jsx';
 import ModelNotice from '../components/ModelNotice.jsx';
 import { FavButton, Flag, Icon, ModeToggle, Portrait, RankMove, Tag, tagsOf } from '../components/ui.jsx';
 import { FORMATIONS, pickXI, toPct } from '../lib/xi.js';
-import { supportReasons } from '../engine/explain.js';
+import { supportReasons } from '../model/v3.js';
 
 const NAMES = Object.keys(FORMATIONS);
 
@@ -41,7 +41,7 @@ function LineupCard({ slot, isNew }) {
 }
 
 export default function Home() {
-  const { players, mode, setMode, nm, ctx, pool, allowed, can } = useScout();
+  const { players, mode, setMode, nm, pool, allowed } = useScout();
   const statLink = allowed('hidden');
   const [fi, setFi] = useState(0);
   const formation = NAMES[fi];
@@ -177,7 +177,7 @@ export default function Home() {
                     </small>
                   </span>
                   <span className="chips">
-                    {supportReasons(ctx, s.in.i, 3, { marketValue: can('marketValue') }).map((r) => (
+                    {supportReasons(s.in, 3).map((r) => (
                       <span key={r} className="reason">{r}</span>
                     ))}
                   </span>

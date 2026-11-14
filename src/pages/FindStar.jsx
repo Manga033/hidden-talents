@@ -1,13 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CUSTOM_DEFAULT, useScout } from '../store.jsx';
+import { useScout } from '../store.jsx';
 import { Empty, FavButton, Flag, Icon, PageTitle, Panel, Portrait, RankMove, Seg, Tag, tagsOf } from '../components/ui.jsx';
-import { GROUP_PLURAL, LABELS, METRICS, PRESETS } from '../engine/constants.js';
-import { rankPct } from '../engine/stats.js';
+import { CATEGORY_LABELS, GROUP_PLURAL } from '../model/v3.js';
 
 const BLANK = { grp: 'All', pos: [], ageMax: 20, minScore: 0, minPot: 0, minMinutes: 450, bq: [], foot: [], flags: [], conf: [] };
 const POS = ['GK', 'CB', 'LB', 'RB', 'DM', 'CM', 'AM', 'LW', 'RW', 'ST'];
 const FLAGS = [['hidden', 'Hidden talent'], ['scout', 'Watch live'], ['early', 'Priced above output']];
-const CUSTOM_LABELS = ['Goals + assists', 'Team attacking impact', 'Team defensive impact', 'Discipline'];
+const METRICS = ['scoring', 'creation', 'progression', 'retention', 'defending'];
+const LABELS = CATEGORY_LABELS;
+const CUSTOM_DEFAULT = [30, 25, 30, 15];
+const PRESETS = {
+  Balanced: { FWD: [30,25,15,10,20], MID: [10,25,25,15,25], DEF: [5,10,20,20,45], GK: [5,10,10,15,60] },
+  Attacking: { FWD: [40,30,15,10,5], MID: [20,30,25,15,10], DEF: [10,20,25,15,30], GK: [5,10,10,15,60] },
+  Defensive: { FWD: [20,20,15,15,30], MID: [5,15,20,20,40], DEF: [0,10,15,20,55], GK: [0,5,10,15,70] },
+};
+const CUSTOM_LABELS = ['Scoring', 'Creation', 'Progression', 'Defending'];
 
 function Chips({ label, options, value, onChange }) {
   const toggle = (x) => onChange(value.includes(x) ? value.filter((y) => y !== x) : [...value, x]);
@@ -36,6 +43,12 @@ function Range({ label, min, max, step, value, onChange, fmt = (v) => v }) {
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
     </label>
   );
+}
+
+function PlayerName({ p }) {
+  const words = p.name.trim().split(/\s+/);
+  const last = words.pop();
+  return <>{words.length ? `${words.join(' ')} ` : ''}<span className="name-tail">{last}<Flag country={p.country} /></span></>;
 }
 
 function Pager({ page, pages, total, perPage, onPage }) {
@@ -71,7 +84,11 @@ function Pager({ page, pages, total, perPage, onPage }) {
 }
 
 export default function FindStar() {
-  const { players, preset, setPreset, custom, setCustom, busy, balanced, favs, addToCompare, can } = useScout();
+  const { players, favs, addToCompare, can } = useScout();
+  const [preset, setPreset] = useState('Balanced');
+  const [custom, setCustom] = useState(CUSTOM_DEFAULT);
+  const busy = false;
+  const balanced = { players };
   const [q, setQ] = useState('');
   const [f, setF] = useState(BLANK);
   const [tab, setTab] = useState('all');
@@ -85,7 +102,7 @@ export default function FindStar() {
     const out = {};
     ['GK', 'DEF', 'MID', 'FWD'].forEach((g) => {
       const ps = players.filter((p) => p.grp === g);
-      rankPct(ps.map((p) => p.compFair)).forEach((r, k) => (out[ps[k].id] = Math.round(r * 100)));
+      ps.forEach((p) => (out[p.id] = Math.round(100 * (p.positionCount - p.fairRank) / Math.max(1, p.positionCount - 1))));
     });
     return out;
   }, [players]);
@@ -109,7 +126,7 @@ export default function FindStar() {
       name: (p) => p.name,
       pos: (p) => p.position,
       age: (p) => p.age,
-      fairRank: (p) => p.fairRank,
+      fairRank: (p) => -p.fairScore,
       posRank: (p) => p.posRank,
       rawRank: (p) => p.rawRank,
       fit: (p) => fit[p.id],
@@ -124,7 +141,7 @@ export default function FindStar() {
   }, [players, q, f, tab, sort, fit, favs]);
 
   // Back to the first page whenever the list itself changes.
-  useEffect(() => setPage(0), [q, f, tab, sort, preset, custom]);
+  useEffect(() => setPage(0), [q, f, tab, sort]);
   const pages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
   const current = Math.min(page, pages - 1);
   const shown = rows.slice(current * PER_PAGE, current * PER_PAGE + PER_PAGE);
@@ -145,23 +162,23 @@ export default function FindStar() {
       <PageTitle
         eyebrow="YOUR GAME MODEL"
         title="Find your star."
-        sub="Tell us what your team values. Every fair score, rank and flag updates to match your game model."
+        sub="Search the fixed v3 role model. The same official rank is used on every page."
         right={<Seg label="List" value={tab} onChange={setTab} options={[['all', 'All players'], ['favs', `Favourites (${favs.length})`]]} />}
       />
 
       <div className="find-grid">
-        <Panel title="What matters to your team" sub="Pick a game model or set your own" right={busy ? <span className="busy-note">Updating…</span> : null}>
+        <Panel title="What matters to your team" sub="Explore priorities without changing the official v3 rank" right={busy ? <span className="busy-note">Updating…</span> : null}>
           <Seg label="Weight preset" value={preset} onChange={setPreset} options={[['Balanced', 'Balanced'], ['Attacking', 'Attacking'], ['Defensive', 'Defensive'], ['Custom', 'Custom']]} />
           <p className="weights-note">
-            <Icon name="info" /> Weights set how much each area counts, but the data can only separate players where it has information. Goal and assist numbers are reliable; team defensive impact is mostly noise in this data, so a high defence weight changes the order far less than its percentage suggests.
+            <Icon name="info" /> These controls explain recruitment priorities. The official v3 role ranking stays fixed so every page always shows the same number.
           </p>
           {weightsShown ? (
             <table className="data-table weights-table">
               <thead>
                 <tr>
                   <th />
-                  {['ga90', 'off90', 'def90', 'disc90'].map((m) => (
-                    <th key={m} className="r" title={LABELS[m]}>{{ ga90: 'G+A', off90: 'Att.', def90: 'Def.', disc90: 'Disc.' }[m]}</th>
+                  {['scoring', 'creation', 'progression', 'defending'].map((m) => (
+                    <th key={m} className="r" title={LABELS[m]}>{({ scoring: 'Scoring', creation: 'Creation', progression: 'Progression', defending: 'Defending' })[m]}</th>
                   ))}
                 </tr>
               </thead>
@@ -247,7 +264,7 @@ export default function FindStar() {
                           <Portrait p={p} className="mini-avatar" />
                           <span>
                             <strong>
-                              {p.name} <Flag country={p.country} />
+                              <PlayerName p={p} />
                             </strong>
                             <small>{p.team}</small>
                           </span>

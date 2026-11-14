@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScout } from './store.jsx';
-import { Dialog, Empty, Icon, Logo, Notice } from './components/ui.jsx';
+import { Empty, Icon, Logo } from './components/ui.jsx';
 import Home from './pages/Home.jsx';
 import Players from './pages/Players.jsx';
 import Profile from './pages/Profile.jsx';
@@ -22,57 +22,9 @@ const NAV = [
 ];
 const TITLES = { home: 'Discover', players: 'Player pool', find: 'Find your star', compare: 'Compare players', hidden: 'Hidden talents', insights: 'Fairness check', favourites: 'Your favourites' };
 
-function UpdateDataDialog({ onClose }) {
-  const { uploadData, players, updated } = useScout();
-  const [msg, setMsg] = useState(null);
-  const [busy, setBusy] = useState(false);
-  const jRef = useRef(null);
-  const cRef = useRef(null);
-  const go = async () => {
-    const j = jRef.current?.files?.[0];
-    const c = cRef.current?.files?.[0];
-    if (!j || !c) {
-      setMsg({ bad: true, text: 'Choose both files from the same engine run: data.json and the player CSV.' });
-      return;
-    }
-    setBusy(true);
-    try {
-      await uploadData(await j.text(), await c.text());
-      setMsg({ bad: false, text: 'Updated. Everyone sees the new data from their next page load.' });
-    } catch (e) {
-      setMsg({ bad: true, text: e.message });
-    }
-    setBusy(false);
-  };
-  return (
-    <Dialog title="Update player data" eyebrow="SPORTING DIRECTOR" onClose={onClose}>
-      <div className="stack">
-        <p>
-          Currently <b>{players.length} players</b>, last updated {updated ? new Date(updated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}. The previous files are kept as a backup.
-        </p>
-        <label className="file-field">
-          data.json
-          <input ref={jRef} type="file" accept=".json,application/json" />
-        </label>
-        <label className="file-field">
-          Player CSV (hidden_talent_*.csv)
-          <input ref={cRef} type="file" accept=".csv,text/csv" />
-        </label>
-        <div className="row-actions">
-          <button type="button" className="button" onClick={go} disabled={busy}>
-            <Icon name="upload" /> {busy ? 'Uploading…' : 'Upload'}
-          </button>
-        </div>
-        {msg && <Notice tone={msg.bad ? 'warn' : 'good'}>{msg.text}</Notice>}
-      </div>
-    </Dialog>
-  );
-}
-
 function UserMenu() {
-  const { user, roleLabel, signOut, role } = useScout();
+  const { user, roleLabel, signOut } = useScout();
   const [open, setOpen] = useState(false);
-  const [upload, setUpload] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
     const close = (e) => ref.current && !ref.current.contains(e.target) && setOpen(false);
@@ -96,17 +48,11 @@ function UserMenu() {
             <b>{user.name}</b>
             <small>{roleLabel}</small>
           </div>
-          {role === 'director' && (
-            <button type="button" role="menuitem" onClick={() => { setUpload(true); setOpen(false); }}>
-              <Icon name="upload" /> Update player data
-            </button>
-          )}
           <button type="button" role="menuitem" onClick={signOut}>
             <Icon name="back" /> Sign out
           </button>
         </div>
       )}
-      {upload && <UpdateDataDialog onClose={() => setUpload(false)} />}
     </div>
   );
 }
@@ -190,7 +136,7 @@ export default function App() {
           <a className="footer-brand" href="#home">
             SCOUTEE<span>See the player. Prove the potential.</span>
           </a>
-          <span>U21 professionals · season 2025/26 · Transfermarkt open data</span>
+          <span>U21 professionals · season 2025/26 · synthetic development dataset</span>
           <small>DECISION SUPPORT · THE SCOUT DECIDES</small>
         </div>
       </footer>

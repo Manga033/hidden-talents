@@ -1,0 +1,46 @@
+{
+  "modelVersion": "3.0.0-individual-role-model",
+  "passed": true,
+  "errors": [],
+  "summary": {
+    "players": 489,
+    "confidence": {
+      "High": 49,
+      "Medium": 294,
+      "Low": 146
+    },
+    "flags": {
+      "hiddenTalent": 18,
+      "pricedAboveOutput": 21,
+      "watchLive": 13
+    },
+    "groups": {
+      "MID": {
+        "players": 147,
+        "highConfidence": 20,
+        "medianRankWidth": 73
+      },
+      "FWD": {
+        "players": 168,
+        "highConfidence": 10,
+        "medianRankWidth": 84
+      },
+      "DEF": {
+        "players": 158,
+        "highConfidence": 16,
+        "medianRankWidth": 78
+      },
+      "GK": {
+        "players": 16,
+        "highConfidence": 3,
+        "medianRankWidth": 9
+      }
+    }
+  },
+  "notes": [
+    "Position rank is authoritative.",
+    "Overall rank remains experimental because positions have different evidence quality.",
+    "No market value is used in the ability score.",
+    "All v3 inputs are synthetic development data."
+  ]
+}

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useScout } from '../store.jsx';
 import ModelNotice from '../components/ModelNotice.jsx';
 import { Empty, Icon, ModeToggle, PageTitle, PlayerCard } from '../components/ui.jsx';
-import { GROUP_PLURAL } from '../engine/constants.js';
+import { GROUP_PLURAL } from '../model/v3.js';
 
 const ORDER = ['FWD', 'MID', 'DEF', 'GK'];
 const SORTS = [

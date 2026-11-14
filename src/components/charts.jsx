@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { signed } from '../engine/explain.js';
+import { signed } from '../model/v3.js';
 
 /* Hand-drawn SVG charts in the template's palette: wine = player / fair, green = comparison, gold = potential. */
 export const C = { wine: '#831b2d', green: '#6f8a62', gold: '#b48a49', blue: '#3f6fa8', grey: '#b9b3b5', line: '#e8e4e1', text: '#8f858a', ink: '#23242a' };
@@ -125,14 +125,16 @@ export function RankScatter({ players, name, onPick, highlight }) {
   const W = 620;
   const H = 440;
   const m = { l: 52, r: 16, t: 16, b: 44 };
-  const n = players.length;
-  const X = (v) => m.l + ((v - 1) / (n - 1)) * (W - m.l - m.r);
-  const Y = (v) => m.t + ((v - 1) / (n - 1)) * (H - m.t - m.b);
+  const n = 100;
+  const X = (v) => m.l + ((v - 1) / 99) * (W - m.l - m.r);
+  const Y = (v) => m.t + ((v - 1) / 99) * (H - m.t - m.b);
+  const rawPct = (p) => 1 + ((p.rawRank - 1) / Math.max(1, p.positionCount - 1)) * 99;
+  const fairPct = (p) => 1 + ((p.fairRank - 1) / Math.max(1, p.positionCount - 1)) * 99;
   const ref = useRef(null);
   const [hover, setHover] = useState(null);
   const kind = (p) => (p.hidden ? 'hidden' : p.early ? 'early' : 'other');
   const ordered = [...players].sort((a, b) => (kind(a) === 'other' ? -1 : 1) - (kind(b) === 'other' ? -1 : 1));
-  const ticks = [1, 100, 200, 300, 400, n].filter((t, i, a) => t <= n && a.indexOf(t) === i);
+  const ticks = [1, 25, 50, 75, 100];
   const nearest = (e) => {
     const b = ref.current.getBoundingClientRect();
     const px = ((e.clientX - b.left) / b.width) * W;
@@ -140,7 +142,7 @@ export function RankScatter({ players, name, onPick, highlight }) {
     let best = null;
     let d0 = 14 * 14;
     players.forEach((p) => {
-      const d = (X(p.rawRank) - px) ** 2 + (Y(p.fairRank) - py) ** 2;
+      const d = (X(rawPct(p)) - px) ** 2 + (Y(fairPct(p)) - py) ** 2;
       if (d < d0) {
         d0 = d;
         best = p;
@@ -156,7 +158,7 @@ export function RankScatter({ players, name, onPick, highlight }) {
         viewBox={`0 0 ${W} ${H}`}
         width="100%"
         role="img"
-        aria-label="Scatter of raw rank against fair rank for every player. Points above the dashed diagonal are rated higher by the fair ranking."
+        aria-label="Scatter of normalized traditional position rank against normalized fair position rank. Points above the dashed diagonal are rated higher by the fair ranking."
         onMouseMove={(e) => setHover(nearest(e))}
         onMouseLeave={() => setHover(null)}
         onClick={(e) => {
@@ -176,16 +178,16 @@ export function RankScatter({ players, name, onPick, highlight }) {
         <line x1={X(1)} y1={Y(1)} x2={X(n)} y2={Y(n)} stroke="#a59b9f" strokeDasharray="5 5" />
         <text x={X(n) - 6} y={Y(1) + 16} textAnchor="end" className="c-axis strong" fill={C.gold}>Fair ranks them higher</text>
         <text x={X(1) + 6} y={Y(n) - 8} className="c-axis strong">Traditional list ranks them higher</text>
-        <text x={(m.l + W - m.r) / 2} y={H - 6} textAnchor="middle" className="c-label">Traditional rank (goals, assists, market value) →</text>
-        <text x={14} y={(m.t + H - m.b) / 2} textAnchor="middle" className="c-label" transform={`rotate(-90 14 ${(m.t + H - m.b) / 2})`}>Fair rank →</text>
+        <text x={(m.l + W - m.r) / 2} y={H - 6} textAnchor="middle" className="c-label">Normalized traditional position rank →</text>
+        <text x={14} y={(m.t + H - m.b) / 2} textAnchor="middle" className="c-label" transform={`rotate(-90 14 ${(m.t + H - m.b) / 2})`}>Normalized fair position rank →</text>
         {ordered.map((p) => {
           const k = kind(p);
           const hl = highlight && highlight.includes(p.id);
-          return <circle key={p.id} cx={X(p.rawRank)} cy={Y(p.fairRank)} r={k === 'other' ? 3.2 : 5.5} fill={col[k]} stroke={hover?.id === p.id || hl ? C.ink : '#fff'} strokeWidth={hover?.id === p.id || hl ? 2 : 1} />;
+          return <circle key={p.id} cx={X(rawPct(p))} cy={Y(fairPct(p))} r={k === 'other' ? 3.2 : 5.5} fill={col[k]} stroke={hover?.id === p.id || hl ? C.ink : '#fff'} strokeWidth={hover?.id === p.id || hl ? 2 : 1} />;
         })}
       </svg>
       {hover && (
-        <div className="tip" style={{ left: `${(X(hover.rawRank) / W) * 100}%`, top: `${(Y(hover.fairRank) / H) * 100}%` }}>
+        <div className="tip" style={{ left: `${(X(rawPct(hover)) / W) * 100}%`, top: `${(Y(fairPct(hover)) / H) * 100}%` }}>
           <b>{name(hover)}</b>
           <span>
             {hover.position} · traditional #{hover.rawRank} → fair #{hover.fairRank}

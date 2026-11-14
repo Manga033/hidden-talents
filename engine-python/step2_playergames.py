@@ -43,13 +43,18 @@ for c in ['gf_on','ga_on','inv_on']: ap[c]=ap[c].fillna(0)
 # flag games with events (else on-pitch goals unknown)
 has_ev=set(gl.game_id.unique())|set(sb.game_id.unique())
 ap['has_ev']=ap.game_id.isin(has_ev)
-f=m.loc[ap.index]/90.0
-ap['res_off']=ap.gf_on-ap.exp_gf*f.values      # goals for above expectation while on pitch
-ap['res_def']=-(ap.ga_on-ap.exp_ga*f.values)    # goals against below expectation while on pitch (positive = good)
+# Use the post-merge row's own minutes. The old m.loc[ap.index] could point at a
+# different pre-merge appearance after joins reset or reordered the DataFrame index.
+f=ap.minutes_played.fillna(0).astype(float)/90.0
+ap['event_minutes']=np.where(ap.has_ev,ap.minutes_played.fillna(0),0)
+# Missing event feeds are unknown, not a zero-goal performance. Keep them out of
+# the impact numerator and carry covered minutes separately for the denominator.
+ap['res_off']=np.where(ap.has_ev,ap.gf_on-ap.exp_gf*f,np.nan)      # goals for above expectation while on pitch
+ap['res_def']=np.where(ap.has_ev,-(ap.ga_on-ap.exp_ga*f),np.nan)  # goals against below expectation while on pitch (positive = good)
 ap['res_tot']=ap.res_off+ap.res_def
 ap['big']=ap.opp_elo>=ap.team_elo
 ap['pos_played']=ap.position
-keep=['game_id','player_id','player_club_id','date','season','competition_id','goals','assists','minutes_played','yellow_cards','red_cards','starter','start','end_eff','pos_played','team_elo','opp_elo','gf_on','ga_on','inv_on','res_off','res_def','res_tot','big','has_ev','exp_gd']
+keep=['game_id','player_id','player_club_id','date','season','competition_id','goals','assists','minutes_played','event_minutes','yellow_cards','red_cards','starter','start','end_eff','pos_played','team_elo','opp_elo','gf_on','ga_on','inv_on','res_off','res_def','res_tot','big','has_ev','exp_gd']
 ap[keep].to_pickle(OUT+'player_games.pkl')
 print(ap[keep].describe().T[['count','mean','std']].round(3).to_string())
 print('share rows with events',ap.has_ev.mean())

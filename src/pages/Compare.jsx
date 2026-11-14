@@ -2,26 +2,39 @@ import { useMemo, useState } from 'react';
 import { MAX_COMPARE, useScout } from '../store.jsx';
 import { Flag, Icon, Panel, PlayerPicker, Portrait, RankMove, Tag, tagsOf } from '../components/ui.jsx';
 import { C, Radar, RankInterval } from '../components/charts.jsx';
-import { GROUP_NAME, METRICS, SHORT } from '../engine/constants.js';
-import { fmt1, fmt2, money, ordinal, signed, whyBetter } from '../engine/explain.js';
+import { CATEGORY_LABELS, GROUP_NAME, money, signed } from '../model/v3.js';
+
+const METRICS = ['scoring', 'creation', 'progression', 'retention', 'defending', 'pressing', 'aerial', 'physical', 'availability'];
+const SHORT = CATEGORY_LABELS;
+const fmt1 = (v) => Number(v).toFixed(1);
+const fmt2 = (v) => Number(v).toFixed(2);
+
+function comparison(players, ia, ib) {
+  const A = players[ia], B = players[ib], ra = A, rb = B;
+  const rows = METRICS.map((metric) => { const a = A.explanation.categoryContributions.find((x) => x.category === metric)?.points || 0; const b = B.explanation.categoryContributions.find((x) => x.category === metric)?.points || 0; return { metric, a, b, diff: a-b, wa: A.categories[metric]?.weight || 0, wb: B.categories[metric]?.weight || 0 }; });
+  const gap = A.fairScore - B.fairScore; const leader = gap >= 0 ? 'A' : 'B';
+  const ordered = [...rows].sort((x,y) => Math.abs(y.diff)-Math.abs(x.diff));
+  const forLeader = (r) => leader === 'A' ? r.diff : -r.diff;
+  return { A, B, ra, rb, rows, gap, leader, level: Math.abs(gap) < 1, sameGroup: A.grp === B.grp,
+    perfGap: A.performanceScore-B.performanceScore, ctxGap: A.contextAdjustmentPoints-B.contextAdjustmentPoints,
+    rawFlip: Math.sign(A.rawRank-B.rawRank) !== Math.sign(A.fairRank-B.fairRank), ba:{total:A.fairScore-50}, bb:{total:B.fairScore-50},
+    drivers: ordered.filter((r)=>forLeader(r)>.25).slice(0,3), against: ordered.filter((r)=>forLeader(r)<-.25).slice(0,2),
+    overlap: !(A.rankHigh < B.rankLow || B.rankHigh < A.rankLow) };
+}
 
 const COLORS = [C.wine, C.green, C.gold, C.blue];
 
 function Evidence({ ia, ib }) {
-  const { ctx, players } = useScout();
-  const w = whyBetter(ctx, ia, ib);
+  const { players } = useScout();
+  const w = comparison(players, ia, ib);
   const L = w.leader === 'A' ? w.A : w.B;
   const T = w.leader === 'A' ? w.B : w.A;
   const lr = w.leader === 'A' ? w.ra : w.rb;
   const tr = w.leader === 'A' ? w.rb : w.ra;
   const gap = Math.abs(w.gap);
   const sgn = w.leader === 'A' ? 1 : -1;
-  const N = players.length;
-  const base = ctx.base;
   const fact = (m) => {
-    if (m === 'ga90') return `${w.A.ga} G+A in ${w.A.minutes.toLocaleString('en')} min vs ${w.B.ga} in ${w.B.minutes.toLocaleString('en')} min`;
-    if (m === 'big90') return 'Shown for context; not part of the score';
-    return `${ordinal(Math.round(base.pct[ia][m] * 100))} vs ${ordinal(Math.round(base.pct[ib][m] * 100))} percentile in position`;
+    return `${w.A.categories[m]?.score ?? '–'} vs ${w.B.categories[m]?.score ?? '–'} category score; role weights ${Math.round((w.A.categories[m]?.weight || 0)*100)}% vs ${Math.round((w.B.categories[m]?.weight || 0)*100)}%`;
   };
   return (
     <>
@@ -104,9 +117,9 @@ function Evidence({ ia, ib }) {
           <h3>Is the gap real?</h3>
           <div className="interval-pair">
             <span>{w.A.name}</span>
-            <RankInterval rank={w.ra.fairRank} low={w.ra.rankLow} high={w.ra.rankHigh} N={N} compact />
+            <RankInterval rank={w.ra.fairRank} low={w.ra.rankLow} high={w.ra.rankHigh} N={w.A.positionCount} compact />
             <span>{w.B.name}</span>
-            <RankInterval rank={w.rb.fairRank} low={w.rb.rankLow} high={w.rb.rankHigh} N={N} compact color={C.green} />
+            <RankInterval rank={w.rb.fairRank} low={w.rb.rankLow} high={w.rb.rankHigh} N={w.B.positionCount} compact color={C.green} />
           </div>
           <p className="small-text">
             {w.overlap
@@ -169,7 +182,7 @@ function Slot({ p, k, onChange, onRemove, canRemove }) {
 }
 
 export default function Compare() {
-  const { compare, setCompare, byId, base, can } = useScout();
+  const { compare, setCompare, byId, can } = useScout();
   const [picking, setPicking] = useState(null);
   const slots = compare.map((id) => (id && byId[id] ? byId[id] : null));
   const chosen = slots.filter(Boolean);
@@ -189,8 +202,9 @@ export default function Compare() {
 
   const a = chosen[Math.min(pair[0], chosen.length - 1)];
   const b = chosen[Math.min(pair[1], chosen.length - 1)];
-  const axes = ['G+A', 'Attack', 'Defence', 'Big games', 'Discipline'];
-  const pct = (p) => METRICS.map((m) => base.pct[p.i][m] * 100);
+  const radarKeys = ['scoring', 'creation', 'progression', 'defending', 'pressing', 'physical'];
+  const axes = radarKeys.map((m) => SHORT[m]);
+  const pct = (p) => radarKeys.map((m) => p.categories[m]?.score || 50);
 
   const rows = useMemo(
     () =>

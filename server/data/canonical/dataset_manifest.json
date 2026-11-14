@@ -1,0 +1,73 @@
+{
+  "dataset_version": "3.0.0-synthetic-foundation",
+  "season": "2025/26",
+  "reference_date": "2026-01-01",
+  "generated_at": "2026-11-14T00:00:00Z",
+  "deterministic_seed": 20261114,
+  "source": "Existing Scoutee 2025/26 output used for player identity, minutes, goals, assists, club, age, position, Elo and market value.",
+  "synthetic_data_warning": "All fields marked synthetic are generated development data. They are not observed football facts and must not be represented as real.",
+  "engine_status": "Canonical engine-ready dataset; current application ranking engine remains unchanged.",
+  "files": {
+    "players.csv": {
+      "rows": 489,
+      "path": "players.csv"
+    },
+    "teams.csv": {
+      "rows": 200,
+      "path": "teams.csv"
+    },
+    "matches.csv": {
+      "rows": 5000,
+      "path": "matches.csv"
+    },
+    "player_matches.csv": {
+      "rows": 11499,
+      "path": "player_matches.csv"
+    },
+    "player_season_stats.csv": {
+      "rows": 489,
+      "path": "player_season_stats.csv"
+    },
+    "goalkeeper_stats.csv": {
+      "rows": 16,
+      "path": "goalkeeper_stats.csv"
+    },
+    "availability.csv": {
+      "rows": 233,
+      "path": "availability.csv"
+    },
+    "contracts.csv": {
+      "rows": 489,
+      "path": "contracts.csv"
+    },
+    "data_quality.csv": {
+      "rows": 2950,
+      "path": "data_quality.csv"
+    },
+    "context_players.csv": {
+      "rows": 4800,
+      "path": "context_players.csv"
+    },
+    "match_lineups.csv": {
+      "rows": 180000,
+      "path": "match_lineups.csv"
+    },
+    "shot_events.csv": {
+      "rows": 155286,
+      "path": "shot_events.csv"
+    },
+    "team_match_stats.csv": {
+      "rows": 10000,
+      "path": "team_match_stats.csv"
+    },
+    "position_minutes.csv": {
+      "rows": 957,
+      "path": "position_minutes.csv"
+    },
+    "physical_stats.csv": {
+      "rows": 489,
+      "path": "physical_stats.csv"
+    }
+  },
+  "reconciliation": "Match goals equal goal shot events; match xG equals summed shot xG; player season totals equal summed player-match records; position minutes equal season minutes."
+}

@@ -7,8 +7,12 @@
     "dev": "node server/index.mjs --dev",
     "build": "vite build",
     "start": "node server/index.mjs",
-    "verify": "node scripts/verify-engine.mjs",
-    "export": "node scripts/export-from-js.mjs",
+    "verify": "npm run data:validate && npm run engine:v3:validate && npm run ranks:validate && npm run build",
+    "data:generate": "node scripts/generate-canonical-dataset.mjs && node scripts/generate-engine-ready-dataset.mjs",
+    "data:validate": "node scripts/validate-canonical-dataset.mjs",
+    "engine:v3": "node scripts/build-engine-v3.mjs",
+    "engine:v3:validate": "node scripts/validate-engine-v3.mjs",
+    "ranks:validate": "node scripts/validate-ui-ranks.mjs",
     "users": "node server/users.mjs"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useScout } from '../store.jsx';
-import { GROUP_FROM_NAME, RULES } from '../engine/constants.js';
+import { GROUP_FROM_NAME, RULES } from '../model/v3.js';
 import { flagCode } from '../lib/flags.js';
 
 export const Icon = ({ name, className = '' }) => (
@@ -248,7 +248,7 @@ export function PlayerCard({ p }) {
   return (
     <article className={`player-card ${p.hidden ? 'is-hidden-talent' : ''}`}>
       <a className="card-visual" href={`#player/${p.id}`} aria-label={`View ${p.name}'s profile`}>
-        <span className="card-number" title={`Rank among ${p.positionGroup.toLowerCase()}s (overall #${mode === 'fair' ? p.fairRank : p.rawRank})`}>{String(mode === 'fair' ? p.posRank : p.rawPosRank).padStart(2, '0')}</span>
+        <span className="card-number" title={`Rank among ${p.positionGroup.toLowerCase()}s`}>{String(mode === 'fair' ? p.posRank : p.rawPosRank).padStart(2, '0')}</span>
         <Portrait p={p} />
         <span className="position-tag">
           <i />

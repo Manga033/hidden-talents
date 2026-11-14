@@ -1,0 +1,1760 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scoutee canonical dataset",
+  "version": "3.0.0-synthetic-foundation",
+  "files": {
+    "players.csv": {
+      "primaryKey": [
+        "player_id"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "date_of_birth": {
+          "type": "date",
+          "origin": "source",
+          "required": true
+        },
+        "age_on_reference_date": {
+          "type": "number",
+          "origin": "source",
+          "min": 15,
+          "max": 23
+        },
+        "nationality": {
+          "type": "string",
+          "origin": "source"
+        },
+        "country_of_birth": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "height_cm": {
+          "type": "integer",
+          "origin": "mixed",
+          "min": 150,
+          "max": 210
+        },
+        "weight_kg": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 50,
+          "max": 110
+        },
+        "preferred_foot": {
+          "type": "enum",
+          "origin": "source",
+          "values": [
+            "Left",
+            "Right",
+            "Both",
+            "Unknown"
+          ]
+        },
+        "weak_foot_rating": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 5
+        },
+        "primary_position": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "position_group": {
+          "type": "enum",
+          "origin": "source",
+          "values": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ]
+        },
+        "primary_role": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "secondary_role": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "current_team_id": {
+          "type": "string",
+          "origin": "derived",
+          "required": true
+        },
+        "current_team_name": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "senior_debut_date": {
+          "type": "date",
+          "origin": "synthetic"
+        },
+        "academy": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "youth_international_level": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "None",
+            "U17",
+            "U19",
+            "U21",
+            "Senior"
+          ]
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "teams.csv": {
+      "primaryKey": [
+        "team_id"
+      ],
+      "columns": {
+        "team_id": {
+          "type": "string",
+          "origin": "derived",
+          "required": true
+        },
+        "team_name": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "league_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "league_name": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "country": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "elo_start": {
+          "type": "number",
+          "origin": "derived",
+          "min": 900,
+          "max": 2200
+        },
+        "attack_strength": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0.4,
+          "max": 2.5
+        },
+        "defence_strength": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0.4,
+          "max": 2.5
+        },
+        "average_possession": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 30,
+          "max": 70
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "matches.csv": {
+      "primaryKey": [
+        "match_id"
+      ],
+      "columns": {
+        "match_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "origin": "synthetic",
+          "required": true
+        },
+        "season": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "competition_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "home_team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "away_team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "home_elo_pre": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 900,
+          "max": 2200
+        },
+        "away_elo_pre": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 900,
+          "max": 2200
+        },
+        "expected_home_goals": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 8
+        },
+        "expected_away_goals": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 8
+        },
+        "home_goals": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 12
+        },
+        "away_goals": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 12
+        },
+        "home_possession": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 20,
+          "max": 80
+        },
+        "away_possession": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 20,
+          "max": 80
+        },
+        "home_red_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3
+        },
+        "away_red_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3
+        },
+        "event_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "lineup_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "synthetic"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "player_matches.csv": {
+      "primaryKey": [
+        "match_id",
+        "player_id"
+      ],
+      "columns": {
+        "match_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "derived",
+          "required": true
+        },
+        "opponent_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 1,
+          "max": 90
+        },
+        "starter": {
+          "type": "boolean",
+          "origin": "synthetic"
+        },
+        "position_played": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "role_played": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "formation": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "home_away": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "H",
+            "A"
+          ]
+        },
+        "score_state_minutes_winning": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 90
+        },
+        "score_state_minutes_drawing": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 90
+        },
+        "score_state_minutes_losing": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 90
+        },
+        "goals": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 6
+        },
+        "assists": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 6
+        },
+        "penalty_goals": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3
+        },
+        "shots": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "shots_on_target": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 12
+        },
+        "non_penalty_xg": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 6
+        },
+        "expected_assists": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 4
+        },
+        "key_passes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "touches_in_box": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 35
+        },
+        "passes_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 180
+        },
+        "passes_completed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 180
+        },
+        "progressive_passes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 35
+        },
+        "passes_into_final_third": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 40
+        },
+        "passes_into_penalty_area": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 25
+        },
+        "progressive_carries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "successful_dribbles": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 20
+        },
+        "attempted_dribbles": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 25
+        },
+        "dispossessed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "miscontrols": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "tackles_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 20
+        },
+        "tackles_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 20
+        },
+        "interceptions": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "blocks": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 15
+        },
+        "clearances": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "recoveries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "pressures": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 60
+        },
+        "successful_pressures": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 50
+        },
+        "aerial_duels_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "aerial_duels_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "fouls_committed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 8
+        },
+        "fouls_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 8
+        },
+        "yellow_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 2
+        },
+        "red_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1
+        },
+        "event_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "player_season_stats.csv": {
+      "primaryKey": [
+        "player_id",
+        "season"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "season": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "derived"
+        },
+        "appearances": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 1,
+          "max": 80
+        },
+        "starts": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 80
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "source",
+          "min": 1,
+          "max": 6000
+        },
+        "goals": {
+          "type": "integer",
+          "origin": "source",
+          "min": 0,
+          "max": 80
+        },
+        "assists": {
+          "type": "integer",
+          "origin": "source",
+          "min": 0,
+          "max": 80
+        },
+        "non_penalty_xg": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 80
+        },
+        "expected_assists": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 60
+        },
+        "shots": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 500
+        },
+        "shots_on_target": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 300
+        },
+        "key_passes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 500
+        },
+        "touches_in_box": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1500
+        },
+        "passes_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 10000
+        },
+        "passes_completed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 10000
+        },
+        "progressive_passes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 2000
+        },
+        "passes_into_final_third": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 2000
+        },
+        "passes_into_penalty_area": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1200
+        },
+        "progressive_carries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1500
+        },
+        "successful_dribbles": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1200
+        },
+        "attempted_dribbles": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1500
+        },
+        "dispossessed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000
+        },
+        "miscontrols": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000
+        },
+        "tackles_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1200
+        },
+        "tackles_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000
+        },
+        "interceptions": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000
+        },
+        "blocks": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000
+        },
+        "clearances": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1800
+        },
+        "recoveries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 2000
+        },
+        "pressures": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 4000
+        },
+        "successful_pressures": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3500
+        },
+        "aerial_duels_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1600
+        },
+        "aerial_duels_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1400
+        },
+        "fouls_committed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 300
+        },
+        "fouls_won": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 300
+        },
+        "yellow_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 30
+        },
+        "red_cards": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 10
+        },
+        "event_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "goalkeeper_stats.csv": {
+      "primaryKey": [
+        "player_id",
+        "season"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "season": {
+          "type": "string",
+          "origin": "source"
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "derived"
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "source",
+          "min": 1,
+          "max": 6000
+        },
+        "shots_on_target_faced": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 500
+        },
+        "goals_conceded": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 200
+        },
+        "post_shot_xg": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 250
+        },
+        "saves": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 500
+        },
+        "save_percentage": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "post_shot_xg_minus_goals": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": -50,
+          "max": 50
+        },
+        "crosses_faced": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 500
+        },
+        "crosses_claimed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 300
+        },
+        "sweeper_actions": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 300
+        },
+        "passes_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 5000
+        },
+        "passes_completed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 5000
+        },
+        "long_passes_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3000
+        },
+        "long_passes_completed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 3000
+        },
+        "event_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "availability.csv": {
+      "primaryKey": [
+        "availability_id"
+      ],
+      "columns": {
+        "availability_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "start_date": {
+          "type": "date",
+          "origin": "synthetic"
+        },
+        "end_date": {
+          "type": "date",
+          "origin": "synthetic"
+        },
+        "status": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Injury",
+            "Illness",
+            "Suspension"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "days_unavailable": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 365
+        },
+        "matches_missed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 60
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "synthetic"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "contracts.csv": {
+      "primaryKey": [
+        "player_id"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "derived"
+        },
+        "contract_start": {
+          "type": "date",
+          "origin": "synthetic"
+        },
+        "contract_end": {
+          "type": "date",
+          "origin": "mixed"
+        },
+        "loan_status": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Permanent",
+            "On loan",
+            "Loaned out"
+          ]
+        },
+        "estimated_wage_eur_year": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 10000,
+          "max": 30000000
+        },
+        "estimated_transfer_value_eur": {
+          "type": "integer",
+          "origin": "source",
+          "min": 0,
+          "max": 500000000
+        },
+        "release_clause_eur": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 1000000000
+        },
+        "agent": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "homegrown_status": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Club trained",
+            "Association trained",
+            "No",
+            "Unknown"
+          ]
+        },
+        "work_permit_risk": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Low",
+            "Medium",
+            "High"
+          ]
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "data_quality.csv": {
+      "primaryKey": [
+        "entity_type",
+        "entity_id",
+        "dataset_name"
+      ],
+      "columns": {
+        "entity_type": {
+          "type": "string",
+          "origin": "metadata"
+        },
+        "entity_id": {
+          "type": "string",
+          "origin": "metadata"
+        },
+        "dataset_name": {
+          "type": "string",
+          "origin": "metadata"
+        },
+        "coverage_percentage": {
+          "type": "number",
+          "origin": "derived",
+          "min": 0,
+          "max": 100
+        },
+        "real_field_count": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 200
+        },
+        "synthetic_field_count": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 200
+        },
+        "quality_flag": {
+          "type": "enum",
+          "origin": "derived",
+          "values": [
+            "Good",
+            "Partial",
+            "Synthetic"
+          ]
+        },
+        "missing_fields": {
+          "type": "string",
+          "origin": "derived"
+        },
+        "notes": {
+          "type": "string",
+          "origin": "metadata"
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "metadata"
+          ]
+        }
+      }
+    },
+    "context_players.csv": {
+      "primaryKey": [
+        "context_player_id"
+      ],
+      "columns": {
+        "context_player_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "display_name": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "age": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 18,
+          "max": 38
+        },
+        "position": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "position_group": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ]
+        },
+        "context_only": {
+          "type": "boolean",
+          "origin": "metadata"
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "synthetic"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "match_lineups.csv": {
+      "primaryKey": [
+        "match_id",
+        "team_id",
+        "player_id"
+      ],
+      "columns": {
+        "match_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "player_id": {
+          "type": "string",
+          "origin": "mixed",
+          "required": true
+        },
+        "player_scope": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "ranked",
+            "context"
+          ]
+        },
+        "lineup_status": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Starter",
+            "Substitute",
+            "Unused"
+          ]
+        },
+        "position": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "role": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 90
+        },
+        "formation": {
+          "type": "string",
+          "origin": "synthetic"
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "shot_events.csv": {
+      "primaryKey": [
+        "shot_id"
+      ],
+      "columns": {
+        "shot_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "match_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "player_id": {
+          "type": "string",
+          "origin": "mixed",
+          "required": true
+        },
+        "player_scope": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "ranked",
+            "context"
+          ]
+        },
+        "minute": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 95
+        },
+        "second": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 59
+        },
+        "x_location": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 70,
+          "max": 120
+        },
+        "y_location": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 80
+        },
+        "distance_m": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 45
+        },
+        "angle_rad": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0.05,
+          "max": 3.15
+        },
+        "body_part": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Left foot",
+            "Right foot",
+            "Head",
+            "Other"
+          ]
+        },
+        "assist_type": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "None",
+            "Pass",
+            "Cross",
+            "Through ball",
+            "Set piece",
+            "Rebound"
+          ]
+        },
+        "under_pressure": {
+          "type": "boolean",
+          "origin": "synthetic"
+        },
+        "fast_break": {
+          "type": "boolean",
+          "origin": "synthetic"
+        },
+        "penalty": {
+          "type": "boolean",
+          "origin": "synthetic"
+        },
+        "xg": {
+          "type": "number",
+          "origin": "derived",
+          "min": 0.005,
+          "max": 0.82
+        },
+        "post_shot_xg": {
+          "type": "number",
+          "origin": "derived",
+          "min": 0,
+          "max": 0.99
+        },
+        "outcome": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "Goal",
+            "Saved",
+            "Blocked",
+            "Off target",
+            "Woodwork"
+          ]
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "synthetic"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "team_match_stats.csv": {
+      "primaryKey": [
+        "match_id",
+        "team_id"
+      ],
+      "columns": {
+        "match_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "team_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "opponent_id": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "home_away": {
+          "type": "enum",
+          "origin": "synthetic",
+          "values": [
+            "H",
+            "A"
+          ]
+        },
+        "goals": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 20
+        },
+        "expected_goals": {
+          "type": "number",
+          "origin": "derived",
+          "min": 0,
+          "max": 12
+        },
+        "shots": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 50
+        },
+        "shots_on_target": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 0,
+          "max": 30
+        },
+        "possession": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 20,
+          "max": 80
+        },
+        "passes_attempted": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 100,
+          "max": 1200
+        },
+        "passes_completed": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 50,
+          "max": 1100
+        },
+        "progressive_passes": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 150
+        },
+        "final_third_entries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 150
+        },
+        "penalty_area_entries": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 80
+        },
+        "high_turnovers": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 40
+        },
+        "pressures": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 350
+        },
+        "ppda": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 3,
+          "max": 35
+        },
+        "field_tilt": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 10,
+          "max": 90
+        },
+        "corners": {
+          "type": "integer",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 25
+        },
+        "event_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "synthetic"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "position_minutes.csv": {
+      "primaryKey": [
+        "player_id",
+        "season",
+        "position",
+        "role"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "season": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "position": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "role": {
+          "type": "string",
+          "origin": "synthetic",
+          "required": true
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 1,
+          "max": 6000
+        },
+        "appearances": {
+          "type": "integer",
+          "origin": "derived",
+          "min": 1,
+          "max": 80
+        },
+        "minute_share": {
+          "type": "number",
+          "origin": "derived",
+          "min": 0,
+          "max": 1
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    },
+    "physical_stats.csv": {
+      "primaryKey": [
+        "player_id",
+        "season"
+      ],
+      "columns": {
+        "player_id": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "season": {
+          "type": "string",
+          "origin": "source",
+          "required": true
+        },
+        "minutes": {
+          "type": "integer",
+          "origin": "source",
+          "min": 1,
+          "max": 6000
+        },
+        "top_speed_kmh": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 20,
+          "max": 39
+        },
+        "distance_per90_km": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 6,
+          "max": 14
+        },
+        "high_speed_distance_per90_m": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 50,
+          "max": 1800
+        },
+        "sprint_distance_per90_m": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 20,
+          "max": 1000
+        },
+        "sprints_per90": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 60
+        },
+        "accelerations_per90": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 100
+        },
+        "decelerations_per90": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 100
+        },
+        "repeat_sprint_score": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 1,
+          "max": 100
+        },
+        "workload_coverage_pct": {
+          "type": "number",
+          "origin": "synthetic",
+          "min": 0,
+          "max": 100
+        },
+        "data_origin": {
+          "type": "enum",
+          "origin": "metadata",
+          "values": [
+            "mixed"
+          ]
+        },
+        "synthetic_fields": {
+          "type": "string",
+          "origin": "metadata",
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,201 @@
+team_id,team_name,league_id,league_name,country,elo_start,attack_strength,defence_strength,average_possession,data_origin,synthetic_fields
+T21C4325B8F,1. Fußballclub Heidenheim 1846,SL01,Synthetic League 1,England,1461.17,0.889,1.009,46.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T5543E91AD9,1.FC Köln,SL02,Synthetic League 2,Spain,1542.47,1.006,0.958,50.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBB2924DA2D,1.FSV Mainz 05,SL03,Synthetic League 3,Germany,1604.68,1.241,0.943,55.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T765BF21648,A.G.S Asteras Tripolis,SL04,Synthetic League 4,Italy,1397.19,0.897,1.171,45.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T7421442558,Aberdeen FC,SL05,Synthetic League 5,France,1361.06,0.763,1.188,42,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFD692F1818,AC Milan,SL06,Synthetic League 6,Portugal,1719.12,1.312,0.669,59.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8234BABF50,ACF Fiorentina,SL07,Synthetic League 7,Netherlands,1613.77,1.204,0.857,54.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T5644ED18E6,AFC Bournemouth,SL08,Synthetic League 8,Belgium,1637.5,1.242,0.87,54,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TACF5E1B041,AJ Auxerre,SL09,Synthetic League 9,Croatia,1512.4,1.031,0.912,49.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T288B0E1F84,Ajax Amsterdam,SL10,Synthetic League 10,Bosnia and Herzegovina,1586.21,1.131,0.968,55.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6D9FD12CB6,Akron Togliatti,SL11,Synthetic League 11,Austria,1458.07,1.005,1.028,48.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T19BEB9E306,Alanyaspor,SL12,Synthetic League 12,Switzerland,1492.6,1.041,1.043,47.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TEF45066483,Angers SCO,SL13,Synthetic League 13,Denmark,1493.61,1.009,1.043,47.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD182AEC9D4,AO FK Zenit Sankt-Peterburg,SL14,Synthetic League 14,Serbia,1738.49,1.289,0.648,62,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6426889873,APO Levadiakos Football Club,SL01,Synthetic League 1,England,1518.81,1.022,0.968,51,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD80675CE3E,Aris Thessalonikis,SL02,Synthetic League 2,Spain,1509.88,1.06,0.923,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE02C849F9E,Arsenal FC,SL03,Synthetic League 3,Germany,1929.89,1.638,0.55,67.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T527E1D4C7B,AS Monaco,SL04,Synthetic League 4,Italy,1653.31,1.185,0.741,57.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T00D296FF5E,Associazione Sportiva Roma,SL05,Synthetic League 5,France,1609.95,1.121,0.815,52.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBE10E17D6F,Atalanta BC,SL06,Synthetic League 6,Portugal,1722.09,1.255,0.75,60,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD76BD3484F,Athlitiki Enosi Konstantinoupoleos,SL07,Synthetic League 7,Netherlands,1571.25,1.105,0.949,54,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFCC4DEFDB3,Atlético de Madrid,SL08,Synthetic League 8,Belgium,1776.35,1.409,0.604,60.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T7A16A54D51,Avs Futebol,SL09,Synthetic League 9,Croatia,1325.58,0.807,1.148,44.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2857B70FD9,AZ Alkmaar,SL10,Synthetic League 10,Bosnia and Herzegovina,1595.78,1.196,0.876,55,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T79F84DD671,Bayer 04 Leverkusen,SL11,Synthetic League 11,Austria,1722.68,1.286,0.8,57.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T0EC5C97FE1,Bayern Munich,SL12,Synthetic League 12,Switzerland,1938.79,1.639,0.55,65.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB195619403,Beşiktaş Jimnastik Kulübü,SL13,Synthetic League 13,Denmark,1549.5,1.106,0.894,52,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE8687C6466,Bologna Football Club 1909,SL14,Synthetic League 14,Serbia,1574.51,1.168,0.847,53.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8D919F694C,Borussia Dortmund,SL01,Synthetic League 1,England,1793.7,1.513,0.563,63.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC84A9E81EE,Borussia Mönchengladbach,SL02,Synthetic League 2,Spain,1555.13,1.098,0.965,53.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6141D1FC83,Brentford FC,SL03,Synthetic League 3,Germany,1592.34,1.06,0.937,54.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TEE43AB7DDC,Brighton & Hove Albion,SL04,Synthetic League 4,Italy,1723.62,1.34,0.711,57.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD82E5DEFF4,Bröndby IF,SL05,Synthetic League 5,France,1540.92,1.079,0.993,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TCAA065C0C2,Cagliari Calcio,SL06,Synthetic League 6,Portugal,1522.22,1.045,0.988,53.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T575EFF387E,CD Santa Clara,SL07,Synthetic League 7,Netherlands,1454.05,0.894,1.117,48.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8767040612,CD Tondela,SL08,Synthetic League 8,Belgium,1412.04,0.939,1.082,44,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3E7BCA356C,Celta de Vigo,SL09,Synthetic League 9,Croatia,1667.93,1.263,0.844,54.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA042168CEA,Celtic FC,SL10,Synthetic League 10,Bosnia and Herzegovina,1608.25,1.17,0.804,52.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T0DE026EF17,Cercle Brugge,SL11,Synthetic League 11,Austria,1478.94,0.925,1.047,48.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TCBA1787EAD,CF Estrela Amadora,SL12,Synthetic League 12,Switzerland,1405.36,0.836,1.19,47.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TCDBB1E140A,Chelsea FC,SL13,Synthetic League 13,Denmark,1766.67,1.363,0.648,62.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T26A4A10591,Club Brugge KV,SL14,Synthetic League 14,Serbia,1692.15,1.289,0.691,59.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD77A7A91EA,Como 1907,SL01,Synthetic League 1,England,1672.6,1.343,0.718,58.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6ECB7FF5CC,Crystal Palace,SL02,Synthetic League 2,Spain,1716.95,1.321,0.683,61,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TF30FE2C1CB,Deportivo Alavés,SL03,Synthetic League 3,Germany,1577.46,1.117,0.952,54.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T0756CE9FCC,Dinamo Makhachkala,SL04,Synthetic League 4,Italy,1468.62,0.904,1.103,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T183D991002,Dundee FC,SL05,Synthetic League 5,France,1318.88,0.672,1.157,42.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T28F5145F52,Dundee United FC,SL06,Synthetic League 6,Portugal,1370.6,0.748,1.194,45.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T87E20D93BB,Dynamo Kyiv,SL07,Synthetic League 7,Netherlands,1626.51,1.117,0.858,57.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T33B69DB876,Eintracht Frankfurt,SL08,Synthetic League 8,Belgium,1652.5,1.268,0.781,58.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA7C6B6623E,Elche CF,SL09,Synthetic League 9,Croatia,1598.61,1.082,0.917,53,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB831A44566,Epicentr Kamyanets-Podilskyi,SL10,Synthetic League 10,Bosnia and Herzegovina,1435.55,0.829,1.023,47.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T9C1E42547C,Everton FC,SL11,Synthetic League 11,Austria,1662.97,1.286,0.876,59,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T5690369E16,Excelsior Rotterdam,SL12,Synthetic League 12,Switzerland,1381.26,0.814,1.217,46,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFDBE0E28D1,Eyüpspor,SL13,Synthetic League 13,Denmark,1422.3,0.927,1.032,49.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1889693C3E,Falkirk FC,SL14,Synthetic League 14,Serbia,1402.91,0.855,1.187,44.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T01EF0EDA4E,Fatih Karagümrük,SL01,Synthetic League 1,England,1412.76,0.862,1.094,47.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T69F7CB61E5,FC Alverca,SL02,Synthetic League 2,Spain,1469.19,0.989,1.093,47.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD7A91BA756,FC Augsburg,SL03,Synthetic League 3,Germany,1551.85,1.091,0.897,50.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T75EF55E357,FC Barcelona,SL04,Synthetic League 4,Italy,1901.12,1.645,0.55,64.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T587A80D5B5,FC Copenhagen,SL05,Synthetic League 5,France,1599.55,1.087,0.816,56.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBE7C6C0733,FC Famalicão,SL06,Synthetic League 6,Portugal,1550.62,1.033,0.952,53.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T330A7D5300,FC Fredericia,SL07,Synthetic League 7,Netherlands,1392.97,0.853,1.08,46.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T941C144A81,FC Groningen,SL08,Synthetic League 8,Belgium,1458.2,0.869,1.028,47.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T52279527FD,FC Kudrivka,SL09,Synthetic League 9,Croatia,1397.35,0.882,1.159,48.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TDC6884B180,FC Luzern,SL10,Synthetic League 10,Bosnia and Herzegovina,1523.6,1.114,0.986,52,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4FBF8F7CCB,FC Metz,SL11,Synthetic League 11,Austria,1467.09,0.934,1.049,49.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TAA4F226BE7,FC Midtjylland,SL12,Synthetic League 12,Switzerland,1554.54,1.042,0.989,50.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T9190D2A1BE,FC Nantes,SL13,Synthetic League 13,Denmark,1471.82,0.958,1.08,50.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T95FBB89F17,FC Nordsjaelland,SL14,Synthetic League 14,Serbia,1508.94,0.964,1.027,51.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3F9DF46425,FC Oleksandriya,SL01,Synthetic League 1,England,1404.08,0.879,1.083,46.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TF96ED01F52,FC Orenburg,SL02,Synthetic League 2,Spain,1397.04,0.766,1.062,45,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD190F94613,FC Porto,SL03,Synthetic League 3,Germany,1726.28,1.381,0.677,57.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE7E8FD7A9F,FC Rubin Kazan,SL04,Synthetic League 4,Italy,1502.09,1.084,1.024,51.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TDD20CBC795,FC Shakhtar Donetsk,SL05,Synthetic League 5,France,1674.91,1.272,0.754,58.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T543E46A2FA,FC Toulouse,SL06,Synthetic League 6,Portugal,1566.14,1.18,0.95,52.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T85C6A441FC,FC Twente Enschede,SL07,Synthetic League 7,Netherlands,1566.56,1.162,0.91,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3EE95864D7,FC Utrecht,SL08,Synthetic League 8,Belgium,1533.24,0.968,0.971,49.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2D5F070FB7,FC Volendam,SL09,Synthetic League 9,Croatia,1354.65,0.787,1.118,44.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6E11F60868,FCV Dender EH,SL10,Synthetic League 10,Bosnia and Herzegovina,1393.83,0.882,1.164,45,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TABF6B5A85D,Feyenoord Rotterdam,SL11,Synthetic League 11,Austria,1613,1.229,0.865,56,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TEE5F2F194C,FK Baltika,SL12,Synthetic League 12,Switzerland,1600.28,1.154,0.845,56.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFBAE1A2021,FK Dinamo Moskva,SL13,Synthetic League 13,Denmark,1597.37,1.068,0.817,51.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T5079B48392,FK Krasnodar,SL14,Synthetic League 14,Serbia,1664.24,1.17,0.856,56.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8A4C2CA9B6,FK Nizhny Novgorod,SL01,Synthetic League 1,England,1383.3,0.873,1.167,43.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4BC569932C,FK Partizan Belgrade,SL02,Synthetic League 2,Spain,1597.49,1.198,0.826,54.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T87E0F97CF8,FK Rostov,SL03,Synthetic League 3,Germany,1476.83,1.027,1.071,47.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T99B5B011D1,FK Sochi,SL04,Synthetic League 4,Italy,1377.01,0.837,1.103,45.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBA6B2FA397,Football Club Lausanne-Sport,SL05,Synthetic League 5,France,1496.5,1.083,1.027,50.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8F716EA321,Fulham FC,SL06,Synthetic League 6,Portugal,1666.26,1.286,0.731,59,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3CF1D7F42F,Fußballclub Red Bull Salzburg,SL07,Synthetic League 7,Netherlands,1577.93,1.106,0.913,54.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8BDF62639F,Galatasaray,SL08,Synthetic League 8,Belgium,1478.07,0.985,1.083,49,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBD5747B781,Gaziantep FK,SL09,Synthetic League 9,Croatia,1436.38,0.834,1.042,49.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBC88FB2047,Genoa CFC,SL10,Synthetic League 10,Bosnia and Herzegovina,1550.62,1.026,0.884,54.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC72B10EAA4,Getafe CF,SL11,Synthetic League 11,Austria,1588.63,1.128,0.922,54,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB78EB35732,Gil Vicente FC,SL12,Synthetic League 12,Switzerland,1526.88,1.026,0.953,50.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1AF3E42E06,Girona FC,SL13,Synthetic League 13,Denmark,1580.27,1.198,0.822,52.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC3EE6E251C,GNK Dinamo Zagreb,SL14,Synthetic League 14,Serbia,1638.64,1.14,0.854,57.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T20E8251B72,Go Ahead Eagles,SL01,Synthetic League 1,England,1506.79,0.928,1.017,52,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB14D29FD48,Hamburger SV,SL02,Synthetic League 2,Spain,1548.44,1.08,1.004,53.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TF4864D5EBA,Hellas Verona,SL03,Synthetic League 3,Germany,1458.16,0.994,0.996,49,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA91EA8F4DF,Hibernian FC,SL04,Synthetic League 4,Italy,1469.4,1.014,1.115,48.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1077A10434,Idrottsföreningen Elfsborg,SL05,Synthetic League 5,France,1428.22,0.865,1.138,49.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T909CA32A8D,Inter Milan,SL06,Synthetic League 6,Portugal,1823.6,1.41,0.589,62.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T07E90DFDDC,Juventus FC,SL07,Synthetic League 7,Netherlands,1700.41,1.282,0.76,56.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T01B9A3C54B,KAA Gent,SL08,Synthetic League 8,Belgium,1535.72,1.016,0.907,51.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD30DBA2DC6,Karpaty Lviv,SL09,Synthetic League 9,Croatia,1487.29,0.959,1.096,51.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1CF830C4E0,Kilmarnock FC,SL10,Synthetic League 10,Bosnia and Herzegovina,1351.3,0.686,1.14,44.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8E7F1C9E37,Kocaelispor,SL11,Synthetic League 11,Austria,1458.99,0.944,1.092,48.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T700D065789,Kolos Kovalivka,SL12,Synthetic League 12,Switzerland,1484.89,1.008,0.982,48.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB1E403F109,Konyaspor,SL13,Synthetic League 13,Denmark,1491.41,0.965,0.973,47.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA017DB9409,KRC Genk,SL14,Synthetic League 14,Serbia,1618.95,1.238,0.806,53.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFADE7BD409,Kryvbas Kryvyi Rig,SL01,Synthetic League 1,England,1514.83,1.009,0.937,51.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4F36EBA590,KV Mechelen,SL02,Synthetic League 2,Spain,1508.64,1.026,0.99,51.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T31982332E5,KVC Westerlo,SL03,Synthetic League 3,Germany,1492.08,0.973,1.074,47.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1157D0E3EA,Le Havre AC,SL04,Synthetic League 4,Italy,1491.08,1.004,0.998,50.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T9244D2B4DC,Levante UD,SL05,Synthetic League 5,France,1532.24,0.998,0.936,52.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TDE4F2EBD88,Liverpool FC,SL06,Synthetic League 6,Portugal,1812.31,1.398,0.597,62.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6BA761E988,Livingston FC,SL07,Synthetic League 7,Netherlands,1279.41,0.607,1.296,38.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA6131C2A41,LOSC Lille,SL08,Synthetic League 8,Belgium,1668.72,1.302,0.814,56.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6C3F9BEAD0,Malmö Fotbollförening,SL09,Synthetic League 9,Croatia,1525.59,1.034,0.936,50.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC1B9627D88,Manchester City,SL10,Synthetic League 10,Bosnia and Herzegovina,1841.31,1.604,0.55,65,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T14C38C1439,Manchester United,SL11,Synthetic League 11,Austria,1737.29,1.305,0.632,59.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TDB5397A2FF,Moreirense FC,SL12,Synthetic League 12,Switzerland,1499.43,0.934,1.006,50.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD42BD5FE9F,NAC Breda,SL13,Synthetic League 13,Denmark,1356.72,0.802,1.218,46.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T7532B590B4,NEC Nijmegen,SL14,Synthetic League 14,Serbia,1534.85,1.09,0.95,52.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T36E542263E,Newcastle United,SL01,Synthetic League 1,England,1749.97,1.357,0.62,60.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1C571331C8,NK Veres Rivne,SL02,Synthetic League 2,Spain,1424.33,0.795,1.155,47.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T31DBC504A0,Nottingham Forest,SL03,Synthetic League 3,Germany,1679.06,1.306,0.81,59,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE8F3896901,Obolon Kyiv,SL04,Synthetic League 4,Italy,1393.29,0.818,1.094,43.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T92333FD15D,Odense Boldklub,SL05,Synthetic League 5,France,1427.51,0.939,1.034,48.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TDC801525F0,OGC Nice,SL06,Synthetic League 6,Portugal,1531.69,1.129,0.918,49.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T50C86B477B,Olympiakos Syndesmos Filathlon Peiraios,SL07,Synthetic League 7,Netherlands,1703.14,1.367,0.772,55.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA8B48155DF,Olympique Lyon,SL08,Synthetic League 8,Belgium,1641.52,1.146,0.874,54,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T45029A4654,Olympique Marseille,SL09,Synthetic League 9,Croatia,1728.25,1.278,0.763,60.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFB00F5619B,Omilos Filathlon Irakliou FC,SL10,Synthetic League 10,Bosnia and Herzegovina,1450.37,0.867,1.068,49.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2E3523E90B,Oud-Heverlee Leuven,SL11,Synthetic League 11,Austria,1449.65,0.837,1.102,46.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3657F5A99A,Panathinaikos Athlitikos Omilos,SL12,Synthetic League 12,Switzerland,1565.99,1.156,0.926,53.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T71DD1707DF,Panetolikos Agrinio,SL13,Synthetic League 13,Denmark,1422.9,0.809,1.083,48.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1E57A805AD,Panthessalonikios Athlitikos Omilos Konstantinoupoliton,SL14,Synthetic League 14,Serbia,1644.7,1.297,0.767,53.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA2B77EBDF7,Paris FC,SL01,Synthetic League 1,England,1515.96,1.091,0.917,52.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4202DA5587,Paris Saint-Germain,SL02,Synthetic League 2,Spain,1871.44,1.543,0.6,63.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T69C5F1DE9F,PEC Zwolle,SL03,Synthetic League 3,Germany,1450.06,0.919,1.08,47.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TAC875B1EBC,PFK CSKA Moskva,SL04,Synthetic League 4,Italy,1673.8,1.311,0.795,54.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC8C744994D,PFK Krylya Sovetov Samara,SL05,Synthetic League 5,France,1452.13,0.965,1.003,48.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T94DC962F8D,Pisa Sporting Club,SL06,Synthetic League 6,Portugal,1477.21,0.883,1.09,47.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8A4220C0A3,PSV Eindhoven,SL07,Synthetic League 7,Netherlands,1751.17,1.408,0.647,58.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB99E7674DF,RAAL La Louvière,SL08,Synthetic League 8,Belgium,1451.77,0.908,1.008,45.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T053FA8369B,Racing Club Asociación Civil de Avellaneda,SL09,Synthetic League 9,Croatia,1552.19,1.164,0.923,50.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T267AC9BAC4,Randers FC,SL10,Synthetic League 10,Bosnia and Herzegovina,1464.64,0.917,1.013,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TF7D66A527B,Rangers FC,SL11,Synthetic League 11,Austria,1558.57,1.055,0.963,50.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4A6590F297,RB Leipzig,SL12,Synthetic League 12,Switzerland,1695.54,1.353,0.773,57.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TA3F00FE92D,RC Lens,SL13,Synthetic League 13,Denmark,1673.72,1.201,0.728,59.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T7E88423826,RC Strasbourg Alsace,SL14,Synthetic League 14,Serbia,1638.12,1.245,0.766,53.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TEA65DE4175,RCD Mallorca,SL01,Synthetic League 1,England,1574.3,1.134,0.955,54.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4C9092F3D5,Real Betis Balompié,SL02,Synthetic League 2,Spain,1695.85,1.369,0.738,59.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE81D2B137B,Real Madrid,SL03,Synthetic League 3,Germany,1825.52,1.506,0.596,61.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD48FAF3ECF,Real Sociedad,SL04,Synthetic League 4,Italy,1639.13,1.206,0.76,57.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2F53EE1A5B,RFK Akhmat Grozny,SL05,Synthetic League 5,France,1662.3,1.162,0.839,54.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T00F22447E3,Rosenborg Ballklub,SL06,Synthetic League 6,Portugal,1425.36,0.921,1.109,48.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE836BA580C,Royal Antwerp FC,SL07,Synthetic League 7,Netherlands,1526.5,1.113,0.962,49.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2B36A09D75,Royal Charleroi Sporting Club,SL08,Synthetic League 8,Belgium,1468.74,0.996,0.975,49.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T37A5CADA04,RSC Anderlecht,SL09,Synthetic League 9,Croatia,1559.28,1.122,0.88,52.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TAD8EBE1315,Rukh Lviv,SL10,Synthetic League 10,Bosnia and Herzegovina,1398.11,0.848,1.094,45.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T7B22FFAB8D,SC Braga,SL11,Synthetic League 11,Austria,1687.31,1.251,0.792,57.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T28F40690D8,SC Freiburg,SL12,Synthetic League 12,Switzerland,1659.74,1.172,0.75,54.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4EB07A7AD0,SC Heerenveen,SL13,Synthetic League 13,Denmark,1496.37,0.987,1.052,48.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6E23B96B90,SC Telstar,SL14,Synthetic League 14,Serbia,1460.15,0.906,1.061,46,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T748A28AC42,Silkeborg IF,SL01,Synthetic League 1,England,1458.35,0.923,1.043,45.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T46ADD8B01F,Sint-Truidense VV,SL02,Synthetic League 2,Spain,1539.26,1.002,0.963,50.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T5A94395B56,SL Benfica,SL03,Synthetic League 3,Germany,1771.86,1.39,0.71,58.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1701DB73C8,Società Sportiva Lazio S.p.A.,SL04,Synthetic League 4,Italy,1650.09,1.154,0.838,55,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC1611E9C51,Sönderjyske Fodbold,SL05,Synthetic League 5,France,1389.84,0.802,1.14,47.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TFBB1C296E2,Sparta Rotterdam,SL06,Synthetic League 6,Portugal,1488.07,0.898,1.068,48,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6C82B5A918,Sporting CP,SL07,Synthetic League 7,Netherlands,1700.27,1.307,0.798,58.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T3F12B0E793,Sportklub Puntigamer Sturm Graz,SL08,Synthetic League 8,Belgium,1499.31,1.045,0.983,47.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T36F1CA6B3D,Sportsklubben Brann,SL09,Synthetic League 9,Croatia,1507.44,1.057,1.036,51.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4BC986215B,St. Mirren FC,SL10,Synthetic League 10,Bosnia and Herzegovina,1315.61,0.677,1.153,44.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TB7E1F941EA,Stade Rennais FC,SL11,Synthetic League 11,Austria,1584.6,1.18,0.88,53.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE2233C8908,Standard Liège,SL12,Synthetic League 12,Switzerland,1506.9,0.963,0.938,52.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T64E3D98993,Sunderland AFC,SL13,Synthetic League 13,Denmark,1608.28,1.111,0.891,53,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T4531C433EE,SV Werder Bremen,SL14,Synthetic League 14,Serbia,1582.84,1.179,0.87,55.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TE3E94360CE,Tottenham Hotspur,SL01,Synthetic League 1,England,1642.95,1.142,0.802,55.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T1421CFEDC8,Trabzonspor,SL02,Synthetic League 2,Spain,1513.88,1.039,1.045,49.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T804C2603E9,TSG 1899 Hoffenheim,SL03,Synthetic League 3,Germany,1623.65,1.25,0.901,56.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T666685E39C,Udinese Calcio,SL04,Synthetic League 4,Italy,1555.35,1.031,0.96,50.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TBD2DD8C020,Unattached,SL05,Synthetic League 5,France,1400,0.916,1.167,44.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TEC8654F31B,US Lecce,SL06,Synthetic League 6,Portugal,1479.57,1.03,1.067,47.7,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T8315851A43,US Sassuolo,SL07,Synthetic League 7,Netherlands,1539.51,1.036,0.913,53.9,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T109B236DF7,Vejle Boldklub,SL08,Synthetic League 8,Belgium,1350.23,0.699,1.197,43.2,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T69D3A4950B,VfB Stuttgart,SL09,Synthetic League 9,Croatia,1713.79,1.292,0.668,59.3,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T2C897F1308,VfL Wolfsburg,SL10,Synthetic League 10,Bosnia and Herzegovina,1546.7,1.003,0.978,52.6,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T51865AF01D,Viborg FF,SL11,Synthetic League 11,Austria,1465.71,1.005,0.99,47.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T40CB2EFF5F,Villarreal CF,SL12,Synthetic League 12,Switzerland,1713.88,1.363,0.787,60.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TD7CF7E083F,Vitória Guimarães SC,SL13,Synthetic League 13,Denmark,1555.58,1.122,0.886,50.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T6F49C976CC,West Ham United,SL14,Synthetic League 14,Serbia,1675.77,1.287,0.736,57.4,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TAACF72A7B8,Wolverhampton Wanderers,SL01,Synthetic League 1,England,1534.19,1.026,0.975,52.5,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+TC8EDC4C47D,Zorya Lugansk,SL02,Synthetic League 2,Spain,1454.16,1.001,1.058,46.1,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T9F008B87C8,Zulte Waregem,SL03,Synthetic League 3,Germany,1421.35,0.864,1.108,48.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession
+T04606F10B2,"Футбольный клуб ""Локомотив"" Москва",SL04,Synthetic League 4,Italy,1621.5,1.101,0.837,55.8,mixed,league_id;league_name;country;attack_strength;defence_strength;average_possession

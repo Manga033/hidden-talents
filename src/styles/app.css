@@ -247,7 +247,15 @@ main.is-home .metrics-strip,main.is-home .dashboard-columns{max-width:1440px;mar
 .flabel b{color:var(--wine);margin-left:4px}
 .th-btn{display:inline-flex;align-items:center;gap:3px;font:inherit;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:#a69ca1}
 .th-btn .icon{width:10px;height:10px}
+.find-table{table-layout:fixed;width:100%}
+.find-table .col-favourite{width:4%}.find-table .col-player{width:21%}.find-table .col-position{width:7%}.find-table .col-age{width:6%}.find-table .col-fair{width:6%}.find-table .col-traditional{width:10%}.find-table .col-move{width:7%}.find-table .col-fit{width:9%}.find-table .col-minutes{width:8%}.find-table .col-flags{width:13%}.find-table .col-actions{width:9%}
 .find-table td{vertical-align:middle;padding-top:8px;padding-bottom:8px}
+.find-table thead th{height:46px;vertical-align:middle;padding-top:6px;padding-bottom:10px;text-align:center;line-height:1.3}
+.find-table thead .th-btn{width:100%;min-height:30px;justify-content:center;text-align:center;line-height:1.3}
+.find-table thead th:nth-child(2),.find-table thead th:nth-child(2) .th-btn{text-align:left;justify-content:flex-start}
+.find-table th:nth-child(n+3):nth-child(-n+10),.find-table td:nth-child(n+3):nth-child(-n+10){text-align:center!important}
+.find-table td:nth-child(8) .fit{justify-content:center}
+.find-table td:nth-child(10) .chips{justify-content:center}
 .who{display:flex;align-items:center;gap:10px}
 .who strong{display:block;font-size:14.5px}
 .who small{display:block;font-size:12.5px;color:var(--muted)}

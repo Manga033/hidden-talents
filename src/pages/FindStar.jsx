@@ -88,7 +88,6 @@ export default function FindStar() {
   const [preset, setPreset] = useState('Balanced');
   const [custom, setCustom] = useState(CUSTOM_DEFAULT);
   const busy = false;
-  const balanced = { players };
   const [q, setQ] = useState('');
   const [f, setF] = useState(BLANK);
   const [tab, setTab] = useState('all');
@@ -236,17 +235,28 @@ export default function FindStar() {
         ) : (
           <div className="table-scroll">
             <table className="data-table find-table">
+              <colgroup>
+                <col className="col-favourite" />
+                <col className="col-player" />
+                <col className="col-position" />
+                <col className="col-age" />
+                <col className="col-fair" />
+                <col className="col-traditional" />
+                <col className="col-move" />
+                <col className="col-fit" />
+                <col className="col-minutes" />
+                <col className="col-flags" />
+                <col className="col-actions" />
+              </colgroup>
               <thead>
                 <tr>
                   <th><span className="sr-only">Favourite</span></th>
                   <Th k="name" def={1}>Player</Th>
-                  <Th k="pos" def={1}>Pos</Th>
+                  <Th k="pos" def={1}>Position</Th>
                   <Th k="age" r def={1}>Age</Th>
-                  <Th k="posRank" r def={1}>Pos. #</Th>
-                  <Th k="fairRank" r def={1}>Fair #</Th>
-                  <Th k="rawRank" r def={1}>Trad. #</Th>
+                  <Th k="fairRank" r def={1}>Fair</Th>
+                  <Th k="rawRank" r def={1}>Traditional</Th>
                   <Th k="move" r>Move</Th>
-                  {preset !== 'Balanced' && <th className="r">vs Balanced</th>}
                   <Th k="fit" r>Fit</Th>
                   <Th k="minutes" r>Min</Th>
                   <th>Flags</th>
@@ -255,7 +265,6 @@ export default function FindStar() {
               </thead>
               <tbody>
                 {shown.map((p) => {
-                  const bRank = balanced?.players[p.i]?.fairRank;
                   return (
                     <tr key={p.id}>
                       <td><FavButton p={p} className="favourite-button inline" /></td>
@@ -272,11 +281,9 @@ export default function FindStar() {
                       </td>
                       <td>{p.position}</td>
                       <td className="r num">{p.ageShown}</td>
-                      <td className="r num strong" title={`#${p.posRank} of ${p.posCount} in his position`}>{p.posRank}</td>
-                      <td className="r num">{p.fairRank}</td>
+                      <td className="r num strong" title={`${p.fairRank} of ${p.positionCount} in his position group`}>{p.fairRank}</td>
                       <td className="r num">{p.rawRank}</td>
                       <td className="r"><RankMove d={p.rankChange} compact /></td>
-                      {preset !== 'Balanced' && <td className="r">{bRank ? <RankMove d={bRank - p.fairRank} compact /> : '–'}</td>}
                       <td className="r">
                         <span className="fit">
                           <span className="fit-bar"><span style={{ width: `${fit[p.id]}%` }} /></span>

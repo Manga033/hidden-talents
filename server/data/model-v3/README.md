@@ -1,12 +1,12 @@
 # Scoutee engine v3
 
-This directory contains calculation-only v3 model output. The current application does not read these files yet.
+This directory contains the authoritative v3 model output used by the server and application.
 
 The model uses the canonical synthetic development dataset and must not be represented as real scouting analysis.
 
 ## Outputs
 
-- `engine_v3.json`: authoritative nested model result for the future API and interface.
+- `engine_v3.json`: authoritative nested model result loaded by the API.
 - `canonical_rankings.json`: compact single-source ranking contract for every application page.
 - `engine_v3_players.csv`: flat review/export version of the same result.
 - `model_report.json`: model validation and confidence summary.

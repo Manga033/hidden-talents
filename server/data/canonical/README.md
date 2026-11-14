@@ -33,5 +33,5 @@ npm run data:generate
 npm run data:validate
 ```
 
-The current ranking engine still reads `server/data/data.json` and `server/data/hidden_talent_2025_26.csv`. Connecting the new canonical files to a redesigned engine is a later step.
+The active v3 engine reads these canonical files and writes its results to `server/data/model-v3/`. The server then joins model output with canonical profile, season and contract records.
 
